@@ -21,13 +21,13 @@ public class CursorManager : MonoBehaviour
 
     public void SetGunCursor()
     {
-        Cursor.SetCursor(GunTexture, Hotspot, CursorMode.Auto);
+        Cursor.SetCursor(GunTexture, Hotspot, CursorMode.ForceSoftware);
         _isOriginal = false;
     }
 
     public void SetOriginalCursor()
     {
-        Cursor.SetCursor(OriginalTexture, Hotspot, CursorMode.Auto);
+        Cursor.SetCursor(OriginalTexture, Hotspot, CursorMode.ForceSoftware);
         _isOriginal = true;
     }
 
