@@ -1,0 +1,18 @@
+using UnityEngine;
+
+public class Character : MonoBehaviour
+{
+    public Role.Roles _Role;
+
+    public void SetUpRole(Role.Roles role)
+    {
+        _Role = role;
+        gameObject.SetActive(true);
+        Debug.Log("캐릭터 역할 설정됨: " + role.ToString());
+    }
+
+    public void Deactive()
+    {
+        gameObject.SetActive(false);
+    }
+}
