@@ -1,6 +1,6 @@
 ﻿title: Start
 ---
-Player: Hello there!
+Player: 지난 밤에 무엇을 하셨습니까?
 NPC: Oh, hello! How can I help you today?
 -> I need information.
     NPC: What would you like to know?
@@ -8,11 +8,4 @@ NPC: Oh, hello! How can I help you today?
     NPC: Feel free to look around!
 -> Actually, I should go.
     NPC: No problem. Come back anytime!
-    <<jump End>>
-===
-
-title: End
----
-Player: Thanks for your help!
-NPC: You're welcome! Have a nice day!
 ===
