@@ -1,0 +1,18 @@
+﻿title: Start
+---
+Player: Hello there!
+NPC: Oh, hello! How can I help you today?
+-> I need information.
+    NPC: What would you like to know?
+-> I'm just browsing.
+    NPC: Feel free to look around!
+-> Actually, I should go.
+    NPC: No problem. Come back anytime!
+    <<jump End>>
+===
+
+title: End
+---
+Player: Thanks for your help!
+NPC: You're welcome! Have a nice day!
+===
