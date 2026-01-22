@@ -116,10 +116,10 @@ TextureImporter:
       name: Table_0
       rect:
         serializedVersion: 2
-        x: 15
-        y: 79
-        width: 603
-        height: 414
+        x: 109
+        y: 509
+        width: 3846
+        height: 2646
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
