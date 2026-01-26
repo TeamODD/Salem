@@ -2,11 +2,11 @@ using UnityEngine;
 
 public class Character : MonoBehaviour
 {
-    public Role.Roles _Role;
+    private Role.Roles _role;
 
     public void SetUpRole(Role.Roles role)
     {
-        _Role = role;
+        _role = role;
         gameObject.SetActive(true);
         Debug.Log("캐릭터 역할 설정됨: " + role.ToString());
     }
