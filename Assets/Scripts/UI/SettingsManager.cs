@@ -3,6 +3,8 @@ using DG.Tweening;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System;
+using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
 
 public class SettingsManager : MonoBehaviour
 {
@@ -11,8 +13,6 @@ public class SettingsManager : MonoBehaviour
     [SerializeField] private Button _closeButton;
     [SerializeField] private Button _titleButton;
     [SerializeField] private Button _quitButton;
-
-    [SerializeField] private float _duration = 0.5f;
 
     private void Start()
     {
@@ -23,16 +23,27 @@ public class SettingsManager : MonoBehaviour
 
         _settingsPanel.SetActive(false);
     }
-
+    private void Update()
+    {
+        if (Keyboard.current != null && Keyboard.current.escapeKey.wasPressedThisFrame)
+        {
+            if (_settingsPanel.activeSelf)
+                CloseSettings();
+            else
+                OpenSettings();
+        }
+    }
     public void OpenSettings()
     {
         _settingsPanel.SetActive(true);
+        SoundManager.Instance.PauseBGM();
         Time.timeScale = 0f;
     }
 
     public void CloseSettings()
     {
         _settingsPanel.SetActive(false);
+        SoundManager.Instance.ResumeBGM();
         Time.timeScale = 1f;
     }
 
@@ -44,10 +55,10 @@ public class SettingsManager : MonoBehaviour
 
     public void QuitGame()
     {
-        #if UNITY_EDITOR
-            UnityEditor.EditorApplication.isPlaying = false;
-        #else
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#else
             Application.Quit();
-        #endif
+#endif
     }
 }

@@ -24,8 +24,31 @@ public class SoundManager : MonoBehaviour
     // 효과음 한 번 재생
     public void PlaySFX(AudioClip clip)
     {
-       if (clip == null) { Debug.LogError("재생할 클립이 없어요!"); return; }
-    Debug.Log($"{clip.name} 재생 시도 중!");
-    _sfxSource.PlayOneShot(clip);
+        _sfxSource.PlayOneShot(clip);
     }
+
+    public void PauseBGM()
+    {
+        if (_bgmSource != null && _bgmSource.isPlaying)
+        {
+            _bgmSource.Pause();
+        }
+    }
+
+    public void ResumeBGM()
+    {
+        if (_bgmSource != null)
+        {
+            _bgmSource.UnPause();
+        }
+    }
+
+    public void StopSFX()
+    {
+        if (_sfxSource != null && _sfxSource.isPlaying)
+        {
+            _sfxSource.Stop();
+        }
+    }   
+
 }
