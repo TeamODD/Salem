@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CharacterData
   characterName: OldMan
   defaultSprite: {fileID: -1368578077799001809, guid: 4ac0ac9c937b7c0479349e0b1aca6461, type: 3}
-  dialogueNodeName: Start
+  dialogueNodeName: Character_1
   baseScale: 0.3
   hoverScaleFactor: 1.2

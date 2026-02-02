@@ -1,0 +1,332 @@
+
+
+title: Start
+tags:
+---
+// 초기화 노드
+<<declare $targetName = "대상">>
+===
+
+// ==========================================
+// Character 1: 남성, 80대, 독거노인
+// ==========================================
+
+title: Character_1
+tags: 
+---
+별일 없었네..
+===
+
+title: Character_1_Believer_Success
+tags: 
+---
+어젯밤엔.. {$targetName}번댁에 들렀지.. 잠깐 기도를 해주러.. 갔었어..
+===
+
+title: Character_1_Believer_Refused
+tags: 
+---
+어젯밤에.. 기도를 해주러.. {$targetName}번댁에 갔는데.. 문을 안 열어주더군.. 한참을 서있었는데 말이여..
+===
+
+title: Character_1_Believer_Absent
+tags: 
+---
+어젯밤에.. 기도를 해주러.. {$targetName}번댁에 갔는데.. 아무도 없었어..
+===
+
+title: Character_1_Believer_BodyFound
+tags: 
+---
+글쎄.. {$targetName}번댁에 기도를 하러 갔는데.. 피칠갑이 되어있더군.. 아직도.. 생생하군그래..
+===
+
+title: Character_1_Insomniac_Out
+tags: 
+---
+밤에.. 통 잠이 안와서 말이야.. 마실을 좀 다녔네.. 늙으니.. 잠이 없어지더군..
+===
+
+title: Character_1_Insomniac_Home
+tags: 
+---
+혼자 방구석에 있었네.. 이 노인에게.. 뭔 볼일이 있겠나..
+===
+
+title: Character_1_Coward_Plea
+tags: 
+---
+자, 잠깐..!! 나 같은.. 늙은이를.. 쏴서 뭐 하나.. 살려주게..!!!
+===
+
+title: Character_1_Received_Prayer
+tags: 
+---
+어제는 글쎄.. {$targetName}번이 기도를 해주러 오더군.. 내.. 죽을 날이 가까워져서 그런가..
+===
+
+title: Character_1_Mute_Silent
+tags: 
+---
+...
+===
+
+
+// ==========================================
+// Character 2: 남성, 30-40대 상인
+// ==========================================
+
+title: Character_2
+tags: 
+---
+장사 준비하느라 바쁩니다.
+===
+
+title: Character_2_Believer_Success
+tags: 
+---
+어젯밤엔 {$targetName}번 댁에 귀한 발걸음을 좀 했죠. 제 기도가 좀 영험하거든요. 덕분에 그 집 양반도 득 좀 볼 겁니다.
+===
+
+title: Character_2_Believer_Refused
+tags: 
+---
+{$targetName}번 댁에 기도를 해주러 갔더니만, 아 글쎄 문을 꽉 잠그고 안 열어주더군요. 공짜로 복을 주겠다는데도 참... 장사할 줄 모르는 양반이야.
+===
+
+title: Character_2_Believer_Absent
+tags: 
+---
+기도 겸 물건에 대한 이야기를 하러 {$targetName}번 댁에 들렀는데, 집이 텅 비었더라고요? 밤중에 집을 비우다니, 신용이 없구만 그래.
+===
+
+title: Character_2_Believer_BodyFound
+tags: 
+---
+아이고, 이게 무슨 손해람! {$targetName}번 댁에 갔더니 피칠갑이 된 시체가 있더군요! 덕분에 내 비싼 옷에 피가 묻어서 아주 낭패를 봤지 뭡니까.
+===
+
+title: Character_2_Insomniac_Out
+tags: 
+---
+밤엔 역시 시장 조사죠. 통 잠이 안 와서 마을 한 바퀴 돌며 흐름 좀 읽고 왔습니다.
+===
+
+title: Character_2_Insomniac_Home
+tags: 
+---
+장부에 숫자 좀 맞추느라 밤을 꼬박 새웠죠. 방구석에서 동전 세는 소리밖에 안 났을 겁니다.
+===
+
+title: Character_2_Coward_Plea
+tags: 
+---
+잠깐, 잠깐만요! 협상합시다! 돈이라면 얼마든지 드리겠습니다! 제발 살려만 주세요!
+===
+
+title: Character_2_Received_Prayer
+tags: 
+---
+어제 {$targetName}번이 찾아와서 기도를 해주더군요. 뭐, 공짜니까 받긴 했습니다만 효과가 있을지는 모르겠네요.
+===
+
+title: Character_2_Mute_Silent
+tags: 
+---
+... (손짓으로 가라고 한다)
+===
+
+
+// ==========================================
+// Character 3: 여성, 20-30대 메이드
+// ==========================================
+
+title: Character_3
+tags: 
+---
+저, 저에게 볼일이라도...
+===
+
+title: Character_3_Believer_Success
+tags: 
+---
+어, 어젯밤엔... {$targetName}번 댁에... 기도를... 하러 갔었어요. 그, 그냥 정말 기도만 하러 간 거예요!
+===
+
+title: Character_3_Believer_Refused
+tags: 
+---
+{$targetName}번 댁에... 기도를 하러 갔는데... 문을 안 열어주셔서... 그래서 그냥 그 집 앞을 조금 서성이다가 왔어요...
+===
+
+title: Character_3_Believer_Absent
+tags: 
+---
+기도를... 하러... {$targetName}번 댁에 갔는데... 아무도 없더라고요. 정말이에요, 아무도 없어서 그냥... 돌아 나왔어요.
+===
+
+title: Character_3_Believer_BodyFound
+tags: 
+---
+그, 그게... {$targetName}번 댁에 갔는데... 피가... 피가 너무 많아서... 제, 제가 그런게 아니에요! 정말이에요!
+===
+
+title: Character_3_Insomniac_Out
+tags: 
+---
+잠이 안 와서... 잠깐 바람 좀 쐬러... 나갔었어요. 나쁜 짓은... 안 했어요...
+===
+
+title: Character_3_Insomniac_Home
+tags: 
+---
+계속... 제 방에 있었어요. 정말이에요... 밖에서 무슨 소리가 들려도... 이불만 쓰고 있었다고요.
+===
+
+title: Character_3_Coward_Plea
+tags: 
+---
+히, 히익! 죄송해요! 잘못했어요! 제발 쏘지 마세요! 시키는 건 다 할게요!
+===
+
+title: Character_3_Received_Prayer
+tags: 
+---
+어제... {$targetName}번 님이 기도를... 해주러 오셨어요. 혹시 제가... 뭘 잘못해서 오신 건 아니겠죠...?
+===
+
+title: Character_3_Mute_Silent
+tags: 
+---
+... (고개를 푹 숙인다)
+===
+
+
+// ==========================================
+// Character 4: 남성, 30대 후반 농부
+// ==========================================
+
+title: Character_4
+tags: 
+---
+왜! 바쁜 사람 붙잡고 난리야.
+===
+
+title: Character_4_Believer_Success
+tags: 
+---
+쯧, 어젯밤엔 {$targetName}번 댁에 들러서 기도 좀 해주고 왔지. 기운이 없어 보이길래 말이야. 인심 좀 썼어.
+===
+
+title: Character_4_Believer_Refused
+tags: 
+---
+{$targetName}번... 내가 기도 좀 해주러 갔더니 문을 쾅 닫고 안 열어주더군! 늦은 시간에 문전박대를 하다니, 에잉..쯧!
+===
+
+title: Character_4_Believer_Absent
+tags: 
+---
+{$targetName}번 댁에 줄 게 있어서 갔더니, 집구석이 텅 비었어! 밤중에 어딜 쏘다니는 건지 원.
+===
+
+title: Character_4_Believer_BodyFound
+tags: 
+---
+빌어먹을! {$targetName}번 댁에 갔더니 피가 바닥에 가득하더란 말이야! 재수없게시리..
+===
+
+title: Character_4_Insomniac_Out
+tags: 
+---
+아니, 집구석이 답답해서 잠이 와야지! 밭이나 좀 둘러보려고 마실 좀 다녀왔다, 왜!
+===
+
+title: Character_4_Insomniac_Home
+tags: 
+---
+방구석에서 담배나 태우며 앉아 있었어. 가장이 고민이 많으면 잠이 안 오는 법이야, 네가 뭘 알아!
+===
+
+title: Character_4_Coward_Plea
+tags: 
+---
+이, 이 미친놈이 뭐 하는 거야?! 당장 그거 치워! 미안, 내가 잘못했네!
+===
+
+title: Character_4_Received_Prayer
+tags: 
+---
+어제 {$targetName}번이 와서 주절주절 기도를 하더군. 뭐 그리 할 말이 많은지.. 시간 아깝게시리.
+===
+
+title: Character_4_Mute_Silent
+tags: 
+---
+... (째려본다)
+===
+
+
+// ==========================================
+// Character 5: 여성, 30대 후반 여관주인
+// ==========================================
+
+title: Character_5
+tags: 
+---
+호호, 우리 여관에 묵으려고?
+===
+
+title: Character_5_Believer_Success
+tags: 
+---
+아유, 어젯밤에 내가 {$targetName}번 댁에 가서 기도를 아주 정성껏 해줬지. 그렇게 열심히 기도해줬으니 우리 여관 이야기도 잘 해주겠지?
+===
+
+title: Character_5_Believer_Refused
+tags: 
+---
+기도를 해주러 {$targetName}번 댁에 갔는데, 글쎄 문을 딱 걸어 잠그고 안 열어주는 거 있지? 사람이 정이 없으면 못 쓰는 법인데, 쯧쯧.
+===
+
+title: Character_5_Believer_Absent
+tags: 
+---
+{$targetName}번 댁에 소식 좀 전하러 갔더니, 집이 텅 비었더라고. 어딜 그렇게 돌아다니는 건지 몰라.
+===
+
+title: Character_5_Believer_BodyFound
+tags: 
+---
+세상에, 내 팔자야! {$targetName}번 댁에 갔더니 사람이 피를 흘리고 죽어 있었어! 이런 흉측한 일이 우리 마을에 일어나다니, 여관 손님도 뚝 끊기겠네!
+===
+
+title: Character_5_Insomniac_Out
+tags: 
+---
+나처럼 고생하는 여자는 잠도 편히 못 자요. 속이 답답해서 마을 한 바퀴 돌면서 찬바람 좀 쐬었지.
+===
+
+title: Character_5_Insomniac_Home
+tags: 
+---
+여관 장부나 작성하면서 집에 있었어. 이 고생을 누가 알아주겠어? 다 내 팔자지.
+===
+
+title: Character_5_Coward_Plea
+tags: 
+---
+아이고! 사람 죽네! 아직 못 해본 일들이 많은데! 살려줘요, 제발!
+===
+
+title: Character_5_Received_Prayer
+tags: 
+---
+어제 {$targetName}번이 기도를 해주러 왔더라고. 뭐, 기왕 온 김에 여관 홍보도 좀 부탁했지.
+===
+
+title: Character_5_Mute_Silent
+tags: 
+---
+... (입을 굳게 다문다)
+===

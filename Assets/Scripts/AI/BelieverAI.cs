@@ -40,6 +40,32 @@ public class BelieverAI : CharacterAI
 
     public override void ResolveMorning(AIContext context)
     {
-        // TODO: 조사 결과 저장/적용 로직 연결 지점
+        if (lastAction == null || lastAction.Target == null) return;
+
+        // Character 컴포넌트에서 CharacterAI 컴포넌트를 가져옵니다.
+        var targetAI = lastAction.Target.GetComponent<CharacterAI>();
+        if (targetAI == null) return;
+
+        bool isHome = context.IsTargetHome(targetAI);
+        bool isDead = context.Attacked.Contains(targetAI);
+
+        if (isDead)
+        {
+            // 시체 발견
+            lastAction.Success = false;
+            lastAction.ActionId = "believer_body_found";
+        }
+        else if (!isHome)
+        {
+            // 부재
+            lastAction.Success = false;
+            lastAction.ActionId = "believer_absent";
+        }
+        else
+        {
+            // 성공: 상대방에게 '기도 받음' 상태 부여
+            lastAction.Success = true;
+            context.PrayerReceived.Add(targetAI);
+        }
     }
 }

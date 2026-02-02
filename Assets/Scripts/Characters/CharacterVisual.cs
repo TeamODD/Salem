@@ -12,16 +12,16 @@ public class CharacterVisual : MonoBehaviour
     [SerializeField] private int defaultSortingOrder = 0;
     [SerializeField] private int focusedSortingOrder = 100;
 
-    private SpriteRenderer spriteRenderer;
-    private Vector3 baseScaleFactor;
-    private float hoverFactor;
-    private bool isFocused = false;
+    private SpriteRenderer _spriteRenderer;
+    private Vector3 _baseScaleFactor;
+    private float _hoverFactor;
+    private bool _isFocused = false;
 
     private void Awake()
     {
-        spriteRenderer = GetComponent<SpriteRenderer>();
-        spriteRenderer.sortingOrder = defaultSortingOrder;
-        baseScaleFactor = Vector3.one;
+        _spriteRenderer = GetComponent<SpriteRenderer>();
+        _spriteRenderer.sortingOrder = defaultSortingOrder;
+        _baseScaleFactor = Vector3.one;
     }
 
     public void Initialize(CharacterData data)
@@ -30,27 +30,27 @@ public class CharacterVisual : MonoBehaviour
 
         if (data.defaultSprite != null)
         {
-            spriteRenderer.sprite = data.defaultSprite;
+            _spriteRenderer.sprite = data.defaultSprite;
         }
 
-        baseScaleFactor = new Vector3(data.baseScale, data.baseScale, 1f);
+        _baseScaleFactor = new Vector3(data.baseScale, data.baseScale, 1f);
 
-        transform.localScale = baseScaleFactor;
+        transform.localScale = _baseScaleFactor;
 
-        hoverFactor = data.hoverScaleFactor;
+        _hoverFactor = data.hoverScaleFactor;
     }
 
     public void SetFocus(bool focus)
     {
-        if (isFocused == focus) return;
+        if (_isFocused == focus) return;
 
-        isFocused = focus;
+        _isFocused = focus;
         transform.DOKill();
 
         if (focus)
         {
-            spriteRenderer.sortingOrder = focusedSortingOrder;
-            transform.DOScale(baseScaleFactor * hoverFactor, animationDuration)
+            _spriteRenderer.sortingOrder = focusedSortingOrder;
+            transform.DOScale(_baseScaleFactor * _hoverFactor, animationDuration)
                      .SetEase(scaleEase);
 
             if (GlobalFadeManager.Instance != null)
@@ -58,8 +58,8 @@ public class CharacterVisual : MonoBehaviour
         }
         else
         {
-            spriteRenderer.sortingOrder = defaultSortingOrder;
-            transform.DOScale(baseScaleFactor, animationDuration)
+            _spriteRenderer.sortingOrder = defaultSortingOrder;
+            transform.DOScale(_baseScaleFactor, animationDuration)
                      .SetEase(Ease.OutQuad);
 
             if (GlobalFadeManager.Instance != null)

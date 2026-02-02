@@ -2,12 +2,12 @@ public class CowardAI : CharacterAI
 {
     public override void DoNightAction(AIContext context)
     {
-        SetAction(context, "coward_silent");
+        SetAction(context, "coward_plea");
     }
 
     public override void RecordDialogue(AIContext context)
     {
-        AddDialogue("coward_silent");
+        AddDialogue("coward_plea");
     }
 
     public override void ResolveMorning(AIContext context)
