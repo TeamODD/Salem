@@ -43,6 +43,14 @@ public class SoundManager : MonoBehaviour
         }
     }
 
+    public void StopBGM()
+    {
+        if (_bgmSource != null && _bgmSource.isPlaying)
+        {
+            _bgmSource.Stop();
+        }
+    }
+    
     public void StopSFX()
     {
         if (_sfxSource != null && _sfxSource.isPlaying)
