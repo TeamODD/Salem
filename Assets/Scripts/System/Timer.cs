@@ -5,10 +5,10 @@ using DG.Tweening;
 public class Timer : MonoBehaviour
 {
     public static Timer Instance;
-    public Slider TimerSlider; 
+    public Slider TimerSlider;
     public float GameTime;
-    public float ShakeMagnitude = 2f; 
-    
+    public float ShakeMagnitude = 2f;
+
     private bool _stopTimer;
     private bool _isShaking;
     private float _currentTime;
@@ -35,6 +35,8 @@ public class Timer : MonoBehaviour
         _currentTime = GameTime;
     }
 
+    public System.Action OnTimeUp;
+
     void Update()
     {
         if (IntroManager.Instance != null && IntroManager.Instance.IsIntroPlaying) return;
@@ -46,17 +48,18 @@ public class Timer : MonoBehaviour
 
         if (_currentTime <= 0)
         {
+            _stopTimer = true; // Stop timer explicitly
             StopShake();
             TimerSlider.value = GameTime;
+            OnTimeUp?.Invoke(); // Trigger event
         }
-
         else if (_currentTime <= 30f && !_isShaking)
         {
             StartShake();
         }
     }
-    
-   private void StartShake()
+
+    private void StartShake()
     {
         _isShaking = true;
 
@@ -76,6 +79,14 @@ public class Timer : MonoBehaviour
     public void StopTimer()
     {
         _stopTimer = true;
+        StopShake();
+    }
+
+    public void ResetTimer()
+    {
+        _currentTime = GameTime;
+        _stopTimer = false;
+        TimerSlider.value = 0;
         StopShake();
     }
 }

@@ -29,7 +29,11 @@ public class ThiefAI : CharacterAI
 
     public override void ResolveMorning(AIContext context)
     {
-        // TODO: 도둑질 성공/실패 결과 적용 지점
+        if (lastAction == null) return;
+
+        // 좀도둑은 밤 행동 시점에 이미 성공 여부(빈 집 존재 여부)를 알고 액션을 결정함.
+        // 여기서는 액션 결과에 따른 성공 상태를 확정함.
+        lastAction.Success = lastAction.ActionId == "thief_lie";
     }
 
     private Role.Roles? ChoosePretendRole(AIContext context)

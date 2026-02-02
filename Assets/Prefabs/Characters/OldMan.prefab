@@ -10,7 +10,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3701659279588806922, guid: da35e282265a8e747b8d0956a1818c43, type: 3}
       propertyPath: m_Name
-      value: Character
+      value: OldMan
+      objectReference: {fileID: 0}
+    - target: {fileID: 7408686468577497030, guid: da35e282265a8e747b8d0956a1818c43, type: 3}
+      propertyPath: m_SortingLayer
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7408686468577497030, guid: da35e282265a8e747b8d0956a1818c43, type: 3}
+      propertyPath: m_SortingLayerID
+      value: -1369154615
       objectReference: {fileID: 0}
     - target: {fileID: 7538337231265998894, guid: da35e282265a8e747b8d0956a1818c43, type: 3}
       propertyPath: m_LocalPosition.x
