@@ -1,0 +1,1118 @@
+fileFormatVersion: 2
+guid: e3ef3918e33121c40a03b9d1f99ae0de
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 3204744455668076659
+    second: Dotted_Circle_0
+  - first:
+      213: 4044341690113211867
+    second: Dotted_Circle_1
+  - first:
+      213: -2026485259431409448
+    second: Dotted_Circle_2
+  - first:
+      213: -1792870838901160475
+    second: Dotted_Circle_3
+  - first:
+      213: -8276967396820159872
+    second: Dotted_Circle_4
+  - first:
+      213: 269279980154686601
+    second: Dotted_Circle_5
+  - first:
+      213: 1034317027817623384
+    second: Dotted_Circle_6
+  - first:
+      213: 5769945655802626175
+    second: Dotted_Circle_7
+  - first:
+      213: -8983169711663010956
+    second: Dotted_Circle_8
+  - first:
+      213: 4293726394387797884
+    second: Dotted_Circle_9
+  - first:
+      213: 1247756375933868270
+    second: Dotted_Circle_10
+  - first:
+      213: 223727258970502676
+    second: Dotted_Circle_11
+  - first:
+      213: 6935890970451361564
+    second: Dotted_Circle_12
+  - first:
+      213: 3515687861095719052
+    second: Dotted_Circle_13
+  - first:
+      213: 6816738102384908762
+    second: Dotted_Circle_14
+  - first:
+      213: -4123542666937632893
+    second: Dotted_Circle_15
+  - first:
+      213: -20706124824309360
+    second: Dotted_Circle_16
+  - first:
+      213: -1576986394140401175
+    second: Dotted_Circle_17
+  - first:
+      213: 6217159479599261259
+    second: Dotted_Circle_18
+  - first:
+      213: 8910328460979103875
+    second: Dotted_Circle_19
+  - first:
+      213: -3337838275409892609
+    second: Dotted_Circle_20
+  - first:
+      213: 8177356556067082204
+    second: Dotted_Circle_21
+  - first:
+      213: 7454132579499890342
+    second: Dotted_Circle_22
+  - first:
+      213: 9073727975874049864
+    second: Dotted_Circle_23
+  - first:
+      213: 3531055469338047978
+    second: Dotted_Circle_24
+  - first:
+      213: -2657712980633747569
+    second: Dotted_Circle_25
+  - first:
+      213: -3992454164585178850
+    second: Dotted_Circle_26
+  - first:
+      213: 2695430849944036013
+    second: Dotted_Circle_27
+  - first:
+      213: 3362299663339024790
+    second: Dotted_Circle_28
+  - first:
+      213: 7168654057851752267
+    second: Dotted_Circle_29
+  - first:
+      213: 4068199149872478890
+    second: Dotted_Circle_30
+  - first:
+      213: -5350397168440108333
+    second: Dotted_Circle_31
+  - first:
+      213: 9191495384907099698
+    second: Dotted_Circle_32
+  - first:
+      213: 6662149414621742873
+    second: Dotted_Circle_33
+  - first:
+      213: 819101782863596805
+    second: Dotted_Circle_34
+  - first:
+      213: -6589018814256116110
+    second: Dotted_Circle_35
+  - first:
+      213: 5914202974194115785
+    second: Dotted_Circle_36
+  - first:
+      213: 1119484235757269312
+    second: Dotted_Circle_37
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Dotted_Circle_0
+      rect:
+        serializedVersion: 2
+        x: 467
+        y: 1233
+        width: 63
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3709ffb5a1a897c20800000000000000
+      internalID: 3204744455668076659
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dotted_Circle_1
+      rect:
+        serializedVersion: 2
+        x: 571
+        y: 1252
+        width: 60
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bdd308dd653602830800000000000000
+      internalID: 4044341690113211867
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dotted_Circle_2
+      rect:
+        serializedVersion: 2
+        x: 675
+        y: 1249
+        width: 60
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8d88601b46a70e3e0800000000000000
+      internalID: -2026485259431409448
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dotted_Circle_3
+      rect:
+        serializedVersion: 2
+        x: 775
+        y: 1226
+        width: 63
+        height: 41
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5e5c32798717e17e0800000000000000
+      internalID: -1792870838901160475
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dotted_Circle_4
+      rect:
+        serializedVersion: 2
+        x: 277
+        y: 1149
+        width: 62
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0827b0f710e422d80800000000000000
+      internalID: -8276967396820159872
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dotted_Circle_5
+      rect:
+        serializedVersion: 2
+        x: 369
+        y: 1199
+        width: 63
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 98c8e3a17bcacb300800000000000000
+      internalID: 269279980154686601
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dotted_Circle_6
+      rect:
+        serializedVersion: 2
+        x: 872
+        y: 1187
+        width: 63
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 85f05345bd1aa5e00800000000000000
+      internalID: 1034317027817623384
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dotted_Circle_7
+      rect:
+        serializedVersion: 2
+        x: 195
+        y: 1085
+        width: 60
+        height: 57
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f708c63e007f21050800000000000000
+      internalID: 5769945655802626175
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dotted_Circle_8
+      rect:
+        serializedVersion: 2
+        x: 963
+        y: 1133
+        width: 62
+        height: 54
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 47b274bfdbe555380800000000000000
+      internalID: -8983169711663010956
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dotted_Circle_9
+      rect:
+        serializedVersion: 2
+        x: 125
+        y: 1009
+        width: 56
+        height: 60
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c7714341861669b30800000000000000
+      internalID: 4293726394387797884
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dotted_Circle_10
+      rect:
+        serializedVersion: 2
+        x: 1045
+        y: 1066
+        width: 59
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ee854c120dbe05110800000000000000
+      internalID: 1247756375933868270
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dotted_Circle_11
+      rect:
+        serializedVersion: 2
+        x: 1115
+        y: 987
+        width: 56
+        height: 62
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4163285b1c6da1300800000000000000
+      internalID: 223727258970502676
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dotted_Circle_12
+      rect:
+        serializedVersion: 2
+        x: 69
+        y: 923
+        width: 51
+        height: 62
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c1fb796f61c314060800000000000000
+      internalID: 6935890970451361564
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dotted_Circle_13
+      rect:
+        serializedVersion: 2
+        x: 1173
+        y: 899
+        width: 50
+        height: 63
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c8063c59b7b3ac030800000000000000
+      internalID: 3515687861095719052
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dotted_Circle_14
+      rect:
+        serializedVersion: 2
+        x: 28
+        y: 829
+        width: 45
+        height: 63
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ad9d58fff2be99e50800000000000000
+      internalID: 6816738102384908762
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dotted_Circle_15
+      rect:
+        serializedVersion: 2
+        x: 1216
+        y: 804
+        width: 44
+        height: 63
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 387f309bacb36c6c0800000000000000
+      internalID: -4123542666937632893
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dotted_Circle_16
+      rect:
+        serializedVersion: 2
+        x: 4
+        y: 730
+        width: 38
+        height: 62
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0911c21a3ef66bff0800000000000000
+      internalID: -20706124824309360
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dotted_Circle_17
+      rect:
+        serializedVersion: 2
+        x: 1244
+        y: 704
+        width: 36
+        height: 61
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9e123a1da3b6d1ae0800000000000000
+      internalID: -1576986394140401175
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dotted_Circle_18
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 628
+        width: 27
+        height: 60
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b4667755b99c74650800000000000000
+      internalID: 6217159479599261259
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dotted_Circle_19
+      rect:
+        serializedVersion: 2
+        x: 1253
+        y: 584
+        width: 27
+        height: 77
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 38866bcb688d7ab70800000000000000
+      internalID: 8910328460979103875
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dotted_Circle_20
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 523
+        width: 35
+        height: 62
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ffaad7ce5cd9da1d0800000000000000
+      internalID: -3337838275409892609
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dotted_Circle_21
+      rect:
+        serializedVersion: 2
+        x: 1236
+        y: 480
+        width: 39
+        height: 62
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cdf0716567ecb7170800000000000000
+      internalID: 8177356556067082204
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dotted_Circle_22
+      rect:
+        serializedVersion: 2
+        x: 18
+        y: 421
+        width: 43
+        height: 63
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6a6d1cd5616627760800000000000000
+      internalID: 7454132579499890342
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dotted_Circle_23
+      rect:
+        serializedVersion: 2
+        x: 1203
+        y: 381
+        width: 46
+        height: 62
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8473f76f48b5ced70800000000000000
+      internalID: 9073727975874049864
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dotted_Circle_24
+      rect:
+        serializedVersion: 2
+        x: 53
+        y: 326
+        width: 50
+        height: 63
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ae53814bd34d00130800000000000000
+      internalID: 3531055469338047978
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dotted_Circle_25
+      rect:
+        serializedVersion: 2
+        x: 1155
+        y: 288
+        width: 52
+        height: 62
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f8f71621028ed1bd0800000000000000
+      internalID: -2657712980633747569
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dotted_Circle_26
+      rect:
+        serializedVersion: 2
+        x: 105
+        y: 238
+        width: 54
+        height: 62
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e191fd91714f798c0800000000000000
+      internalID: -3992454164585178850
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dotted_Circle_27
+      rect:
+        serializedVersion: 2
+        x: 1093
+        y: 205
+        width: 57
+        height: 60
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: da22b87b318186520800000000000000
+      internalID: 2695430849944036013
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dotted_Circle_28
+      rect:
+        serializedVersion: 2
+        x: 170
+        y: 161
+        width: 59
+        height: 59
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 691fcb5cab949ae20800000000000000
+      internalID: 3362299663339024790
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dotted_Circle_29
+      rect:
+        serializedVersion: 2
+        x: 1018
+        y: 133
+        width: 61
+        height: 57
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b4f8aeb62ec2c7360800000000000000
+      internalID: 7168654057851752267
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dotted_Circle_30
+      rect:
+        serializedVersion: 2
+        x: 248
+        y: 97
+        width: 62
+        height: 55
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: aaaf1b39295257830800000000000000
+      internalID: 4068199149872478890
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dotted_Circle_31
+      rect:
+        serializedVersion: 2
+        x: 337
+        y: 48
+        width: 63
+        height: 49
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3da1fd77f129fb5b0800000000000000
+      internalID: -5350397168440108333
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dotted_Circle_32
+      rect:
+        serializedVersion: 2
+        x: 933
+        y: 75
+        width: 63
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 23ea70c9a50ce8f70800000000000000
+      internalID: 9191495384907099698
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dotted_Circle_33
+      rect:
+        serializedVersion: 2
+        x: 434
+        y: 15
+        width: 62
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9170b135895b47c50800000000000000
+      internalID: 6662149414621742873
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dotted_Circle_34
+      rect:
+        serializedVersion: 2
+        x: 536
+        y: 0
+        width: 61
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 50d49725bb80e5b00800000000000000
+      internalID: 819101782863596805
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dotted_Circle_35
+      rect:
+        serializedVersion: 2
+        x: 742
+        y: 6
+        width: 62
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 27e06ed6c4a1f84a0800000000000000
+      internalID: -6589018814256116110
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dotted_Circle_36
+      rect:
+        serializedVersion: 2
+        x: 841
+        y: 32
+        width: 62
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9c4266e2548731250800000000000000
+      internalID: 5914202974194115785
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dotted_Circle_37
+      rect:
+        serializedVersion: 2
+        x: 641
+        y: 0
+        width: 60
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 04136fb2bf4398f00800000000000000
+      internalID: 1119484235757269312
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Dotted_Circle_0: 3204744455668076659
+      Dotted_Circle_1: 4044341690113211867
+      Dotted_Circle_10: 1247756375933868270
+      Dotted_Circle_11: 223727258970502676
+      Dotted_Circle_12: 6935890970451361564
+      Dotted_Circle_13: 3515687861095719052
+      Dotted_Circle_14: 6816738102384908762
+      Dotted_Circle_15: -4123542666937632893
+      Dotted_Circle_16: -20706124824309360
+      Dotted_Circle_17: -1576986394140401175
+      Dotted_Circle_18: 6217159479599261259
+      Dotted_Circle_19: 8910328460979103875
+      Dotted_Circle_2: -2026485259431409448
+      Dotted_Circle_20: -3337838275409892609
+      Dotted_Circle_21: 8177356556067082204
+      Dotted_Circle_22: 7454132579499890342
+      Dotted_Circle_23: 9073727975874049864
+      Dotted_Circle_24: 3531055469338047978
+      Dotted_Circle_25: -2657712980633747569
+      Dotted_Circle_26: -3992454164585178850
+      Dotted_Circle_27: 2695430849944036013
+      Dotted_Circle_28: 3362299663339024790
+      Dotted_Circle_29: 7168654057851752267
+      Dotted_Circle_3: -1792870838901160475
+      Dotted_Circle_30: 4068199149872478890
+      Dotted_Circle_31: -5350397168440108333
+      Dotted_Circle_32: 9191495384907099698
+      Dotted_Circle_33: 6662149414621742873
+      Dotted_Circle_34: 819101782863596805
+      Dotted_Circle_35: -6589018814256116110
+      Dotted_Circle_36: 5914202974194115785
+      Dotted_Circle_37: 1119484235757269312
+      Dotted_Circle_4: -8276967396820159872
+      Dotted_Circle_5: 269279980154686601
+      Dotted_Circle_6: 1034317027817623384
+      Dotted_Circle_7: 5769945655802626175
+      Dotted_Circle_8: -8983169711663010956
+      Dotted_Circle_9: 4293726394387797884
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
