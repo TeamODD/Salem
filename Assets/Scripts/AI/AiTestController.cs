@@ -47,11 +47,6 @@ public class AITestController : MonoBehaviour
         {
             string action = ai.LastAction != null ? ai.LastAction.ActionId : "행동 없음";
             Debug.Log($"<b>[{ai.MyRole}]</b>: {action}");
-
-            foreach (var line in ai.NightDialogues)
-            {
-                Debug.Log($"   ㄴ 대사: {line}");
-            }
         }
     }
     

@@ -7,8 +7,8 @@ public class BelieverAI : CharacterAI
 
     public override void DoNightAction(AIContext context)
     {
-        var candidates = new List<CharacterAI>();
-        foreach (var ai in context.Participants)
+        List<CharacterAI> candidates = new List<CharacterAI>();
+        foreach (CharacterAI ai in context.Participants)
         {
             if (ai == null || ai == this) continue;
             if (investigated.Contains(ai)) continue;
@@ -23,29 +23,17 @@ public class BelieverAI : CharacterAI
             return;
         }
 
-        var target = candidates[Random.Range(0, candidates.Count)];
+        CharacterAI target = candidates[Random.Range(0, candidates.Count)];
         Debug.Log($"[Believer] {DisplayName} -> 조사 대상: {target.DisplayName}");
         investigated.Add(target);
         SetAction(context, "believer_investigate", context.GetCharacter(target));
-    }
-
-    public override void RecordDialogue(AIContext context)
-    {
-        if (lastAction == null)
-        {
-            AddDialogue("believer_stay_home");
-            return;
-        }
-
-        AddDialogue(lastAction.ActionId);
     }
 
     public override void ResolveMorning(AIContext context)
     {
         if (lastAction == null || lastAction.Target == null) return;
 
-        // Character 컴포넌트에서 CharacterAI 컴포넌트를 가져옵니다.
-        var targetAI = lastAction.Target.GetComponent<CharacterAI>();
+        CharacterAI targetAI = lastAction.Target.GetComponent<CharacterAI>();
         if (targetAI == null) return;
 
         bool isHome = context.IsTargetHome(targetAI);
@@ -63,9 +51,16 @@ public class BelieverAI : CharacterAI
             lastAction.Success = false;
             lastAction.ActionId = "believer_absent";
         }
+        else if (targetAI.WillRefusePrayer)
+        {
+            // 거부
+            lastAction.Success = false;
+            lastAction.ActionId = "believer_refused";
+            targetAI.OnVisitorRefused(this); // 거부 사실 통보
+        }
         else
         {
-            // 성공: 상대방에게 '기도 받음' 상태 부여
+            // 성공
             lastAction.Success = true;
             context.PrayerReceived.Add(targetAI);
         }

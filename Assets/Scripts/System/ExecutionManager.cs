@@ -1,6 +1,6 @@
 using UnityEngine;
-using System.Collections;
 using UnityEngine.InputSystem;
+using TMPro;
 
 public class ExecutionManager : MonoBehaviour
 {
@@ -10,6 +10,9 @@ public class ExecutionManager : MonoBehaviour
     [SerializeField] private int maxBullets = 1;
     [SerializeField] private Texture2D aimCursor; // 장전 시 커서
     [SerializeField] private Vector2 cursorHotspot = Vector2.zero;
+
+    [Header("UI")]
+    [SerializeField] private TextMeshProUGUI bulletCountText; // 탄환 수를 표시할 UI 텍스트
 
     [Header("State")]
     [SerializeField] private int currentBullets;
@@ -29,6 +32,11 @@ public class ExecutionManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+    }
+
+    private void Start()
+    {
+        UpdateBulletUI();
     }
 
     private void Update()
@@ -79,6 +87,7 @@ public class ExecutionManager : MonoBehaviour
 #endif
         // 1. 탄환 소모
         currentBullets--;
+        UpdateBulletUI(); // UI 업데이트
         ToggleAiming(false); // 발사 후 장전 해제
 
         // 2. 처형 효과 (피 튀김 등) - 추후 구현 or EffectManager 호출
@@ -93,6 +102,14 @@ public class ExecutionManager : MonoBehaviour
         else
         {
             target.gameObject.SetActive(false);
+        }
+    }
+
+    private void UpdateBulletUI()
+    {
+        if (bulletCountText != null)
+        {
+            bulletCountText.text = $"X {currentBullets}";
         }
     }
 }

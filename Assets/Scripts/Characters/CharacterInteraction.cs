@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using Yarn.Unity;
@@ -90,14 +91,14 @@ public class CharacterInteraction : MonoBehaviour, IPointerEnterHandler, IPointe
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        // 0. Check Execution Mode
+        // 0. 처형 모드 확인
         if (ExecutionManager.Instance != null && ExecutionManager.Instance.IsAiming)
         {
             CharacterAI ai = GetComponent<CharacterAI>();
             if (ai != null)
             {
                 ExecutionManager.Instance.ExecuteTarget(ai);
-                return; // Stop here, do not start dialogue
+                return; // 대화 시작하지 않고 종료
             }
         }
 
@@ -109,13 +110,13 @@ public class CharacterInteraction : MonoBehaviour, IPointerEnterHandler, IPointe
             _characterVisual.SetFocus(true);
 
             string finalNodeName = characterData.dialogueNodeName;
-            var ai = GetComponent<CharacterAI>();
+            CharacterAI ai = GetComponent<CharacterAI>();
 
             if (ai != null && ai.LastAction != null)
             {
-                // 1. Inject Variables
+                // 1. 변수 주입
                 CharacterAI effectiveTarget = ai.CurrentLieTarget;
-                
+
                 // 거짓말 대상이 없다면 실제 행동 대상을 사용
                 if (effectiveTarget == null && ai.LastAction.Target != null)
                 {
@@ -128,16 +129,14 @@ public class CharacterInteraction : MonoBehaviour, IPointerEnterHandler, IPointe
                 }
                 else
                 {
-                    Debug.Log($"[CharacterInteraction] Target is NULL. Witch? {ai is WitchAI}. LastTarget? {ai?.LastAction?.Target}");
                     _dialogueRunner.VariableStorage.SetValue("$targetName", "누군가");
                 }
 
-                // 2. Determine Node Name
+                // 2. 노드 이름 결정
                 finalNodeName = DetermineNodeName(ai, characterData.dialogueNodeName);
             }
 
-            // Fallback: If the determined node doesn't exist, Yarn Spinner might error or show nothing.
-            // // Ideally check if node exists: dialogueRunner.NodeExists(finalNodeName)
+            // 폴백: 결정된 노드가 존재하지 않으면 경고 출력
             if (!_dialogueRunner.Dialogue.NodeExists(finalNodeName))
             {
                 Debug.LogWarning($"노드 '{finalNodeName}' 가 없습니다.");
@@ -156,18 +155,18 @@ public class CharacterInteraction : MonoBehaviour, IPointerEnterHandler, IPointe
         string actionId = ai.LastAction.ActionId;
         bool success = ai.LastAction.Success;
 
-        // Use PretendRole if it exists, otherwise use MyRole
+        // 사칭하는 역할이 있다면 그것을 사용, 아니면 본인 역할 사용
         Role.Roles activeRole = ai.LastAction.PretendRole.HasValue ? ai.LastAction.PretendRole.Value : ai.MyRole;
 
         switch (activeRole)
         {
             case Role.Roles.신자:
-                // Even if pretending, we try to match the most logical actionId
+                // 신자가 집에 머물렀거나, 조사를 못 한 경우(타겟 없음) 기본 대사 출력
                 if (actionId == "believer_stay_home" || (actionId == "believer_investigate" && ai.LastAction.Target == null))
                 {
                     return baseNode; // "별일 없었네.." (기본 대사)
                 }
-                else if (actionId == "believer_body_found" || actionId == "witch_attack") // Witch attack can look like found body?
+                else if (actionId == "believer_body_found" || actionId == "witch_attack") // 마녀 습격을 시체 발견으로 위장?
                 {
                     suffix = "_Believer_BodyFound";
                 }
@@ -177,20 +176,20 @@ public class CharacterInteraction : MonoBehaviour, IPointerEnterHandler, IPointe
                 }
                 else
                 {
-                    // For Thief pretending to be Believer, success usually means Believer_Success
+                    // 좀도둑이 신자 흉내를 낼 때, 성공이면 조사 성공으로 간주
                     if (success) suffix = "_Believer_Success";
                     else suffix = "_Believer_Refused";
                 }
                 break;
 
-            case Role.Roles.불면증: // Insomniac
+            case Role.Roles.불면증:
                 if (actionId == "insomniac_walk" || (ai.LastAction.PretendRole.HasValue && success))
                     suffix = "_Insomniac_Out";
                 else
                     suffix = "_Insomniac_Home";
                 break;
 
-            case Role.Roles.겁쟁이: // Coward
+            case Role.Roles.겁쟁이:
                 if (actionId == "coward_plea")
                 {
                     suffix = "_Coward_Plea";
@@ -200,16 +199,16 @@ public class CharacterInteraction : MonoBehaviour, IPointerEnterHandler, IPointe
             case Role.Roles.벙어리:
                 suffix = "_Mute_Silent";
                 break;
-                
+
             case Role.Roles.시민:
                 bool received = false;
                 if (ai is CitizenAI citizen) received = citizen.HasReceivedPrayer;
-                
+
                 // 마녀가 시민인 척 할 때
                 if (ai is WitchAI)
                 {
-                     // 마녀는 기도를 안 받았다고 가정 (혹은 랜덤)
-                     received = false; 
+                    // 마녀는 기도를 안 받았다고 가정 (혹은 랜덤)
+                    received = false;
                 }
 
                 if (received) suffix = "_Received_Prayer";
@@ -217,35 +216,41 @@ public class CharacterInteraction : MonoBehaviour, IPointerEnterHandler, IPointe
                 break;
         }
 
-        // Check if received prayer (Priority over staying home)            // Condition: Was at home (Empty suffix or Insomniac_Home) AND Received Prayer
-        bool wasHome = string.IsNullOrEmpty(suffix) || suffix == "_Insomniac_Home";
+        // 집에 있었으면서(접미사가 없거나 집에 있었음, 또는 이미 기도를 받은 경우), 기도를 받은 경우 체크 (우선순위 높음)
+        bool wasHome = string.IsNullOrEmpty(suffix) || suffix == "_Insomniac_Home" || suffix == "_Received_Prayer";
 
         if (wasHome && AIManager.Instance != null && AIManager.Instance.CurrentContext != null)
         {
-            var context = AIManager.Instance.CurrentContext;
+            AIContext context = AIManager.Instance.CurrentContext;
             if (context.PrayerReceived.Contains(ai))
             {
                 suffix = "_Received_Prayer";
 
-                // Find who visited
-                Character myCharacter = ai.GetComponent<Character>();
-                foreach (var kvp in context.Actions)
+                // 누가 찾아왔는지 확인
+                GameObject myObj = ai.gameObject;
+                foreach (KeyValuePair<CharacterAI, AIAction> kvp in context.Actions)
                 {
-                    var actor = kvp.Key;
-                    var action = kvp.Value;
+                    CharacterAI actor = kvp.Key;
+                    AIAction action = kvp.Value;
 
-                    // Check if this action targeted me, succeeded, and was a Believer act
-                    bool isBelieverAct = actor.MyRole == Role.Roles.신자 || action.PretendRole == Role.Roles.신자;
-
-                    if (action.Target == myCharacter && action.Success && isBelieverAct)
+                    if (action.Target == null) continue;
+                    
+                    // 타겟의 GameObject 비교
+                    if (action.Target.gameObject == myObj)
                     {
-                        if (_dialogueRunner != null)
+                        // 신자 행동이거나, 신자를 사칭했거나, 행동 ID에 신자 조사가 포함된 경우
+                        bool isBelieverRole = actor.MyRole == Role.Roles.신자;
+                        bool isPretendingBeliever = action.PretendRole == Role.Roles.신자;
+                        bool isBelieverActionId = action.ActionId.Contains("believer");
+
+                        if (action.Success && (isBelieverRole || isPretendingBeliever || isBelieverActionId))
                         {
-                            string actorName = actor.name;
-                            if (actor != null) actorName = actor.DisplayName;
-                            _dialogueRunner.VariableStorage.SetValue("$targetName", actorName);
+                            if (_dialogueRunner != null)
+                            {
+                                _dialogueRunner.VariableStorage.SetValue("$targetName", actor.DisplayName);
+                            }
+                            break;
                         }
-                        break;
                     }
                 }
             }

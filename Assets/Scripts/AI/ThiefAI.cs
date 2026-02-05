@@ -31,17 +31,6 @@ public class ThiefAI : CharacterAI
         }
     }
 
-    public override void RecordDialogue(AIContext context)
-    {
-        if (lastAction == null)
-        {
-            AddDialogue("thief_truth");
-            return;
-        }
-
-        AddDialogue(lastAction.ActionId);
-    }
-
     public override void ResolveMorning(AIContext context)
     {
         if (lastAction == null) return;
@@ -54,7 +43,7 @@ public class ThiefAI : CharacterAI
     private Role.Roles? ChoosePretendRole(AIContext context)
     {
         List<Role.Roles> choices = new List<Role.Roles>();
-        foreach (var roleItem in context.ActiveRoles)
+        foreach (Role.Roles roleItem in context.ActiveRoles)
         {
             if (roleItem == Role.Roles.좀도둑) continue;
             choices.Add(roleItem);
@@ -66,7 +55,7 @@ public class ThiefAI : CharacterAI
 
     private void PickRandomLieTarget(AIContext context)
     {
-        var others = context.Participants.Where(p => p != this).ToList();
+        List<CharacterAI> others = context.Participants.Where(p => p != this).ToList();
         if (others.Count > 0)
         {
             currentLieTarget = others[Random.Range(0, others.Count)];

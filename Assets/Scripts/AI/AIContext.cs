@@ -5,14 +5,14 @@ public class AIContext
 {
     public int NightIndex;
     public List<CharacterAI> Participants = new List<CharacterAI>();
-    public List<CharacterAI> DeadParticipants = new List<CharacterAI>(); // 사망자 기록 (순서 포함)
+    public List<CharacterAI> DeadParticipants = new List<CharacterAI>();
     public List<Role.Roles> ActiveRoles = new List<Role.Roles>();
 
     public Dictionary<CharacterAI, AIAction> Actions = new Dictionary<CharacterAI, AIAction>();
     public HashSet<CharacterAI> Attacked = new HashSet<CharacterAI>();
     public HashSet<CharacterAI> WitchPretendedBelievers = new HashSet<CharacterAI>();
     public HashSet<CharacterAI> PrayerReceived = new HashSet<CharacterAI>();
-    public HashSet<CharacterAI> OutOfHouse = new HashSet<CharacterAI>(); // 집을 비운 인원들
+    public HashSet<CharacterAI> OutOfHouse = new HashSet<CharacterAI>();
 
     public bool HasEmptyHouseForThief;
 
@@ -35,7 +35,7 @@ public class AIContext
     public List<CharacterAI> GetParticipantsByRole(Role.Roles role)
     {
         List<CharacterAI> result = new List<CharacterAI>();
-        foreach (var ai in Participants)
+        foreach (CharacterAI ai in Participants)
         {
             if (ai != null && ai.MyRole == role)
             {

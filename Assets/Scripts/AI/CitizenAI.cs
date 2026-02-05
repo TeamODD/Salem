@@ -11,11 +11,6 @@ public class CitizenAI : CharacterAI
         SetAction(context, "citizen_home");
     }
 
-    public override void RecordDialogue(AIContext context)
-    {
-        AddDialogue("citizen_home");
-    }
-
     public override void ResolveMorning(AIContext context)
     {
         // 아침에 신자가 다녀갔는지 확인

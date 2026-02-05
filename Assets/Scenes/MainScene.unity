@@ -2071,6 +2071,10 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6126982285090627060, guid: e4ef09fad65d78f40a22c5d7922dde0c, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6450300947883952626, guid: e4ef09fad65d78f40a22c5d7922dde0c, type: 3}
       propertyPath: _defaultButton
       value: 
@@ -2152,6 +2156,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1014194113}
     - target: {fileID: 7118532049509725502, guid: e4ef09fad65d78f40a22c5d7922dde0c, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7118532049509725502, guid: e4ef09fad65d78f40a22c5d7922dde0c, type: 3}
       propertyPath: BulletText
       value: 
       objectReference: {fileID: 1888690009}
@@ -2175,6 +2183,10 @@ PrefabInstance:
       propertyPath: _masterSlider
       value: 
       objectReference: {fileID: 1054537524}
+    - target: {fileID: 7664584937289211844, guid: e4ef09fad65d78f40a22c5d7922dde0c, type: 3}
+      propertyPath: bulletCountText
+      value: 
+      objectReference: {fileID: 1888690009}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
