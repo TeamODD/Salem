@@ -42,5 +42,20 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Middle
+    uniqueID: 2925812681
+    locked: 0
+  - name: Table
+    uniqueID: 3628577559
+    locked: 0
+  - name: FadeUI
+    uniqueID: 2485265873
+    locked: 0
+  - name: Focus
+    uniqueID: 1038131953
+    locked: 0
+  - name: Result
+    uniqueID: 3136371557
+    locked: 0
   m_RenderingLayers:
   - Default
