@@ -9,7 +9,8 @@ public class Role : MonoBehaviour
         좀도둑,
         불면증,
         겁쟁이,
-        벙어리
+        벙어리,
+        시민
     }
 
 }

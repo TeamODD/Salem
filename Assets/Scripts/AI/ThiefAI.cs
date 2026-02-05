@@ -1,30 +1,34 @@
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class ThiefAI : CharacterAI
 {
+    private CharacterAI currentLieTarget;
+    public override CharacterAI CurrentLieTarget => currentLieTarget;
+
     public override void DoNightAction(AIContext context)
     {
+        currentLieTarget = null;
+
         if (context.HasEmptyHouseForThief)
         {
             Role.Roles? pretend = ChoosePretendRole(context);
+            string pretendName = pretend.HasValue ? pretend.Value.ToString() : "없음";
+            Debug.Log($"[Thief] {DisplayName} -> 빈집털이 시도 (사칭: {pretendName})");
+            
+            // 신자인 척 할 경우 가짜 조사 대상 선정
+            if (pretend == Role.Roles.신자)
+            {
+                PickRandomLieTarget(context);
+            }
+
             SetAction(context, "thief_lie", target: null, pretendRole: pretend);
         }
         else
         {
             SetAction(context, "thief_truth", target: null);
         }
-    }
-
-    public override void RecordDialogue(AIContext context)
-    {
-        if (lastAction == null)
-        {
-            AddDialogue("thief_truth");
-            return;
-        }
-
-        AddDialogue(lastAction.ActionId);
     }
 
     public override void ResolveMorning(AIContext context)
@@ -39,7 +43,7 @@ public class ThiefAI : CharacterAI
     private Role.Roles? ChoosePretendRole(AIContext context)
     {
         List<Role.Roles> choices = new List<Role.Roles>();
-        foreach (var roleItem in context.ActiveRoles)
+        foreach (Role.Roles roleItem in context.ActiveRoles)
         {
             if (roleItem == Role.Roles.좀도둑) continue;
             choices.Add(roleItem);
@@ -47,5 +51,14 @@ public class ThiefAI : CharacterAI
 
         if (choices.Count == 0) return null;
         return choices[Random.Range(0, choices.Count)];
+    }
+
+    private void PickRandomLieTarget(AIContext context)
+    {
+        List<CharacterAI> others = context.Participants.Where(p => p != this).ToList();
+        if (others.Count > 0)
+        {
+            currentLieTarget = others[Random.Range(0, others.Count)];
+        }
     }
 }

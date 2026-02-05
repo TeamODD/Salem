@@ -38,6 +38,8 @@ public class CharacterVisual : MonoBehaviour
         transform.localScale = _baseScaleFactor;
 
         _hoverFactor = data.hoverScaleFactor;
+
+        _spriteRenderer.flipX = transform.position.x > 0;
     }
 
     public void SetFocus(bool focus)
@@ -53,8 +55,8 @@ public class CharacterVisual : MonoBehaviour
             transform.DOScale(_baseScaleFactor * _hoverFactor, animationDuration)
                      .SetEase(scaleEase);
 
-            if (GlobalFadeManager.Instance != null)
-                GlobalFadeManager.Instance.SetFocus(true);
+            // if (GlobalFadeManager.Instance != null)
+            //     GlobalFadeManager.Instance.SetFocus(true);
         }
         else
         {
@@ -62,8 +64,8 @@ public class CharacterVisual : MonoBehaviour
             transform.DOScale(_baseScaleFactor, animationDuration)
                      .SetEase(Ease.OutQuad);
 
-            if (GlobalFadeManager.Instance != null)
-                GlobalFadeManager.Instance.SetFocus(false);
+            // if (GlobalFadeManager.Instance != null)
+            //     GlobalFadeManager.Instance.SetFocus(false);
         }
     }
 

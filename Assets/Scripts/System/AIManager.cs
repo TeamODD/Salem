@@ -6,18 +6,27 @@ public class AIManager : MonoBehaviour
 {
     public static AIManager Instance { get; private set; }
 
-    [Header("Character Objects (프리펩))")]
+    [Header("Character Objects")]
     [SerializeField] private List<GameObject> characterObjects = new List<GameObject>();
+
+    [Header("Level Info")]
+    [SerializeField] private List<LevelData> levels = new List<LevelData>();
+    private int currentLevelIndex = 0;
 
     [Header("Round Info")]
     [SerializeField] private List<Role.Roles> activeRoles = new List<Role.Roles>();
     [SerializeField] private int nightIndex = 1;
     [SerializeField] private bool hasEmptyHouseForThief;
 
+    private bool isNight = false;
+
     private List<CharacterAI> participants = new List<CharacterAI>();
-    [SerializeField] private DialogueLibrary dialogueLibrary;
+    private List<CharacterAI> deadParticipants = new List<CharacterAI>();
     private AIContext currentContext;
+    private RoleAssigner roleAssigner = new RoleAssigner();
+
     public AIContext CurrentContext => currentContext;
+    public bool IsNight => isNight;
 
     private void Awake()
     {
@@ -38,25 +47,18 @@ public class AIManager : MonoBehaviour
             Timer.Instance.OnTimeUp += OnTimerEnded;
         }
 
-        // 게임 시작 시 자동으로 역할 할당
-        AssignRandomRoles();
-
-        // 인트로가 끝난 후 첫 번째 밤을 시작하도록 함
-        StartCoroutine(StartFirstNight());
+        InitializeGame();
     }
 
     private IEnumerator StartFirstNight()
     {
-        // 다른 스크립트들의 Start가 실행될 시간을 주기 위해 1프레임 대기
         yield return null;
 
-        // 인트로가 진행 중이라면 끝날 때까지 대기
         if (IntroManager.Instance != null)
         {
             yield return new WaitWhile(() => IntroManager.Instance.IsIntroPlaying);
         }
 
-        // 바로 밤 시퀀스 시작
         StartCoroutine(NightSequence());
     }
 
@@ -73,66 +75,156 @@ public class AIManager : MonoBehaviour
         StartCoroutine(NightSequence());
     }
 
+    public void SkipDay()
+    {
+        if (isNight) 
+        {
+            Debug.Log("지금은 밤이라 스킵할 수 없습니다.");
+            return; 
+        }
+
+        if (Timer.Instance != null)
+        {
+            Debug.Log("낮 시간을 건너뜁니다.");
+            Timer.Instance.FinishImmediately();
+        }
+    }
+
     private IEnumerator NightSequence()
     {
-        // 0. 패배 조건 체크 (은탄 부족 & 마녀 생존)
-        if (ExecutionManager.Instance != null && ExecutionManager.Instance.CurrentBullets <= 0)
+        isNight = true;
+
+        // 패배 조건 확인
+        if (CheckDefeatCondition())
         {
-            bool witchAlive = participants.Exists(ai => ai.MyRole == Role.Roles.마녀);
-            if (witchAlive)
-            {
-                Debug.Log("<color=red>은탄이 다 떨어졌습니다. 마녀에게 습격당해 게임 오버!</color>");
-                // TODO: 게임 오버 연출 (Game Over Scene or UI)
-                yield break; // 밤 로직 진행하지 않고 종료
-            }
+            isNight = false;
+            yield break;
         }
 
         Debug.Log("--- 밤이 시작되었습니다 ---");
-
-        // 1. 페이드 아웃 (UI 연결 필요)
-        // yield return GlobalFadeManager.Instance.FadeOut(); 
-
-        // 2. 밤 로직 실행
+        
+        // 밤 로직 실행
         RunNight();
 
-        // 3. 밤 연출 대기 (3초)
+        // 밤 연출 대기
         yield return new WaitForSeconds(3.0f);
 
-        // 4. 아침 로직 실행 (결과 적용)
+        // 아침 로직 실행
         RunMorning();
 
-        // 5. 페이드 인
-        // yield return GlobalFadeManager.Instance.FadeIn();
-
         Debug.Log("--- 아침이 밝았습니다 ---");
-
-        // 6. 승리 조건 체크
+        
+        // 승리 조건 확인
         if (CheckWinCondition())
         {
-            yield break; // 승리했으면 타이머 재개 안 함
+             isNight = false;
+             yield break;
         }
 
-        // 7. 다음 낮 타이머 시작
+        isNight = false;
+
         if (Timer.Instance != null)
         {
             Timer.Instance.ResetTimer();
         }
     }
 
+    private bool CheckDefeatCondition()
+    {
+        int deadCivilians = 0;
+        foreach(CharacterAI dead in deadParticipants)
+        {
+            if(dead.MyRole != Role.Roles.마녀) 
+            {
+                deadCivilians++;
+            }
+        }
+
+        bool isBulletEmpty = (ExecutionManager.Instance != null && ExecutionManager.Instance.CurrentBullets <= 0);
+        bool isTooManyDead = (deadCivilians >= 3);
+
+        if (isBulletEmpty || isTooManyDead)
+        {
+            bool witchAlive = participants.Exists(ai => ai.MyRole == Role.Roles.마녀);
+            if (witchAlive)
+            {
+                string reason = isBulletEmpty ? "은탄이 다 떨어졌습니다." : "시민이 너무 많이 희생되었습니다.";
+                Debug.Log($"<color=red>{reason} 마녀에게 습격당해 게임 오버!</color>");
+                return true;
+            }
+        }
+        return false;
+    }
+
     public bool CheckWinCondition()
     {
-        // 리스트에서 비활성화된 객체나 null 제거 후 확인하는 게 안전함
         participants.RemoveAll(ai => ai == null || !ai.gameObject.activeSelf);
 
         bool witchAlive = participants.Exists(ai => ai.MyRole == Role.Roles.마녀);
         if (!witchAlive)
         {
             Debug.Log("<color=green>모든 마녀가 제거되었습니다. 승리!</color>");
-            // TODO: 승리 UI, 다음 레벨 로드
             if (Timer.Instance != null) Timer.Instance.StopTimer();
+            
+            currentLevelIndex++;
+            LoadLevel(currentLevelIndex);
+            
             return true;
         }
         return false;
+    }
+
+    private void InitializeGame()
+    {
+        currentLevelIndex = 0;
+        LoadLevel(currentLevelIndex);
+    }
+    
+    private void LoadLevel(int levelIndex)
+    {
+        if (levelIndex >= levels.Count)
+        {
+            Debug.Log("<color=green>모든 레벨을 클리어했습니다! 게임 종료.</color>");
+            return;
+        }
+
+        LevelData data = levels[levelIndex];
+        Debug.Log($"--- Level {levelIndex + 1}: {data.LevelName} 시작 ---");
+
+        List<CharacterData> shuffledData = new List<CharacterData>(data.CharacterDatas);
+        ShuffleList(shuffledData);
+
+        for (int i = 0; i < characterObjects.Count; i++)
+        {
+            if (i >= shuffledData.Count) 
+            {
+                Debug.LogWarning($"레벨 데이터의 캐릭터 수가 부족합니다. (필요: {characterObjects.Count}, 보유: {shuffledData.Count})");
+                break;
+            }
+
+            CharacterInteraction interaction = characterObjects[i].GetComponent<CharacterInteraction>();
+            if (interaction != null)
+            {
+                interaction.SetCharacterData(shuffledData[i]);
+            }
+        }
+
+        nightIndex = 1;
+        isNight = false;
+        
+        AssignRandomRoles();
+        StartCoroutine(StartFirstNight());
+    }
+
+    private void ShuffleList<T>(List<T> list)
+    {
+        for (int i = list.Count - 1; i > 0; i--)
+        {
+            int randomIndex = Random.Range(0, i + 1);
+            T temp = list[i];
+            list[i] = list[randomIndex];
+            list[randomIndex] = temp;
+        }
     }
 
     public void OnCharacterExecuted(CharacterAI victim)
@@ -140,83 +232,36 @@ public class AIManager : MonoBehaviour
         if (participants.Contains(victim))
         {
             participants.Remove(victim);
+            deadParticipants.Add(victim);
             Debug.Log($"[AIManager] {victim.name}가 처형되어 참가자 명단에서 제외되었습니다.");
         }
 
-        // 실제 오브젝트 비활성화
         victim.gameObject.SetActive(false);
 
-        // 승리 체크
         CheckWinCondition();
     }
 
     public void AssignRandomRoles()
     {
-        if (activeRoles.Count != characterObjects.Count)
-        {
-            Debug.LogError("직업 개수와 캐릭터 오브젝트 개수가 일치하지 않습니다!");
-            return;
-        }
-
-        // 1. 기존에 붙어있던 AI 컴포넌트 제거 및 리스트 초기화
-        foreach (var obj in characterObjects)
-        {
-            var oldAI = obj.GetComponent<CharacterAI>();
-            if (oldAI != null) Destroy(oldAI);
-            obj.SetActive(true); // 죽었던 캐릭터도 다시 활성화
-        }
+        roleAssigner.AssignRoles(characterObjects, activeRoles);
+        
+        // 참가자 리스트 재구축
         participants.Clear();
-
-        // 1. 활성화된 직업 리스트 복사
-        List<Role.Roles> shuffledRoles = new List<Role.Roles>(activeRoles);
-
-        // 2. 리스트 섞기
-        for (int i = shuffledRoles.Count - 1; i > 0; i--)
+        deadParticipants.Clear();
+        foreach (GameObject obj in characterObjects)
         {
-            int randomIndex = Random.Range(0, i + 1);
-            Role.Roles temp = shuffledRoles[i];
-            shuffledRoles[i] = shuffledRoles[randomIndex];
-            shuffledRoles[randomIndex] = temp;
-        }
-
-        // 3. 각 오브젝트에 랜덤 직업 컴포넌트 추가
-        for (int i = 0; i < characterObjects.Count; i++)
-        {
-            Role.Roles assignedRole = shuffledRoles[i];
-            CharacterAI newAI = AddRoleComponent(characterObjects[i], assignedRole);
-
-            if (newAI != null)
+            CharacterAI ai = obj.GetComponent<CharacterAI>();
+            if (ai != null)
             {
-                // CharacterAI에 구현된 Initialize를 통해 데이터 주입
-                newAI.Initialize(assignedRole, dialogueLibrary);
-                participants.Add(newAI);
+                participants.Add(ai);
             }
         }
 
         Debug.Log("<color=green>모든 캐릭터에게 새로운 직업이 부여되었습니다.</color>");
     }
 
-    private CharacterAI AddRoleComponent(GameObject target, Role.Roles role)
-    {
-        switch (role)
-        {
-            case Role.Roles.마녀: return target.AddComponent<WitchAI>();
-            case Role.Roles.신자: return target.AddComponent<BelieverAI>();
-            case Role.Roles.좀도둑: return target.AddComponent<ThiefAI>();
-            case Role.Roles.불면증: return target.AddComponent<InsomniacAI>();
-            case Role.Roles.겁쟁이: return target.AddComponent<CowardAI>();
-            case Role.Roles.벙어리: return target.AddComponent<MuteAI>();
-            default: return null;
-        }
-    }
-
     public void RunNight()
     {
-        foreach (var ai in participants)
-        {
-            if (ai != null) ai.ClearNightDialogues();
-        }
-
         bool isEvenNight = nightIndex % 2 == 0;
         bool believerInvestigating = participants.Exists(ai => ai is BelieverAI);
         bool insomniacWalking = isEvenNight && participants.Exists(ai => ai is InsomniacAI);
@@ -224,27 +269,20 @@ public class AIManager : MonoBehaviour
 
         BuildContext();
 
-        foreach (var ai in participants)
+        foreach (CharacterAI ai in participants)
         {
             if (ai == null) continue;
 
-            // 1. 신자는 무조건 조사를 위해 집을 비움
             if (ai is BelieverAI)
                 currentContext.OutOfHouse.Add(ai);
 
-            // 2. 불면증 환자는 짝수날 밤에 산책을 나감
             if (ai is InsomniacAI && (nightIndex % 2 == 0))
                 currentContext.OutOfHouse.Add(ai);
         }
 
-        foreach (var ai in participants)
+        foreach (CharacterAI ai in participants)
         {
             if (ai != null) ai.DoNightAction(currentContext);
-        }
-
-        foreach (var ai in participants)
-        {
-            if (ai != null) ai.RecordDialogue(currentContext);
         }
     }
 
@@ -255,8 +293,20 @@ public class AIManager : MonoBehaviour
             BuildContext();
         }
 
-        // 공격당한 캐릭터 처리
-        foreach (var victim in currentContext.Attacked)
+        // 1. 모든 참가자들의 행동 해결 (사망자 포함, 밤 동안의 행동 결과를 확정)
+        // 신자들의 행동 먼저 해결 (다른 역할들이 참고할 수 있는 상태를 설정함, 예: PrayerReceived)
+        foreach (CharacterAI ai in participants)
+        {
+            if (ai != null && ai is BelieverAI) ai.ResolveMorning(currentContext);
+        }
+
+        foreach (CharacterAI ai in participants)
+        {
+            if (ai != null && !(ai is BelieverAI)) ai.ResolveMorning(currentContext);
+        }
+
+        // 2. 밤 사이 공격받은 희생자 처리
+        foreach (CharacterAI victim in currentContext.Attacked)
         {
             if (victim != null)
             {
@@ -264,13 +314,8 @@ public class AIManager : MonoBehaviour
                 victim.gameObject.SetActive(false);
 
                 participants.Remove(victim);
+                deadParticipants.Add(victim);
             }
-        }
-
-        // 생존자 정산
-        foreach (var ai in participants)
-        {
-            if (ai != null) ai.ResolveMorning(currentContext);
         }
 
         nightIndex += 1;
@@ -285,6 +330,7 @@ public class AIManager : MonoBehaviour
         };
 
         currentContext.Participants.AddRange(participants);
+        currentContext.DeadParticipants.AddRange(deadParticipants);
         currentContext.ActiveRoles.AddRange(activeRoles);
     }
 }

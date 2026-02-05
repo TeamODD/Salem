@@ -4,7 +4,7 @@ title: Start
 tags:
 ---
 // 초기화 노드
-<<declare $targetName = "대상">>
+<<declare $targetName = "">>
 ===
 
 // ==========================================
