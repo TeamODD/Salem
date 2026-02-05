@@ -89,4 +89,15 @@ public class Timer : MonoBehaviour
         TimerSlider.value = 0;
         StopShake();
     }
+
+    public void FinishImmediately()
+    {
+        if (_stopTimer) return;
+        
+        _currentTime = 0;
+        _stopTimer = true;
+        TimerSlider.value = GameTime;
+        StopShake();
+        OnTimeUp?.Invoke();
+    }
 }

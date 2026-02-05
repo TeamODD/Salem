@@ -18,6 +18,8 @@ public abstract class CharacterAI : MonoBehaviour
     public Role.Roles MyRole => role;
     public AIAction LastAction => lastAction;
     public IReadOnlyList<string> NightDialogues => nightDialogues;
+    public string DisplayName => string.IsNullOrEmpty(displayName) ? gameObject.name : displayName;
+    public virtual CharacterAI CurrentLieTarget => null;
 
     public abstract void DoNightAction(AIContext context);
     public abstract void RecordDialogue(AIContext context);
@@ -53,10 +55,10 @@ public abstract class CharacterAI : MonoBehaviour
             {
                 // 대상 캐릭터에게도 displayName이 있을 수 있으므로 체크
                 var targetAI = lastAction.Target.GetComponent<CharacterAI>();
-                string targetName = (targetAI != null && !string.IsNullOrEmpty(targetAI.displayName)) 
-                    ? targetAI.displayName 
+                string targetName = (targetAI != null && !string.IsNullOrEmpty(targetAI.displayName))
+                    ? targetAI.displayName
                     : lastAction.Target.name;
-                
+
                 line = line.Replace("{Target}", targetName);
             }
             else
@@ -80,16 +82,19 @@ public abstract class CharacterAI : MonoBehaviour
         nightDialogues.Clear();
     }
 
+    public void SetDisplayName(string newName)
+    {
+        displayName = newName;
+    }
+
     public void SetRole(Role.Roles newRole)
     {
         role = newRole;
-        Debug.Log($"{gameObject.name}의 역할이 {newRole}(으)로 설정되었습니다.");
     }
 
     public void Initialize(Role.Roles assignedRole, DialogueLibrary library)
     {
         role = assignedRole;
         dialogueLibrary = library;
-        Debug.Log($"{gameObject.name}가 {assignedRole}로 초기화되었습니다.");
     }
 }

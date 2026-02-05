@@ -5,6 +5,7 @@ public class AIContext
 {
     public int NightIndex;
     public List<CharacterAI> Participants = new List<CharacterAI>();
+    public List<CharacterAI> DeadParticipants = new List<CharacterAI>(); // 사망자 기록 (순서 포함)
     public List<Role.Roles> ActiveRoles = new List<Role.Roles>();
 
     public Dictionary<CharacterAI, AIAction> Actions = new Dictionary<CharacterAI, AIAction>();

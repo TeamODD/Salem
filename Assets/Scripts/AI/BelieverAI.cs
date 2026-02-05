@@ -18,11 +18,13 @@ public class BelieverAI : CharacterAI
 
         if (candidates.Count == 0)
         {
+            Debug.Log($"[Believer] {DisplayName} -> 조사 대상 없음 (집에 머무름)");
             SetAction(context, "believer_stay_home", target: null);
             return;
         }
 
         var target = candidates[Random.Range(0, candidates.Count)];
+        Debug.Log($"[Believer] {DisplayName} -> 조사 대상: {target.DisplayName}");
         investigated.Add(target);
         SetAction(context, "believer_investigate", context.GetCharacter(target));
     }
