@@ -89,6 +89,8 @@ public class CharacterInteraction : MonoBehaviour, IPointerEnterHandler, IPointe
         }
     }
 
+    private bool _hasShownExecutionDialogue = false;
+
     public void OnPointerClick(PointerEventData eventData)
     {
         // 0. 처형 모드 확인
@@ -97,6 +99,24 @@ public class CharacterInteraction : MonoBehaviour, IPointerEnterHandler, IPointe
             CharacterAI ai = GetComponent<CharacterAI>();
             if (ai != null)
             {
+                // 겁쟁이일 경우 처형 전 대사 출력 (한 번만)
+                if (ai.MyRole == Role.Roles.겁쟁이 && !_hasShownExecutionDialogue)
+                {
+                    string executionNode = characterData.dialogueNodeName + "_Coward_Execution";
+                    if (_dialogueRunner != null && _dialogueRunner.Dialogue.NodeExists(executionNode))
+                    {
+                        _hasShownExecutionDialogue = true;
+                        ExecutionManager.Instance.SetPendingTarget(ai); // 처형 대상 예약
+                        
+                        _isFocusLocked = true;
+                        _characterVisual.SetFocus(true);
+                        _dialogueRunner.StartDialogue(executionNode);
+                        
+                        ExecutionManager.Instance.ToggleAiming(false); // 대화 중 조준 해제
+                        return; // 대화 시작하고 종료 (처형 유예)
+                    }
+                }
+
                 ExecutionManager.Instance.ExecuteTarget(ai);
                 return; // 대화 시작하지 않고 종료
             }
@@ -158,6 +178,12 @@ public class CharacterInteraction : MonoBehaviour, IPointerEnterHandler, IPointe
         // 사칭하는 역할이 있다면 그것을 사용, 아니면 본인 역할 사용
         Role.Roles activeRole = ai.LastAction.PretendRole.HasValue ? ai.LastAction.PretendRole.Value : ai.MyRole;
 
+        // 0. 공통 액션 처리: 벙어리 대사는 어떤 역할이든 'mute_silent' 액션이면 출력
+        if (actionId == "mute_silent")
+        {
+            return baseNode + "_Mute_Silent";
+        }
+
         switch (activeRole)
         {
             case Role.Roles.신자:
@@ -204,10 +230,15 @@ public class CharacterInteraction : MonoBehaviour, IPointerEnterHandler, IPointe
                 bool received = false;
                 if (ai is CitizenAI citizen) received = citizen.HasReceivedPrayer;
 
-                // 마녀가 시민인 척 할 때
+                // 좀도둑이 실패해서 시민 연기 중일 때
+                if (ai is ThiefAI thief && thief.LastAction != null && !thief.LastAction.Success)
+                {
+                    received = thief.HasReceivedPrayer;
+                }
+
+                // 마녀가 시민인 척 할 때 (항상 안 받은 척)
                 if (ai is WitchAI)
                 {
-                    // 마녀는 기도를 안 받았다고 가정 (혹은 랜덤)
                     received = false;
                 }
 
@@ -217,9 +248,12 @@ public class CharacterInteraction : MonoBehaviour, IPointerEnterHandler, IPointe
         }
 
         // 집에 있었으면서(접미사가 없거나 집에 있었음, 또는 이미 기도를 받은 경우), 기도를 받은 경우 체크 (우선순위 높음)
+        // 단, 마녀거나 성공한 좀도둑(페르소나 연기 중)이면 기도를 받았어도 무시하고 본인의 거짓말(집에 있었다 등)을 유지해야 함
+        bool ignorePrayerOverride = (ai is WitchAI) || (ai is ThiefAI t && t.LastAction != null && t.LastAction.Success);
+
         bool wasHome = string.IsNullOrEmpty(suffix) || suffix == "_Insomniac_Home" || suffix == "_Received_Prayer";
 
-        if (wasHome && AIManager.Instance != null && AIManager.Instance.CurrentContext != null)
+        if (!ignorePrayerOverride && wasHome && AIManager.Instance != null && AIManager.Instance.CurrentContext != null)
         {
             AIContext context = AIManager.Instance.CurrentContext;
             if (context.PrayerReceived.Contains(ai))
@@ -234,7 +268,7 @@ public class CharacterInteraction : MonoBehaviour, IPointerEnterHandler, IPointe
                     AIAction action = kvp.Value;
 
                     if (action.Target == null) continue;
-                    
+
                     // 타겟의 GameObject 비교
                     if (action.Target.gameObject == myObj)
                     {
@@ -261,6 +295,8 @@ public class CharacterInteraction : MonoBehaviour, IPointerEnterHandler, IPointe
     private void OnDialogueEnded()
     {
         _isFocusLocked = false;
+        _hasShownExecutionDialogue = false; // 대화가 끝나면 처형 유예 플래그 초기화
+        
         if (!_isMouseOver)
         {
             _characterVisual.SetFocus(false);

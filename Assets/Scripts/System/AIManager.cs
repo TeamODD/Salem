@@ -278,6 +278,9 @@ public class AIManager : MonoBehaviour
 
             if (ai is InsomniacAI && (nightIndex % 2 == 0))
                 currentContext.OutOfHouse.Add(ai);
+
+            if (ai is ThiefAI && hasEmptyHouseForThief)
+                currentContext.OutOfHouse.Add(ai);
         }
 
         foreach (CharacterAI ai in participants)
