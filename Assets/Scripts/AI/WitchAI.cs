@@ -10,8 +10,8 @@ public class WitchAI : CharacterAI
 
     public override CharacterAI CurrentLieTarget => currentLieTarget;
 
-    // 마녀는 30% 확률로 기도를 거부함
-    public override bool WillRefusePrayer => Random.value < 0.3f;
+    // 마녀는 무조건 기도를 거부함
+    public override bool WillRefusePrayer => true;
 
     public override void OnVisitorRefused(CharacterAI visitor)
     {
@@ -21,28 +21,20 @@ public class WitchAI : CharacterAI
 
     public override void DoNightAction(AIContext context)
     {
-        // 1. 게임 시작 시(또는 첫 밤) 컨셉 정하기
-        if (myPersona == null)
-        {
-            DecidePersona(context);
-        }
-
         currentLieTarget = null;
+        string finalActionId = "witch_attack";
 
-        // 2. 이번 밤에 연기할 역할 결정 (기본적으로 페르소나를 따르나, 상황에 따라 강제됨)
-        Role.Roles? pretend = DeterminePretendRole(context);
+        // 1. 이번 밤에 죽일 대상 정하기
+        CharacterAI attackTarget = ChooseAttackTarget(context, myPersona);
 
-        // 3. 행동 대상 정하기
-        CharacterAI attackTarget = ChooseAttackTarget(context, pretend);
-
-        // 3-2 예외 처리: 만약 이번 공격으로 첫 번째 사망자가 신자가 된다면, 즉시 신자 흉내로 전환
-        if (context.DeadParticipants.Count == 0 && attackTarget != null && attackTarget.MyRole == Role.Roles.신자)
+        // 2. 페르소나 결정 (첫날 밤 공격 대상을 정한 직후 수행)
+        if (myPersona == null && context.NightIndex == 1)
         {
-            pretend = Role.Roles.신자;
-            // 페르소나도 업데이트하여 이후 게임에서도 계속 신자 흉내를 내도록 함
-            myPersona = Role.Roles.신자;
-            Debug.Log($"[Witch] {DisplayName} -> 첫 희생자가 신자({attackTarget.DisplayName})이므로 사칭 직업을 신자로 변경합니다.");
+            DecidePersona(context, attackTarget);
         }
+
+        // 3. 이번 밤에 연기할 역할 결정
+        Role.Roles? pretend = DeterminePretendRole(context);
 
         string targetName = attackTarget != null ? attackTarget.DisplayName : "없음";
         string pretendName = pretend.HasValue ? pretend.Value.ToString() : "없음";
@@ -51,14 +43,29 @@ public class WitchAI : CharacterAI
         if (pretend == Role.Roles.신자)
         {
             context.WitchPretendedBelievers.Add(this);
-            DetermineLieTargetForBeliever(context, attackTarget);
+            finalActionId = DetermineLieTargetForBeliever(context, attackTarget);
         }
-        else
+        else if (pretend == Role.Roles.불면증)
         {
-            DetermineLieTargetSimple(context, attackTarget);
+            // 불면증 사칭: 홀수 날 집에 머물고 짝수 날 외출
+            finalActionId = context.IsEvenNight() ? "insomniac_walk" : "insomniac_home";
+        }
+        else if (pretend == Role.Roles.벙어리 || pretend == Role.Roles.겁쟁이)
+        {
+            finalActionId = "mute_silent";
+        }
+        else if (pretend == Role.Roles.시민)
+        {
+            finalActionId = "citizen_home";
+        }
+        else if (pretend == Role.Roles.좀도둑)
+        {
+            // 좀도둑 사칭: 빈집이 있을 때만 외출한 척
+            finalActionId = context.HasEmptyHouseForThief ? "thief_lie" : "citizen_home";
         }
 
-        SetAction(context, "witch_attack", context.GetCharacter(attackTarget), pretendRole: pretend);
+        // 실제 공격 대상은 attackTarget이지만, ActionId는 거짓말에 맞춰서 설정
+        SetAction(context, finalActionId, context.GetCharacter(attackTarget), pretendRole: pretend);
 
         if (attackTarget != null)
         {
@@ -71,13 +78,16 @@ public class WitchAI : CharacterAI
         // 마녀는 시스템에서 처리하므로 추가 로직 불필요
     }
 
-    private void DecidePersona(AIContext context)
+    private void DecidePersona(AIContext context, CharacterAI firstVictim)
     {
-        // 3-3. 신자가 살아있다면 50% 확률로 신자 컨셉, 50% 확률로 다른 직업 컨셉
-        bool believerAlive = context.Participants.Any(p => p.MyRole == Role.Roles.신자);
-
-        if (believerAlive)
+        // 첫날 밤 살해한 캐릭터가 신자일 경우 -> 페르소나 신자로 설정
+        if (firstVictim != null && firstVictim.MyRole == Role.Roles.신자)
         {
+            myPersona = Role.Roles.신자;
+        }
+        else
+        {
+            // 첫날 밤 살해한 캐릭터가 신자 이외일 경우 -> 50% 신자, 50% 다른 특성
             if (Random.value < 0.5f)
             {
                 myPersona = Role.Roles.신자;
@@ -86,11 +96,6 @@ public class WitchAI : CharacterAI
             {
                 myPersona = PickRandomTrait(context);
             }
-        }
-        else
-        {
-            // 신자가 없다면 그냥 다른 직업 중 하나 선택
-            myPersona = PickRandomTrait(context);
         }
 
         Debug.Log($"[Witch] {DisplayName} -> 이번 게임 페르소나 확정: {myPersona}");
@@ -125,6 +130,9 @@ public class WitchAI : CharacterAI
         {
             if (ai == null || ai == this) continue;
 
+            // 3-1. 겁쟁이는 살해하지 않음
+            if (ai.MyRole == Role.Roles.겁쟁이) continue;
+
             // 3-1. 첫 날은 완전 랜덤 (필터링 무시)
             if (context.NightIndex > 1)
             {
@@ -143,48 +151,58 @@ public class WitchAI : CharacterAI
         return candidates[Random.Range(0, candidates.Count)];
     }
 
-    private void DetermineLieTargetForBeliever(AIContext context, CharacterAI actualAttackTarget)
+    private string DetermineLieTargetForBeliever(AIContext context, CharacterAI actualAttackTarget)
     {
+        // 20% 확률로 무작위 거짓말 (성공했다고 주장)
         if (Random.value < 0.2f)
         {
             DetermineLieTargetSimple(context, null);
-            return;
+            return "believer_investigate"; 
         }
 
-        List<CharacterAI> priorities = new List<CharacterAI>();
+        // 80% 확률로 논리적 거짓말
+        // 우선순위 대상: 벙어리, 산책간 불면증, 도둑질나간 좀도둑, 겁쟁이
+        List<(CharacterAI target, string actionId)> candidates = new List<(CharacterAI, string)>();
 
         foreach (CharacterAI p in context.Participants)
         {
             if (p == this) continue;
 
-            bool matches = false;
-
-            if (p.MyRole == Role.Roles.벙어리) matches = true;
-            else if (p.MyRole == Role.Roles.겁쟁이) matches = true;
-            else if (p.MyRole == Role.Roles.불면증)
+            if (p.MyRole == Role.Roles.벙어리)
             {
-                if (context.IsEvenNight()) matches = true;
+                candidates.Add((p, "believer_investigate"));
             }
-            else if (p.MyRole == Role.Roles.좀도둑)
+            else if (p.MyRole == Role.Roles.불면증 && context.IsEvenNight())
             {
-                if (context.HasEmptyHouseForThief) matches = true;
+                candidates.Add((p, "believer_absent"));
             }
-
-            if (matches) priorities.Add(p);
+            else if (p.MyRole == Role.Roles.좀도둑 && context.HasEmptyHouseForThief)
+            {
+                candidates.Add((p, "believer_absent"));
+            }
+            else if (p.MyRole == Role.Roles.겁쟁이)
+            {
+                candidates.Add((p, "believer_refused"));
+            }
         }
 
-        if (priorities.Count > 0)
+        if (candidates.Count > 0)
         {
-            currentLieTarget = priorities[Random.Range(0, priorities.Count)];
+            var choice = candidates[Random.Range(0, candidates.Count)];
+            currentLieTarget = choice.target;
+            return choice.actionId;
         }
-        else
+
+        // 위 조건에 맞는 대상이 없으면 오늘 죽인 사람을 대상으로 함 (시체 발견)
+        currentLieTarget = actualAttackTarget;
+        
+        if (currentLieTarget == null)
         {
-            currentLieTarget = actualAttackTarget;
-            if (currentLieTarget == null)
-            {
-                DetermineLieTargetSimple(context, null);
-            }
+            DetermineLieTargetSimple(context, null);
+            return "believer_investigate";
         }
+
+        return "believer_body_found";
     }
 
     private void DetermineLieTargetSimple(AIContext context, CharacterAI defaultTarget)

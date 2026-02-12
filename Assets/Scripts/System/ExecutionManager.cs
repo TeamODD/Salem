@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using TMPro;
+using Yarn.Unity;
 
 public class ExecutionManager : MonoBehaviour
 {
@@ -17,6 +18,9 @@ public class ExecutionManager : MonoBehaviour
     [Header("State")]
     [SerializeField] private int currentBullets;
     [SerializeField] private bool isAiming = false;
+
+    private CharacterAI _pendingTarget;
+
 
     public bool IsAiming => isAiming;
     public int CurrentBullets => currentBullets;
@@ -37,6 +41,13 @@ public class ExecutionManager : MonoBehaviour
     private void Start()
     {
         UpdateBulletUI();
+
+        // 코드에서 직접 명령어를 등록하여 오브젝트 이름 문제를 해결합니다.
+        var dialogueRunner = FindFirstObjectByType<DialogueRunner>();
+        if (dialogueRunner != null)
+        {
+            dialogueRunner.AddCommandHandler("execute_pending", () => ExecutePendingTarget());
+        }
     }
 
     private void Update()
@@ -79,16 +90,17 @@ public class ExecutionManager : MonoBehaviour
         }
     }
 
-    public void ExecuteTarget(CharacterAI target)
+    public void ExecuteTarget(CharacterAI target, bool forceExecute = false)
     {
-        if (!isAiming || currentBullets <= 0) return;
+        if ((!isAiming && !forceExecute) || currentBullets <= 0) return;
 #if UNITY_EDITOR
         Debug.Log($"<color=red>탕! {target.name}을(를) 처형했습니다.</color>");
 #endif
         // 1. 탄환 소모
         currentBullets--;
         UpdateBulletUI(); // UI 업데이트
-        ToggleAiming(false); // 발사 후 장전 해제
+        
+        if (isAiming) ToggleAiming(false); // 발사 후 장전 해제 (이미 해제된 상태면 무시)
 
         // 2. 처형 효과 (피 튀김 등) - 추후 구현 or EffectManager 호출
         // EffectManager.Instance.ShowBloodEffect(target.transform.position);
@@ -102,6 +114,18 @@ public class ExecutionManager : MonoBehaviour
         else
         {
             target.gameObject.SetActive(false);
+        }
+    }
+
+    public void SetPendingTarget(CharacterAI target) => _pendingTarget = target;
+
+    public void ExecutePendingTarget()
+    {
+        if (_pendingTarget != null)
+        {
+            // forceExecute를 true로 보내서 조준 상태가 아니어도 발사되게 함
+            ExecuteTarget(_pendingTarget, true);
+            _pendingTarget = null;
         }
     }
 

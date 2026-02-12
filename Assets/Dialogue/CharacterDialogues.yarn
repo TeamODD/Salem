@@ -53,16 +53,26 @@ tags:
 혼자 방구석에 있었네.. 이 노인에게.. 뭔 볼일이 있겠나..
 ===
 
-title: Character_1_Coward_Plea
+title: Character_1_Coward_Execution
 tags: 
 ---
 자, 잠깐..!! 나 같은.. 늙은이를.. 쏴서 뭐 하나.. 살려주게..!!!
+-> (방아쇠를 당긴다)
+    <<execute_pending>>
+-> (총을 거둔다)
+    ...
 ===
 
 title: Character_1_Received_Prayer
 tags: 
 ---
 어제는 글쎄.. {$targetName}번이 기도를 해주러 오더군.. 내.. 죽을 날이 가까워져서 그런가..
+===
+
+title: Character_1_Coward_Plea
+tags:
+---
+...
 ===
 
 title: Character_1_Mute_Silent
@@ -118,10 +128,20 @@ tags:
 장부에 숫자 좀 맞추느라 밤을 꼬박 새웠죠. 방구석에서 동전 세는 소리밖에 안 났을 겁니다.
 ===
 
-title: Character_2_Coward_Plea
+title: Character_2_Coward_Execution
 tags: 
 ---
 잠깐, 잠깐만요! 협상합시다! 돈이라면 얼마든지 드리겠습니다! 제발 살려만 주세요!
+-> (방아쇠를 당긴다) 
+    <<execute_pending>>
+-> (총을 거둔다)
+    ...
+===
+
+title: Character_2_Coward_Plea
+tags: 
+---
+... (손짓으로 가라고 한다)
 ===
 
 title: Character_2_Received_Prayer
@@ -183,10 +203,20 @@ tags:
 계속... 제 방에 있었어요. 정말이에요... 밖에서 무슨 소리가 들려도... 이불만 쓰고 있었다고요.
 ===
 
-title: Character_3_Coward_Plea
+title: Character_3_Coward_Execution
 tags: 
 ---
 히, 히익! 죄송해요! 잘못했어요! 제발 쏘지 마세요! 시키는 건 다 할게요!
+-> (방아쇠를 당긴다) 
+    <<execute_pending>>
+-> (총을 거둔다)
+    ...
+===
+
+title: Character_3_Coward_Plea
+tags: 
+---
+... (고개를 푹 숙인다)
 ===
 
 title: Character_3_Received_Prayer
@@ -248,10 +278,20 @@ tags:
 방구석에서 담배나 태우며 앉아 있었어. 가장이 고민이 많으면 잠이 안 오는 법이야, 네가 뭘 알아!
 ===
 
-title: Character_4_Coward_Plea
+title: Character_4_Coward_Execution
 tags: 
 ---
 이, 이 미친놈이 뭐 하는 거야?! 당장 그거 치워! 미안, 내가 잘못했네!
+-> (방아쇠를 당긴다) 
+    <<execute_pending>>
+-> (총을 거둔다)
+    ...
+===
+
+title: Character_4_Coward_Plea
+tags: 
+---
+... (째려본다)
 ===
 
 title: Character_4_Received_Prayer
@@ -313,10 +353,20 @@ tags:
 여관 장부나 작성하면서 집에 있었어. 이 고생을 누가 알아주겠어? 다 내 팔자지.
 ===
 
-title: Character_5_Coward_Plea
+title: Character_5_Coward_Execution
 tags: 
 ---
 아이고! 사람 죽네! 아직 못 해본 일들이 많은데! 살려줘요, 제발!
+-> (방아쇠를 당긴다) 
+    <<execute_pending>>
+-> (총을 거둔다)
+    ...
+===
+
+title: Character_5_Coward_Plea
+tags: 
+---
+... (입을 굳게 다문다)
 ===
 
 title: Character_5_Received_Prayer
