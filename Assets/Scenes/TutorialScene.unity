@@ -1326,7 +1326,7 @@ MonoBehaviour:
   IntroData:
     ShowIntro: 1
     RoundTitle: "\uD29C\uD1A0\uB9AC\uC5BC 1"
-    SituationDescription: "\uC5ED\uD560: \uC880\uB3C4\uB451"
+    SituationDescription: "\uC880\uB3C4\uB451"
   RoleDatabase: {fileID: 11400000, guid: f4a82abd194fd514a8590a226ded1788, type: 2}
   StageRoleNames:
   - "\uB9C8\uB140"
@@ -1741,6 +1741,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5094055950588059506, guid: e4ef09fad65d78f40a22c5d7922dde0c, type: 3}
+      propertyPath: optionViewPrefab
+      value: 
+      objectReference: {fileID: 2576261519635394347, guid: ce3170cba5fc49b4b9afad7df74d4e80, type: 3}
     - target: {fileID: 5094055950588059508, guid: e4ef09fad65d78f40a22c5d7922dde0c, type: 3}
       propertyPath: m_SizeDelta.y
       value: 0
@@ -2458,6 +2462,7 @@ GameObject:
   - component: {fileID: 926797741}
   - component: {fileID: 926797740}
   - component: {fileID: 926797742}
+  - component: {fileID: 926797743}
   m_Layer: 0
   m_Name: TutorialManager
   m_TagString: Untagged
@@ -2502,10 +2507,10 @@ MonoBehaviour:
   RolePrevButton: {fileID: 1775537921}
   RoleNextButton: {fileID: 0}
   ScenarioCharacters:
-  - {fileID: 595283746}
-  - {fileID: 1456692280}
-  - {fileID: 1279020042}
   - {fileID: 599448276}
+  - {fileID: 1456692280}
+  - {fileID: 595283746}
+  - {fileID: 1279020042}
   - {fileID: 1619104782}
   DialogueRunner: {fileID: 583128978}
   SkipButton: {fileID: 110093773}
@@ -2550,6 +2555,19 @@ MonoBehaviour:
   HighlightHole: {fileID: 507552705}
   OverlayGroup: {fileID: 930908962}
   Duration: 0.4
+--- !u!114 &926797743
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 926797739}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 323bd8af5cc1ada41bd4aed37d4a283f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LoadSceneManager
+  _sceneName: 0
 --- !u!1 &930908957
 GameObject:
   m_ObjectHideFlags: 0
@@ -3635,14 +3653,14 @@ MonoBehaviour:
   IntroData:
     ShowIntro: 1
     RoundTitle: "\uD29C\uD1A0\uB9AC\uC5BC 2"
-    SituationDescription: "\uD29C\uD1A0\uB9AC\uC5BC 2"
+    SituationDescription: "\uBD88\uBA74\uC99D"
   RoleDatabase: {fileID: 11400000, guid: f4a82abd194fd514a8590a226ded1788, type: 2}
   StageRoleNames:
-  - "\uAC81\uC7C1\uC774"
+  - "\uBD88\uBA74\uC99D"
   Steps:
   - StepName: Dialogue_01
     Type: 0
-    Message: "\uD29C\uD1A0\uB9AC\uC5BC 2 \uC2DC\uC791"
+    Message: "\uC5B4\uC82F\uBC24 5\uBC88\uC774 \uB9C8\uB140\uC5D0\uAC8C \uC0B4\uD574\uB2F9\uD588\uC2B5\uB2C8\uB2E4."
     TargetObject: {fileID: 0}
     UseHighlight: 0
     DialoguePosition: {x: 0, y: 0}
@@ -3673,7 +3691,24 @@ MonoBehaviour:
     UIPadding: 0
   - StepName: "\uC815\uB2F5\uB2E8\uACC4"
     Type: 4
-    Message: "\u314B\u314C\u314A"
+    Message: "\uC774 \uC99D\uC5B8\uB4E4\uB85C\uB294 \uB9C8\uB140\uB97C \uD30C\uC545\uD560
+      \uC218 \uC5C6\uACA0\uC5B4\uC694. \uB118\uAE30\uAE30 \uBC84\uD2BC\uC73C\uB85C
+      \uD558\uB8E8\uB97C \uB118\uACA8\uBCF4\uC138\uC694."
+    TargetObject: {fileID: 110093771}
+    UseHighlight: 1
+    DialoguePosition: {x: 0, y: 0}
+    UseCustomPos: 0
+    OnStepStart:
+      m_PersistentCalls:
+        m_Calls: []
+    OnStepComplete:
+      m_PersistentCalls:
+        m_Calls: []
+    WorldCircleSize: 500
+    UIPadding: 1.2
+  - StepName: Dialogue_02
+    Type: 0
+    Message: "\uB9C8\uB140\uC5D0 \uC758\uD574 \uD76C\uC0DD\uC790\uAC00 \uB098\uC654\uC2B5\uB2C8\uB2E4."
     TargetObject: {fileID: 0}
     UseHighlight: 0
     DialoguePosition: {x: 0, y: 0}
@@ -3684,8 +3719,54 @@ MonoBehaviour:
     OnStepComplete:
       m_PersistentCalls:
         m_Calls: []
-    WorldCircleSize: 0
-    UIPadding: 0
+    WorldCircleSize: 500
+    UIPadding: 1.2
+  - StepName: "\uC99D\uC5B8\uB2E8\uACC4"
+    Type: 3
+    Message: "\uCE90\uB9AD\uD130\uB97C \uD074\uB9AD\uD558\uC5EC \uC99D\uC5B8\uC744
+      \uB4E4\uC73C\uC138\uC694."
+    TargetObject: {fileID: 0}
+    UseHighlight: 0
+    DialoguePosition: {x: 0, y: 0}
+    UseCustomPos: 0
+    OnStepStart:
+      m_PersistentCalls:
+        m_Calls: []
+    OnStepComplete:
+      m_PersistentCalls:
+        m_Calls: []
+    WorldCircleSize: 500
+    UIPadding: 1.2
+  - StepName: "\uC815\uB2F5\uB2E8\uACC4"
+    Type: 4
+    Message: "\uC758\uC2EC\uB418\uB294 \uC778\uBB3C\uC744 \uCC98\uD615\uD558\uC138\uC694."
+    TargetObject: {fileID: 0}
+    UseHighlight: 0
+    DialoguePosition: {x: 0, y: 0}
+    UseCustomPos: 0
+    OnStepStart:
+      m_PersistentCalls:
+        m_Calls: []
+    OnStepComplete:
+      m_PersistentCalls:
+        m_Calls: []
+    WorldCircleSize: 500
+    UIPadding: 1.2
+  - StepName: Dialogue_03
+    Type: 0
+    Message: "\uB9C8\uB140\uB97C \uCC98\uD615\uD588\uC2B5\uB2C8\uB2E4."
+    TargetObject: {fileID: 0}
+    UseHighlight: 0
+    DialoguePosition: {x: 0, y: 0}
+    UseCustomPos: 0
+    OnStepStart:
+      m_PersistentCalls:
+        m_Calls: []
+    OnStepComplete:
+      m_PersistentCalls:
+        m_Calls: []
+    WorldCircleSize: 500
+    UIPadding: 1.2
   ScenarioData: {fileID: 11400000, guid: a81c341c04647df429b7bd11a51290a2, type: 2}
   StartRoundIndex: 0
   EndRoundIndex: 1
@@ -3694,7 +3775,19 @@ MonoBehaviour:
       m_Calls: []
   OnStageEnd:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 926797740}
+        m_TargetAssemblyTypeName: TutorialManager, Assembly-CSharp
+        m_MethodName: PlayStage
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 3
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!4 &1382589945
 Transform:
   m_ObjectHideFlags: 0
@@ -4390,7 +4483,7 @@ MonoBehaviour:
     Type: 0
     Message: "\uB9C8\uC744\uC5D0 \uC624\uC2E0 \uAC83\uC744 \uD658\uC601\uD569\uB2C8\uB2E4.
       \uC774\uACF3\uC740 \uAC89\uBCF4\uAE30\uC5D0 \uD3C9\uD654\uB85C\uC6CC \uBCF4\uC774\uC9C0\uB9CC,
-      \uAC70\uB300\uD55C \uBE44\uBC00\uC774 \uC228\uACA8\uC838 \uC788\uC2B5\uB2C8\uB2E4.\""
+      \uAC70\uB300\uD55C \uBE44\uBC00\uC774 \uC228\uACA8\uC838 \uC788\uC2B5\uB2C8\uB2E4."
     TargetObject: {fileID: 0}
     UseHighlight: 0
     DialoguePosition: {x: 0, y: 0}
@@ -4457,7 +4550,7 @@ MonoBehaviour:
   - StepName: Dialogue_05
     Type: 0
     Message: "\uC544\uC774\uCF58\uC744 \uD074\uB9AD\uD574 \uC778\uBB3C\uC758 \uC758\uC2EC
-      \uC5ED\uD560\uC744 \uBA54\uBAA8\uD560 \uC218 \uC788\uC2B5\uB2C8\uB2E4."
+      \uD2B9\uC744 \uBA54\uBAA8\uD560 \uC218 \uC788\uC2B5\uB2C8\uB2E4."
     TargetObject: {fileID: 1488721079}
     UseHighlight: 1
     DialoguePosition: {x: 0, y: 0}
@@ -4686,6 +4779,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Character
       objectReference: {fileID: 0}
+    - target: {fileID: 1920838761031303092, guid: ab963817896fd3d4f85fe370ecf7dd95, type: 3}
+      propertyPath: m_Name
+      value: Seat_03
+      objectReference: {fileID: 0}
     - target: {fileID: 2001431227058539784, guid: ab963817896fd3d4f85fe370ecf7dd95, type: 3}
       propertyPath: m_LocalPosition.x
       value: -2.5912828
@@ -4734,6 +4831,10 @@ PrefabInstance:
       propertyPath: characterData
       value: 
       objectReference: {fileID: 11400000, guid: 585c29734f623d1478ea91893f432be1, type: 2}
+    - target: {fileID: 4668059956386404973, guid: ab963817896fd3d4f85fe370ecf7dd95, type: 3}
+      propertyPath: m_Name
+      value: Seat_04
+      objectReference: {fileID: 0}
     - target: {fileID: 4781217949622270652, guid: ab963817896fd3d4f85fe370ecf7dd95, type: 3}
       propertyPath: m_SortingLayer
       value: 2
@@ -4762,6 +4863,10 @@ PrefabInstance:
       propertyPath: characterData
       value: 
       objectReference: {fileID: 11400000, guid: 601ce0a3ab9e53c43a717b1b3eb02fc6, type: 2}
+    - target: {fileID: 6490401141484337574, guid: ab963817896fd3d4f85fe370ecf7dd95, type: 3}
+      propertyPath: m_Name
+      value: Seat_01
+      objectReference: {fileID: 0}
     - target: {fileID: 6490401141484337574, guid: ab963817896fd3d4f85fe370ecf7dd95, type: 3}
       propertyPath: m_IsActive
       value: 1
@@ -5225,24 +5330,146 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7bdf9781aa74ff49983a842fec8695b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TutorialStage
-  StageIndex: 0
-  StageDescription: 
+  StageIndex: 3
+  StageDescription: "\uC2A4\uD14C\uC774\uC9C0 3"
   IntroData:
-    ShowIntro: 0
-    RoundTitle: "1\uB77C\uC6B4\uB4DC"
-    SituationDescription: 
-  RoleDatabase: {fileID: 0}
-  StageRoleNames: []
-  Steps: []
-  ScenarioData: {fileID: 0}
+    ShowIntro: 1
+    RoundTitle: "\uD29C\uD1A0\uB9AC\uC5BC 3"
+    SituationDescription: "\uAC81\uC7C1\uC774"
+  RoleDatabase: {fileID: 11400000, guid: f4a82abd194fd514a8590a226ded1788, type: 2}
+  StageRoleNames:
+  - "\uAC81\uC7C1\uC774"
+  Steps:
+  - StepName: Dialogue_01
+    Type: 0
+    Message: "\uC5B4\uC82F\uBC24 5\uBC88\uC774 \uB9C8\uB140\uC5D0\uAC8C \uC0B4\uD574\uB2F9\uD588\uC2B5\uB2C8\uB2E4."
+    TargetObject: {fileID: 0}
+    UseHighlight: 0
+    DialoguePosition: {x: 0, y: 0}
+    UseCustomPos: 0
+    OnStepStart:
+      m_PersistentCalls:
+        m_Calls: []
+    OnStepComplete:
+      m_PersistentCalls:
+        m_Calls: []
+    WorldCircleSize: 0
+    UIPadding: 0
+  - StepName: "\uC99D\uC5B8\uB2E8\uACC4"
+    Type: 3
+    Message: "\uCE90\uB9AD\uD130\uB97C \uD074\uB9AD\uD558\uC5EC \uC99D\uC5B8\uC744
+      \uB4E4\uC73C\uC138\uC694."
+    TargetObject: {fileID: 0}
+    UseHighlight: 0
+    DialoguePosition: {x: 0, y: 0}
+    UseCustomPos: 0
+    OnStepStart:
+      m_PersistentCalls:
+        m_Calls: []
+    OnStepComplete:
+      m_PersistentCalls:
+        m_Calls: []
+    WorldCircleSize: 0
+    UIPadding: 0
+  - StepName: "\uC815\uB2F5\uB2E8\uACC4"
+    Type: 4
+    Message: "\uC774 \uC99D\uC5B8\uB4E4\uB85C\uB294 \uB9C8\uB140\uB97C \uD30C\uC545\uD560
+      \uC218 \uC5C6\uACA0\uC5B4\uC694. \uB118\uAE30\uAE30 \uBC84\uD2BC\uC73C\uB85C
+      \uD558\uB8E8\uB97C \uB118\uACA8\uBCF4\uC138\uC694."
+    TargetObject: {fileID: 110093771}
+    UseHighlight: 1
+    DialoguePosition: {x: 0, y: 0}
+    UseCustomPos: 0
+    OnStepStart:
+      m_PersistentCalls:
+        m_Calls: []
+    OnStepComplete:
+      m_PersistentCalls:
+        m_Calls: []
+    WorldCircleSize: 500
+    UIPadding: 1.2
+  - StepName: Dialogue_02
+    Type: 0
+    Message: "1\uBC88 \uC0AC\uB9DD"
+    TargetObject: {fileID: 0}
+    UseHighlight: 0
+    DialoguePosition: {x: 0, y: 0}
+    UseCustomPos: 0
+    OnStepStart:
+      m_PersistentCalls:
+        m_Calls: []
+    OnStepComplete:
+      m_PersistentCalls:
+        m_Calls: []
+    WorldCircleSize: 0
+    UIPadding: 0
+  - StepName: "\uC99D\uC5B8\uB2E8\uACC4"
+    Type: 3
+    Message: "\uCE90\uB9AD\uD130\uB97C \uD074\uB9AD\uD558\uC5EC \uC99D\uC5B8\uC744
+      \uB4E4\uC73C\uC138\uC694."
+    TargetObject: {fileID: 0}
+    UseHighlight: 0
+    DialoguePosition: {x: 0, y: 0}
+    UseCustomPos: 0
+    OnStepStart:
+      m_PersistentCalls:
+        m_Calls: []
+    OnStepComplete:
+      m_PersistentCalls:
+        m_Calls: []
+    WorldCircleSize: 0
+    UIPadding: 0
+  - StepName: "\uC815\uB2F5\uB2E8\uACC4"
+    Type: 4
+    Message: "\uB9C8\uB140\uB85C \uC758\uC2EC\uB418\uB294 \uC778\uBB3C\uC744 \uCC98\uD615\uD558\uC138\uC694."
+    TargetObject: {fileID: 0}
+    UseHighlight: 0
+    DialoguePosition: {x: 0, y: 0}
+    UseCustomPos: 0
+    OnStepStart:
+      m_PersistentCalls:
+        m_Calls: []
+    OnStepComplete:
+      m_PersistentCalls:
+        m_Calls: []
+    WorldCircleSize: 0
+    UIPadding: 0
+  - StepName: Dialogue_03
+    Type: 0
+    Message: "\uB9C8\uB140\uB97C \uCC98\uD615\uD588\uC2B5\uB2C8\uB2E4."
+    TargetObject: {fileID: 0}
+    UseHighlight: 0
+    DialoguePosition: {x: 0, y: 0}
+    UseCustomPos: 0
+    OnStepStart:
+      m_PersistentCalls:
+        m_Calls: []
+    OnStepComplete:
+      m_PersistentCalls:
+        m_Calls: []
+    WorldCircleSize: 0
+    UIPadding: 0
+  ScenarioData: {fileID: 11400000, guid: 8e016c31c0cc18849a794c9140cd0157, type: 2}
   StartRoundIndex: 0
-  EndRoundIndex: -1
+  EndRoundIndex: 1
   OnStageStart:
     m_PersistentCalls:
       m_Calls: []
   OnStageEnd:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 926797743}
+        m_TargetAssemblyTypeName: LoadSceneManager, Assembly-CSharp
+        m_MethodName: LoadScene
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!4 &1941243598
 Transform:
   m_ObjectHideFlags: 0

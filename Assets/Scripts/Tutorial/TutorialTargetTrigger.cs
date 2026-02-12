@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
+using System.Collections;
 
 /// <summary>
 /// 튜토리얼 타겟 클릭 트리거
@@ -72,12 +73,12 @@ public class TutorialTargetTrigger : MonoBehaviour, IPointerClickHandler, IPoint
             }
             return;
         }
-        
+
         // 기존 튜토리얼 동작
         HandleNormalClick();
     }
 
-    private System.Collections.IEnumerator DisableInteractionTemporarily()
+    private IEnumerator DisableInteractionTemporarily()
     {
         _cachedInteraction.enabled = false;
         yield return null;  // 한 프레임 대기
@@ -110,6 +111,39 @@ public class TutorialTargetTrigger : MonoBehaviour, IPointerClickHandler, IPoint
                 // [추가] 처형 모드(장전) 중이라면 처형 로직 우선 처리
                 if (ExecutionManager.Instance != null && ExecutionManager.Instance.IsAiming)
                 {
+                    // 겁쟁이 캐릭터 특별 처리: 처형 전 대사 출력
+                    if (character.MyRole == Role.Roles.겁쟁이)
+                    {
+                        // 하드코딩된 노드 이름 사용 (튜토리얼 03 캐릭터 1번 전용)
+                        string nodeName = "Tutorial_Char1_03_Coward_Execution";
+                        
+                        if (TutorialManager.Instance.DialogueRunner != null && 
+                            TutorialManager.Instance.DialogueRunner.Dialogue.NodeExists(nodeName))
+                        {
+                            // 처형 대상 예약 (Yarn 커맨드 execute_pending 용)
+                            ExecutionManager.Instance.SetPendingTarget(character);
+                            
+                            // 조준 해제
+                            ExecutionManager.Instance.ToggleAiming(false);
+
+                            // 상호작용 시 Dialogue박스 (튜토리얼 메시지 박스) 비활성화
+                            if (TutorialManager.Instance.DialogueBox != null)
+                            {
+                                TutorialManager.Instance.DialogueBox.gameObject.SetActive(false);
+                            }
+
+                            // 대화 시작
+                            TutorialManager.Instance.DialogueRunner.StartDialogue(nodeName);
+
+                            // 3. 상호작용 일시 비활성화 (대화 중 클릭 방지)
+                            if (_cachedInteraction != null) _cachedInteraction.enabled = false;
+                            
+                            // 4. 대화 종료 후 복구 코루틴 시작
+                            StartCoroutine(RestoreStateAfterDialogue());
+                        }
+                        return true;
+                    }
+                    
                     if (TutorialManager.Instance.IsCorrectExecutionTarget(character))
                     {
                         ExecutionManager.Instance.ExecuteTarget(character);
@@ -159,12 +193,36 @@ public class TutorialTargetTrigger : MonoBehaviour, IPointerClickHandler, IPoint
         _isTriggered = false;
         _isHovering = false;
     }
-    private System.Collections.IEnumerator DelayedToggleAimingOff()
+    private IEnumerator DelayedToggleAimingOff()
     {
         yield return null;
         if (ExecutionManager.Instance != null && ExecutionManager.Instance.IsAiming)
         {
             ExecutionManager.Instance.ToggleAiming(false);
+        }
+    }
+    private IEnumerator RestoreStateAfterDialogue()
+    {
+        // 1. 대화 시작될 때까지 대기 (최대 1초)
+        float timeout = 1.0f;
+        while (timeout > 0)
+        {
+            if (TutorialManager.Instance?.DialogueRunner?.IsDialogueRunning == true) break;
+            timeout -= Time.deltaTime;
+            yield return null;
+        }
+
+        // 2. 대화 끝날 때까지 대기
+        while (TutorialManager.Instance?.DialogueRunner?.IsDialogueRunning == true)
+        {
+            yield return null;
+        }
+        
+        if (TutorialManager.Instance != null && TutorialManager.Instance.DialogueBox != null)
+        {
+             var step = TutorialManager.Instance.GetCurrentStep();
+             bool shouldShow = (step != null && !string.IsNullOrEmpty(step.Message));
+             TutorialManager.Instance.DialogueBox.gameObject.SetActive(shouldShow);
         }
     }
 }
