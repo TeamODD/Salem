@@ -14,14 +14,17 @@ public class SettingsManager : MonoBehaviour
     [SerializeField] private Button _titleButton;
     [SerializeField] private Button _quitButton;
 
+    private void Awake()
+    {
+        if (_settingsPanel != null) _settingsPanel.SetActive(false);
+    }
+
     private void Start()
     {
         if (_openButton != null) _openButton.onClick.AddListener(OpenSettings);
         if (_closeButton != null) _closeButton.onClick.AddListener(CloseSettings);
         if (_titleButton != null) _titleButton.onClick.AddListener(GotoTitle);
         if (_quitButton != null) _quitButton.onClick.AddListener(QuitGame);
-
-        _settingsPanel.SetActive(false);
     }
     private void Update()
     {

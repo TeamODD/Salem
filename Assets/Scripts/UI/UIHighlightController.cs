@@ -7,33 +7,41 @@ public class UIHighlightController : MonoBehaviour
     public CanvasGroup OverlayGroup;    // 배경 어둠 조절용 패널
     public float Duration = 0.4f;
 
+    void Awake()
+    {
+        OverlayGroup.alpha = 0f;
+        HighlightHole.gameObject.SetActive(false);
+    }
+    
     public void ApplyHighlight(TutorialStep step)
     {
         Vector2 targetScreenPos;
         Vector2 targetSize;
 
-        if (!step.UseHighlight)
+        if (!step.UseHighlight || step.TargetObject == null)
         {
             Hide();
             return;
         }
 
-        if (step.TargetUI != null)
-        {
-            targetScreenPos = RectTransformUtility.WorldToScreenPoint(null, step.TargetUI.position);
-            targetSize = new Vector2(step.TargetUI.rect.width, step.TargetUI.rect.height) * step.Padding;
-        }
+        // TargetObject가 UI인지 월드 오브젝트인지 판단
+        RectTransform targetRect = step.TargetObject.GetComponent<RectTransform>();
 
-        else if (step.TargetWorld != null)
+        if (targetRect != null)
         {
-            targetScreenPos = Camera.main.WorldToScreenPoint(step.TargetWorld.position);
-            targetSize = new Vector2(step.WorldCircleSize, step.WorldCircleSize);
-        }
+            // UI 타겟
+            targetScreenPos = RectTransformUtility.WorldToScreenPoint(null, targetRect.position);
 
+            float padding = step.UIPadding;
+            targetSize = new Vector2(targetRect.rect.width, targetRect.rect.height) * padding;
+        }
         else
         {
-            Hide();
-            return;
+            // 월드 타겟
+            targetScreenPos = Camera.main.WorldToScreenPoint(step.TargetObject.transform.position);
+
+            float size = step.WorldCircleSize;
+            targetSize = new Vector2(size, size);
         }
 
         Show(targetScreenPos, targetSize);

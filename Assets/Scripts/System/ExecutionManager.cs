@@ -112,4 +112,14 @@ public class ExecutionManager : MonoBehaviour
             bulletCountText.text = $"X {currentBullets}";
         }
     }
+
+    /// <summary>
+    /// 스테이지 전환 시 상태 초기화 (탄환 복구, 조준 해제)
+    /// </summary>
+    public void ResetState()
+    {
+        currentBullets = maxBullets;
+        ToggleAiming(false);
+        UpdateBulletUI();
+    }
 }

@@ -14,6 +14,7 @@ public class LoadSceneManager : MonoBehaviour
     {
         TitleScene,
         MainScene,
-        GameOverScene
+        GameOverScene,
+        TutorialScene
     }
 }

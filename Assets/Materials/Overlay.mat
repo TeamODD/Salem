@@ -46,7 +46,7 @@ Material:
     - _Stencil: 1
     - _StencilComp: 6
     - _StencilOp: 0
-    - _StencilReadMask: 1
+    - _StencilReadMask: 255
     - _StencilWriteMask: 0
     - _UseUIAlphaClip: 0
     - _ZWrite: 0

@@ -1,0 +1,61 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 198841a6dc472744d945438bad94797e, type: 3}
+  m_Name: TutorialScenario_02
+  m_EditorClassIdentifier: Assembly-CSharp::TutorialScenarioData
+  ScenarioName: "\uD29C\uD1A0\uB9AC\uC5BC 02"
+  ScenarioDescription: 
+  Rounds:
+  - RoundTitle: 1
+    RoundDescription: 1
+    NewRoleNames: []
+    CharacterRoles:
+    - CharacterIndex: 0
+      AssignedRole: 0
+      IsDeadAtStart: 0
+    - CharacterIndex: 1
+      AssignedRole: 1
+      IsDeadAtStart: 0
+    - CharacterIndex: 2
+      AssignedRole: 2
+      IsDeadAtStart: 0
+    - CharacterIndex: 3
+      AssignedRole: 4
+      IsDeadAtStart: 0
+    - CharacterIndex: 4
+      AssignedRole: 3
+      IsDeadAtStart: 1
+    DayPhases:
+    - PhaseName: "1\uC77C\uCC28"
+      Testimonies:
+      - CharacterIndex: 0
+        YarnNodeName: Tutorial_Day1_Char0_02
+        DirectDialogue: 
+        HintText: 
+      - CharacterIndex: 1
+        YarnNodeName: Tutorial_Day1_Char1_02
+        DirectDialogue: 
+        HintText: 
+      - CharacterIndex: 2
+        YarnNodeName: Tutorial_Day1_Char2_02
+        DirectDialogue: 
+        HintText: 
+      - CharacterIndex: 3
+        YarnNodeName: Tutorial_Day1_Char3_02
+        DirectDialogue: 
+        HintText: 
+    CorrectAnswer:
+      Type: 0
+      TargetCharacterIndex: 0
+      WrongAnswerMessage: "\uB2E4\uC2DC \uC0DD\uAC01\uD574\uBCF4\uC138\uC694."
+      CorrectAnswerMessage: 
+    DeathCharacterIndex: 2
