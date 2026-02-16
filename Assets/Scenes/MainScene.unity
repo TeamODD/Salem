@@ -2475,6 +2475,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7379512630230926159, guid: e4ef09fad65d78f40a22c5d7922dde0c, type: 3}
+      propertyPath: GameTime
+      value: 180
+      objectReference: {fileID: 0}
+    - target: {fileID: 7379512630230926159, guid: e4ef09fad65d78f40a22c5d7922dde0c, type: 3}
       propertyPath: TimerSlider
       value: 
       objectReference: {fileID: 1710597769}

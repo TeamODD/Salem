@@ -97,7 +97,7 @@ public class RoleAssigner
             if (newAI != null)
             {
                 newAI.Initialize(assignedRole);
-                newAI.SetDisplayName($"{i + 1}");
+                newAI.SetDisplayName(GetCharacterDisplayName(characterObjects[i], i));
                 newParticipants.Add(newAI);
             }
         }
@@ -118,5 +118,21 @@ public class RoleAssigner
             case Role.Roles.시민: return target.AddComponent<CitizenAI>();
             default: return null;
         }
+    }
+
+    private string GetCharacterDisplayName(GameObject characterObject, int index)
+    {
+        if (characterObject == null)
+        {
+            return $"{index + 1}";
+        }
+
+        CharacterInteraction interaction = characterObject.GetComponent<CharacterInteraction>();
+        if (interaction != null && !string.IsNullOrWhiteSpace(interaction.CharacterName))
+        {
+            return interaction.CharacterName;
+        }
+
+        return $"{index + 1}";
     }
 }

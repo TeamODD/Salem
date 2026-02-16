@@ -9,6 +9,7 @@ public class CharacterInteraction : MonoBehaviour, IPointerEnterHandler, IPointe
 {
     [Header("Character Data Asset")]
     [SerializeField] private CharacterData characterData;
+    public string CharacterName => characterData != null ? characterData.characterName : "";
 
     private DialogueRunner _dialogueRunner;
     private CharacterVisual _characterVisual;
