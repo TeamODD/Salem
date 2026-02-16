@@ -2,11 +2,11 @@ using UnityEngine;
 
 public class AITestController : MonoBehaviour
 {
-    private AIManager manager;
+    private GameManager manager;
 
     private void Awake()
     {
-        manager = GetComponent<AIManager>();
+        manager = GetComponent<GameManager>();
     }
 
     // 인스펙터 버튼으로 호출될 밤 실행 메서드

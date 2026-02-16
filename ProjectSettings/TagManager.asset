@@ -54,5 +54,17 @@ TagManager:
   - name: New Layer 4
     uniqueID: 499325661
     locked: 0
+  - name: New Layer 5
+    uniqueID: 3922725069
+    locked: 0
+  - name: Character
+    uniqueID: 2422899855
+    locked: 0
+  - name: Table
+    uniqueID: 2376880159
+    locked: 0
+  - name: Fade
+    uniqueID: 2256175121
+    locked: 0
   m_RenderingLayers:
   - Default

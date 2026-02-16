@@ -13,6 +13,7 @@ public class ParallaxBackgroundController : MonoBehaviour
 
     public ParallaxLayer[] backgroundLayers;
     public float smoothTime = 0.1f;
+    [Range(0f, 0.5f)] public float maxDownwardNormalizedInput = 0.25f;
 
     private Vector3[] _startPositions;
 
@@ -33,6 +34,7 @@ public class ParallaxBackgroundController : MonoBehaviour
             (mousePosition.x / Screen.width) - 0.5f,
             (mousePosition.y / Screen.height) - 0.5f
         );
+        normalizedMousePos.y = Mathf.Clamp(normalizedMousePos.y, -maxDownwardNormalizedInput, 0.5f);
 
         for (int i = 0; i < backgroundLayers.Length; i++)
         {

@@ -243,7 +243,7 @@ public class CharacterInteraction : MonoBehaviour, IPointerEnterHandler, IPointe
                 }
 
                 if (received) suffix = "_Received_Prayer";
-                else return baseNode; // 기본 대사 출력
+                else suffix = "_No_Prayer";
                 break;
         }
 
@@ -253,9 +253,9 @@ public class CharacterInteraction : MonoBehaviour, IPointerEnterHandler, IPointe
 
         bool wasHome = string.IsNullOrEmpty(suffix) || suffix == "_Insomniac_Home" || suffix == "_Received_Prayer";
 
-        if (!ignorePrayerOverride && wasHome && AIManager.Instance != null && AIManager.Instance.CurrentContext != null)
+        if (!ignorePrayerOverride && wasHome && GameManager.Instance != null && GameManager.Instance.CurrentContext != null)
         {
-            AIContext context = AIManager.Instance.CurrentContext;
+            AIContext context = GameManager.Instance.CurrentContext;
             if (context.PrayerReceived.Contains(ai))
             {
                 suffix = "_Received_Prayer";

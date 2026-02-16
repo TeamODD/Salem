@@ -3,11 +3,52 @@ using UnityEngine;
 
 public class RoleAssigner
 {
-    public void AssignRoles(List<GameObject> characterObjects, List<Role.Roles> activeRoles)
+    public List<CharacterAI> AssignRoles(List<GameObject> characterObjects, List<Role.Roles> activeRoles)
     {
-        if (characterObjects.Count != 5)
+        List<CharacterAI> newParticipants = new List<CharacterAI>();
+
+        // 만약 activeRoles가 비어있다면 (랜덤 레벨인 경우) 기존의 랜덤 생성 로직 수행
+        if (activeRoles == null || activeRoles.Count == 0)
         {
-            Debug.LogWarning("캐릭터 오브젝트 개수가 5개가 아닙니다. 로직이 의도와 다르게 동작할 수 있습니다.");
+            activeRoles = new List<Role.Roles>();
+            // 필수 역할 추가
+            activeRoles.Add(Role.Roles.마녀);
+            activeRoles.Add(Role.Roles.신자);
+
+            // 남은 특성 목록
+            List<Role.Roles> remainingTraits = new List<Role.Roles>
+            {
+                Role.Roles.좀도둑,
+                Role.Roles.불면증,
+                Role.Roles.겁쟁이,
+                Role.Roles.벙어리
+            };
+
+            // 특성 목록 섞기
+            for (int i = remainingTraits.Count - 1; i > 0; i--)
+            {
+                int rnd = Random.Range(0, i + 1);
+                Role.Roles temp = remainingTraits[i];
+                remainingTraits[i] = remainingTraits[rnd];
+                remainingTraits[rnd] = temp;
+            }
+
+            // 시민 포함 여부 결정 (50% 확률)
+            bool includeCitizen = Random.value < 0.5f;
+            int traitsCount = includeCitizen ? 2 : 3;
+
+            for (int i = 0; i < traitsCount; i++)
+            {
+                if (i < remainingTraits.Count)
+                {
+                    activeRoles.Add(remainingTraits[i]);
+                }
+            }
+
+            if (includeCitizen)
+            {
+                activeRoles.Add(Role.Roles.시민);
+            }
         }
 
         // 기존 AI 컴포넌트 제거 및 오브젝트 활성화
@@ -16,50 +57,9 @@ public class RoleAssigner
             CharacterAI oldAI = obj.GetComponent<CharacterAI>();
             if (oldAI != null)
             {
-                Object.Destroy(oldAI);
+                Object.DestroyImmediate(oldAI); // 즉시 제거하여 새 컴포넌트와 혼동 방지
             }
             obj.SetActive(true);
-        }
-
-        activeRoles.Clear();
-
-        // 필수 역할 추가
-        activeRoles.Add(Role.Roles.마녀);
-        activeRoles.Add(Role.Roles.신자);
-
-        // 남은 특성 목록
-        List<Role.Roles> remainingTraits = new List<Role.Roles>
-        {
-            Role.Roles.좀도둑,
-            Role.Roles.불면증,
-            Role.Roles.겁쟁이,
-            Role.Roles.벙어리
-        };
-
-        // 특성 목록 섞기
-        for (int i = remainingTraits.Count - 1; i > 0; i--)
-        {
-            int rnd = Random.Range(0, i + 1);
-            Role.Roles temp = remainingTraits[i];
-            remainingTraits[i] = remainingTraits[rnd];
-            remainingTraits[rnd] = temp;
-        }
-
-        // 시민 포함 여부 결정 (50% 확률)
-        bool includeCitizen = Random.value < 0.5f;
-        int traitsCount = includeCitizen ? 2 : 3;
-
-        for (int i = 0; i < traitsCount; i++)
-        {
-            if (i < remainingTraits.Count)
-            {
-                activeRoles.Add(remainingTraits[i]);
-            }
-        }
-
-        if (includeCitizen)
-        {
-            activeRoles.Add(Role.Roles.시민);
         }
 
         // 캐릭터 수에 맞춰 역할 리스트 조정 (부족하면 시민 추가, 많으면 제거)
@@ -72,7 +72,7 @@ public class RoleAssigner
             activeRoles.RemoveAt(activeRoles.Count - 1);
         }
 
-        // 최종 역할 리스트 섞기
+        // 최종 역할 리스트 섞기 (여기서 activeRoles 자체를 섞으면 호출한 쪽의 리스트 순서가 바뀜)
         List<Role.Roles> shuffledRoles = new List<Role.Roles>(activeRoles);
         for (int i = shuffledRoles.Count - 1; i > 0; i--)
         {
@@ -98,8 +98,11 @@ public class RoleAssigner
             {
                 newAI.Initialize(assignedRole);
                 newAI.SetDisplayName($"{i + 1}");
+                newParticipants.Add(newAI);
             }
         }
+
+        return newParticipants;
     }
 
     private CharacterAI AddRoleComponent(GameObject target, Role.Roles role)

@@ -53,7 +53,7 @@ public class Timer : MonoBehaviour
             TimerSlider.value = GameTime;
             OnTimeUp?.Invoke(); // Trigger event
         }
-        else if (_currentTime <= 30f && !_isShaking)
+        else if (_currentTime <= 10f && !_isShaking)
         {
             StartShake();
         }
@@ -93,7 +93,7 @@ public class Timer : MonoBehaviour
     public void FinishImmediately()
     {
         if (_stopTimer) return;
-        
+
         _currentTime = 0;
         _stopTimer = true;
         TimerSlider.value = GameTime;

@@ -159,7 +159,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 925462b31f3362d4392dfcea2397b37f, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::AIManager
+  m_EditorClassIdentifier: Assembly-CSharp::GameManager
   characterObjects:
   - {fileID: 1002366327}
   - {fileID: 1573299060}

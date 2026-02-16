@@ -105,8 +105,8 @@ public class ExecutionManager : MonoBehaviour
         // 2. 처형 효과 (피 튀김 등) - 추후 구현 or EffectManager 호출
         // EffectManager.Instance.ShowBloodEffect(target.transform.position);
 
-        // 3. AIManager에게 통보 (사망 처리 및 승리 체크)
-        AIManager aiManager = FindFirstObjectByType<AIManager>();
+        // 3. GameManager에게 통보 (사망 처리 및 승리 체크)
+        GameManager aiManager = FindFirstObjectByType<GameManager>();
         if (aiManager != null)
         {
             aiManager.OnCharacterExecuted(target);
