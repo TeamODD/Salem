@@ -12,90 +12,90 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 198841a6dc472744d945438bad94797e, type: 3}
   m_Name: TutorialScenario_03
   m_EditorClassIdentifier: Assembly-CSharp::TutorialScenarioData
-  ScenarioName: "\uD29C\uD1A0\uB9AC\uC5BC 03"
-  ScenarioDescription: "\uAC81\uC7C1\uC774"
+  ScenarioName: "\uD29C\uD1A0\uB9AC\uC5BC 3"
+  ScenarioDescription: "\uBD88\uBA74\uC99D"
   Rounds:
-  - RoundTitle: "1\uC77C\uCC28"
-    RoundDescription: 
+  - RoundTitle: 1
+    RoundDescription: 1
     NewRoleNames: []
     CharacterRoles:
     - CharacterIndex: 0
-      AssignedRole: 5
-      IsDeadAtStart: 0
-    - CharacterIndex: 1
-      AssignedRole: 4
-      IsDeadAtStart: 0
-    - CharacterIndex: 2
-      AssignedRole: 1
-      IsDeadAtStart: 0
-    - CharacterIndex: 3
       AssignedRole: 0
       IsDeadAtStart: 0
-    - CharacterIndex: 4
+    - CharacterIndex: 1
+      AssignedRole: 6
+      IsDeadAtStart: 0
+    - CharacterIndex: 2
+      AssignedRole: 3
+      IsDeadAtStart: 0
+    - CharacterIndex: 3
       AssignedRole: 2
+      IsDeadAtStart: 0
+    - CharacterIndex: 4
+      AssignedRole: 1
       IsDeadAtStart: 1
     DayPhases:
-    - PhaseName: "1\uC77C\uCC28"
+    - PhaseName: "1\uC77C\uCC28 \uC99D\uC5B8"
       Testimonies:
       - CharacterIndex: 0
-        YarnNodeName: Tutorial_Day1_Char0_03
+        YarnNodeName: Tutorial_Day1_Char0_02
         DirectDialogue: 
         HintText: 
       - CharacterIndex: 1
-        YarnNodeName: Tutorial_Day1_Char1_03
+        YarnNodeName: Tutorial_Day1_Char1_02
         DirectDialogue: 
         HintText: 
       - CharacterIndex: 2
-        YarnNodeName: Tutorial_Day1_Char2_03
+        YarnNodeName: Tutorial_Day1_Char2_02
         DirectDialogue: 
         HintText: 
       - CharacterIndex: 3
-        YarnNodeName: Tutorial_Day1_Char3_03
+        YarnNodeName: Tutorial_Day1_Char3_02
         DirectDialogue: 
         HintText: 
     CorrectAnswer:
       Type: 0
       TargetCharacterIndex: 0
-      WrongAnswerMessage: 
+      WrongAnswerMessage: "\uB2E4\uC2DC \uC0DD\uAC01\uD574\uBCF4\uC138\uC694."
       CorrectAnswerMessage: 
-    DeathCharacterIndex: 0
-  - RoundTitle: "2\uC77C\uCC28"
-    RoundDescription: 
+    DeathCharacterIndex: 1
+  - RoundTitle: 2
+    RoundDescription: 2
     NewRoleNames: []
     CharacterRoles:
     - CharacterIndex: 0
-      AssignedRole: 5
-      IsDeadAtStart: 1
-    - CharacterIndex: 1
-      AssignedRole: 4
-      IsDeadAtStart: 0
-    - CharacterIndex: 2
-      AssignedRole: 1
-      IsDeadAtStart: 0
-    - CharacterIndex: 3
       AssignedRole: 0
       IsDeadAtStart: 0
-    - CharacterIndex: 4
+    - CharacterIndex: 1
+      AssignedRole: 6
+      IsDeadAtStart: 1
+    - CharacterIndex: 2
+      AssignedRole: 3
+      IsDeadAtStart: 0
+    - CharacterIndex: 3
       AssignedRole: 2
+      IsDeadAtStart: 0
+    - CharacterIndex: 4
+      AssignedRole: 1
       IsDeadAtStart: 1
     DayPhases:
-    - PhaseName: "2\uC77C\uCC28"
+    - PhaseName: "2\uC77C\uCC28 \uC99D\uC5B8"
       Testimonies:
-      - CharacterIndex: 1
-        YarnNodeName: Tutorial_Day2_Char1_03
+      - CharacterIndex: 0
+        YarnNodeName: Tutorial_Day2_Char0_02
         DirectDialogue: 
         HintText: 
       - CharacterIndex: 2
-        YarnNodeName: Tutorial_Day2_Char2_03
+        YarnNodeName: Tutorial_Day2_Char2_02
         DirectDialogue: 
         HintText: 
       - CharacterIndex: 3
-        YarnNodeName: Tutorial_Day2_Char3_03
+        YarnNodeName: Tutorial_Day2_Char3_02
         DirectDialogue: 
         HintText: 
     CorrectAnswer:
       Type: 1
-      TargetCharacterIndex: 3
+      TargetCharacterIndex: 0
       WrongAnswerMessage: "\uB2E4\uC2DC \uC0DD\uAC01\uD574\uBCF4\uC138\uC694."
       CorrectAnswerMessage: 
     DeathCharacterIndex: -1
