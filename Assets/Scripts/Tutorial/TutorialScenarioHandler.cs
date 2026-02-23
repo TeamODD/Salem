@@ -492,6 +492,10 @@ public class TutorialScenarioHandler : MonoBehaviour
 
         if (answer.Type == AnswerType.Execute && answer.TargetCharacterIndex == characterIndex)
         {
+            // 처형 대상 캐릭터 비활성화 (튜토리얼에서는 GameManager 상태 머신이
+            // DayState가 아닐 수 있으므로 직접 처리)
+            executedCharacter.gameObject.SetActive(false);
+
             ShowFeedback(answer.CorrectAnswerMessage, true);
             _isWaitingForAnswer = false;
             ProcessRoundEnd();

@@ -38,6 +38,8 @@ public class TutorialManager : MonoBehaviour
     public TextMeshProUGUI RolePageIndicator; // "최대 1/3" 형식
     public Button RolePrevButton; // 이전 버튼 (선택적)
     public Button RoleNextButton; // 다음 버튼 (선택적)
+    public Button RoleExitButton;
+    public Button RoleInfoOpenButton;
 
     [Header("시나리오 모드 참조")]
     [Tooltip("씬의 캐릭터 오브젝트들 (인덱스 순서대로)")]
@@ -64,6 +66,7 @@ public class TutorialManager : MonoBehaviour
     private bool _isShowingRolePopup = false;
     private int _currentRoleIndex = 0;
     private List<RoleEntry> _currentRoleList;
+    private bool _wasBlockerActive;
 
     private TutorialRaycastFilter _blockerFilter;
 
@@ -84,6 +87,8 @@ public class TutorialManager : MonoBehaviour
         if (RoleIntroCloseButton != null) RoleIntroCloseButton.onClick.AddListener(OnRoleIntroCloseClicked);
         if (RolePrevButton != null) RolePrevButton.onClick.AddListener(OnRolePrevClicked);
         if (RoleNextButton != null) RoleNextButton.onClick.AddListener(OnRoleNextClicked);
+        if (RoleExitButton != null) RoleExitButton.onClick.AddListener(OnRoleExitClicked);
+        if (RoleInfoOpenButton != null) RoleInfoOpenButton.onClick.AddListener(ShowRolePopup);
         
         // 초기 상태 설정
         if (DialogueBox != null) DialogueBox.gameObject.SetActive(false);
@@ -166,6 +171,7 @@ public class TutorialManager : MonoBehaviour
         _isShowingRolePopup = false;
         _currentRoleIndex = 0;
         _currentRoleList = null;
+        _wasBlockerActive = false;
 
         // 4. 진행 중인 Yarn 대화 중단
         if (DialogueRunner != null && DialogueRunner.IsDialogueRunning)
@@ -373,8 +379,10 @@ public class TutorialManager : MonoBehaviour
         ShowStep(_currentStepIndex);
     }
 
-    private void ShowRolePopup()
+    public void ShowRolePopup()
     {
+        if (_isShowingRolePopup) return;
+
         if (RoleIntroPanel == null)
         {
             _isShowingRolePopup = false;
@@ -391,10 +399,10 @@ public class TutorialManager : MonoBehaviour
         _isShowingRolePopup = true;
         _currentRoleIndex = 0;
 
+        _wasBlockerActive = Blocker != null && Blocker.gameObject.activeSelf;
         if (Blocker != null)
         {
             Blocker.gameObject.SetActive(true);
-            if (_blockerFilter != null) _blockerFilter.Clear();
         }
 
         RoleIntroPanel.SetActive(true);
@@ -472,6 +480,22 @@ public class TutorialManager : MonoBehaviour
         }
     }
 
+    private void OnRoleExitClicked()
+    {
+        if (!_isShowingRolePopup) return;
+
+        RoleIntroPanel.transform.DOScale(Vector3.zero, 0.2f).SetEase(Ease.InBack).OnComplete(() =>
+        {
+            RoleIntroPanel.SetActive(false);
+            _isShowingRolePopup = false;
+            _currentRoleList = null;
+            if (Blocker != null)
+            {
+                Blocker.gameObject.SetActive(_wasBlockerActive);
+            }
+        });
+    }
+
     private void OnRoleIntroCloseClicked()
     {
         if (!_isShowingRolePopup) return;
@@ -488,6 +512,10 @@ public class TutorialManager : MonoBehaviour
             RoleIntroPanel.SetActive(false);
             _isShowingRolePopup = false;
             _currentRoleList = null;
+            if (Blocker != null)
+            {
+                Blocker.gameObject.SetActive(_wasBlockerActive);
+            }
         });
     }
 

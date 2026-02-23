@@ -74,6 +74,9 @@ public class CharacterInteraction : MonoBehaviour, IPointerEnterHandler, IPointe
 
     public void OnPointerEnter(PointerEventData eventData)
     {
+        // World Space Canvas의 UI 요소 위에 마우스가 있으면 캐릭터 호버 무시
+        if (UIEventBlocker.IsPointerOverUI) return;
+
         _isMouseOver = true;
         if (!_isFocusLocked && !_dialogueRunner.IsDialogueRunning)
         {
@@ -83,6 +86,9 @@ public class CharacterInteraction : MonoBehaviour, IPointerEnterHandler, IPointe
 
     public void OnPointerExit(PointerEventData eventData)
     {
+        // UI 위에 마우스가 있으면 포커스 상태 변경 안 함
+        if (UIEventBlocker.IsPointerOverUI) return;
+
         _isMouseOver = false;
         if (!_isFocusLocked)
         {

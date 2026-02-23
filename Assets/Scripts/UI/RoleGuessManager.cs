@@ -22,8 +22,14 @@ public class RoleGuessManager : MonoBehaviour
     [SerializeField] private Button _defaultButton;
     [SerializeField] private Sprite _defaultSprite;
 
+    [Header("Selector Position Settings")]
+    [Tooltip("selector panel이 마크 위에 표시될 때의 Y 오프셋 (Screen Space 픽셀 단위)")]
+    [SerializeField] private float _selectorYOffset = 200f;
+
     private CharacterMark _currentActiveMark;
     private List<CharacterMark> _allMarks = new List<CharacterMark>();
+    private RectTransform _selectorCanvasRect;
+    private Camera _mainCamera;
 
     void Awake()
     {
@@ -33,6 +39,15 @@ public class RoleGuessManager : MonoBehaviour
 
     void Start()
     {
+        _mainCamera = Camera.main;
+
+        // selectorPanel이 속한 Canvas의 RectTransform 캐싱
+        Canvas selectorCanvas = _selectorPanel.GetComponentInParent<Canvas>();
+        if (selectorCanvas != null)
+        {
+            _selectorCanvasRect = selectorCanvas.GetComponent<RectTransform>();
+        }
+
         for (int i = 0; i < _roleIcons.Count; i++)
         {
             int index = i;
@@ -46,13 +61,14 @@ public class RoleGuessManager : MonoBehaviour
     }
 
     public void RegisterMark(CharacterMark mark)
-{
-    if (!_allMarks.Contains(mark))
     {
-        _allMarks.Add(mark);
-        mark.SetGuessedRole(_defaultSprite); 
+        if (!_allMarks.Contains(mark))
+        {
+            _allMarks.Add(mark);
+            mark.SetGuessedRole(_defaultSprite);
+        }
     }
-}
+
     public void OpenSelector(CharacterMark mark)
     {
         if (_selectorPanel.activeSelf && _currentActiveMark == mark)
@@ -60,13 +76,12 @@ public class RoleGuessManager : MonoBehaviour
             CloseSelector();
             return;
         }
-            
+
         _currentActiveMark = mark;
         _selectorPanel.SetActive(true);
 
-        _selectorPanel.transform.position = mark.transform.position + new Vector3(0, 200, 0); // 마크 위에 표시
-
-        //if (SoundManager.Instance != null) SoundManager.Instance.PlaySFX(null);
+        // Mark의 월드 좌표를 Screen Space Canvas 좌표로 변환하여 패널 배치
+        PositionSelectorAboveMark(mark);
     }
 
     public void ResetToDefault()
@@ -96,5 +111,29 @@ public class RoleGuessManager : MonoBehaviour
     {
         _selectorPanel.SetActive(false);
         _currentActiveMark = null;
+    }
+
+    /// <summary>
+    /// Mark(World Space)의 월드 좌표를 Screen Space Canvas 좌표로 변환하여
+    /// selectorPanel을 마크 위에 올바르게 배치합니다.
+    /// </summary>
+    private void PositionSelectorAboveMark(CharacterMark mark)
+    {
+        if (_mainCamera == null) _mainCamera = Camera.main;
+        if (_mainCamera == null || _selectorCanvasRect == null) return;
+
+        // 1. Mark의 월드 좌표 → 스크린 좌표
+        Vector3 screenPos = _mainCamera.WorldToScreenPoint(mark.transform.position);
+
+        // 2. 스크린 좌표에 Y 오프셋 추가 (스크린 픽셀 단위)
+        screenPos.y += _selectorYOffset;
+
+        // 3. 스크린 좌표 → Screen Space Canvas의 로컬 좌표
+        RectTransform panelRect = _selectorPanel.GetComponent<RectTransform>();
+        Vector2 localPoint;
+        RectTransformUtility.ScreenPointToLocalPointInRectangle(
+            _selectorCanvasRect, screenPos, null, out localPoint);
+
+        panelRect.anchoredPosition = localPoint;
     }
 }

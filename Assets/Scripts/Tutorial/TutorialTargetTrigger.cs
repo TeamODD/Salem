@@ -25,6 +25,9 @@ public class TutorialTargetTrigger : MonoBehaviour, IPointerClickHandler, IPoint
     {
         if (!IsScenarioMode()) return;
         
+        // World Space Canvas의 UI 요소 위에 마우스가 있으면 캐릭터 호버 무시
+        if (UIEventBlocker.IsPointerOverUI) return;
+
         _isHovering = true;
         
         // 이미 증언 중인 캐릭터가 있으면 호버 포커스 적용 안 함
@@ -45,6 +48,9 @@ public class TutorialTargetTrigger : MonoBehaviour, IPointerClickHandler, IPoint
     {
         if (!IsScenarioMode()) return;
         
+        // UI 위에 마우스가 있으면 포커스 상태 변경 안 함
+        if (UIEventBlocker.IsPointerOverUI) return;
+
         _isHovering = false;
         
         // 증언 중이 아닐 때만 포커스 해제

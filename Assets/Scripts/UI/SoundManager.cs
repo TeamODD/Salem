@@ -5,6 +5,13 @@ public class SoundManager : MonoBehaviour
     public static SoundManager Instance;
     [SerializeField] private AudioSource _bgmSource;
     [SerializeField] private AudioSource _sfxSource;
+    [SerializeField] private AudioSource _loopSfxSource;
+    [SerializeField] private AudioClip _bgmClip;
+
+    private void Start()
+    {
+        PlayBGM(_bgmClip);
+    }
 
     private void Awake()
     {
@@ -25,6 +32,26 @@ public class SoundManager : MonoBehaviour
     public void PlaySFX(AudioClip clip)
     {
         _sfxSource.PlayOneShot(clip);
+    }
+
+    // 효과음 반복 재생
+    public void PlaySFXLoop(AudioClip clip)
+    {
+        if (_loopSfxSource == null) return;
+
+        _loopSfxSource.clip = clip;
+        _loopSfxSource.loop = true;
+        _loopSfxSource.Play();
+    }
+
+    // 반복 재생 중인 효과음 정지
+    public void StopSFXLoop()
+    {
+        if (_loopSfxSource != null && _loopSfxSource.isPlaying)
+        {
+            _loopSfxSource.Stop();
+            _loopSfxSource.clip = null;
+        }
     }
 
     public void PauseBGM()
