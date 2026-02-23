@@ -7,6 +7,7 @@ public class WitchAI : CharacterAI
     private CharacterAI currentLieTarget;
     private Role.Roles? myPersona; // 게임 내내 유지할 사칭 컨셉
     private HashSet<CharacterAI> refusedVisitors = new HashSet<CharacterAI>(); // 내가 거부한 방문자들
+    private readonly HashSet<CharacterAI> fakeBelieverInvestigated = new HashSet<CharacterAI>(); // 신자 사칭 시 이미 조사했다고 말한 대상들
 
     public override CharacterAI CurrentLieTarget => currentLieTarget;
     public override bool ShouldIgnorePrayerDialogueOverride => true;
@@ -163,8 +164,12 @@ public class WitchAI : CharacterAI
         // 20% 확률로 무작위 거짓말 (성공했다고 주장)
         if (Random.value < 0.2f)
         {
-            DetermineLieTargetSimple(context, null);
-            return AIActionType.BelieverInvestigate;
+            if (TryDetermineNewLieTargetSimple(context))
+            {
+                return AIActionType.BelieverInvestigate;
+            }
+
+            return AIActionType.BelieverStayHome;
         }
 
         // 80% 확률로 논리적 거짓말
@@ -174,6 +179,7 @@ public class WitchAI : CharacterAI
         foreach (CharacterAI p in context.Participants)
         {
             if (p == this) continue;
+            if (fakeBelieverInvestigated.Contains(p)) continue;
 
             if (p.MyRole == Role.Roles.벙어리)
             {
@@ -197,31 +203,40 @@ public class WitchAI : CharacterAI
         {
             var choice = candidates[Random.Range(0, candidates.Count)];
             currentLieTarget = choice.target;
+            fakeBelieverInvestigated.Add(choice.target);
             return choice.actionType;
         }
 
         // 위 조건에 맞는 대상이 없으면 오늘 죽인 사람을 대상으로 함 (시체 발견)
-        currentLieTarget = actualAttackTarget;
-        
-        if (currentLieTarget == null)
+        if (actualAttackTarget != null && !fakeBelieverInvestigated.Contains(actualAttackTarget))
         {
-            DetermineLieTargetSimple(context, null);
+            currentLieTarget = actualAttackTarget;
+            fakeBelieverInvestigated.Add(actualAttackTarget);
+            return AIActionType.BelieverBodyFound;
+        }
+        
+        if (TryDetermineNewLieTargetSimple(context))
+        {
             return AIActionType.BelieverInvestigate;
         }
 
-        return AIActionType.BelieverBodyFound;
+        return AIActionType.BelieverStayHome;
     }
 
-    private void DetermineLieTargetSimple(AIContext context, CharacterAI defaultTarget)
+    private bool TryDetermineNewLieTargetSimple(AIContext context)
     {
-        List<CharacterAI> others = context.Participants.Where(p => p != this).ToList();
+        List<CharacterAI> others = context.Participants
+            .Where(p => p != this && !fakeBelieverInvestigated.Contains(p))
+            .ToList();
+
         if (others.Count > 0)
         {
             currentLieTarget = others[Random.Range(0, others.Count)];
+            fakeBelieverInvestigated.Add(currentLieTarget);
+            return true;
         }
-        else
-        {
-            currentLieTarget = defaultTarget;
-        }
+
+        currentLieTarget = null;
+        return false;
     }
 }
