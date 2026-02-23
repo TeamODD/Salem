@@ -26,9 +26,9 @@ public partial class GameManager
         foreach (CharacterAI ai in participants)
         {
             if (ai == null) continue;
-            if (ai is BelieverAI) currentContext.OutOfHouse.Add(ai);
-            if (ai is InsomniacAI && isEvenNight) currentContext.OutOfHouse.Add(ai);
-            if (ai is ThiefAI && hasEmptyHouseForThief) currentContext.OutOfHouse.Add(ai);
+            if (ai is BelieverAI) currentContext.MarkOutOfHouse(ai);
+            if (ai is InsomniacAI && isEvenNight) currentContext.MarkOutOfHouse(ai);
+            if (ai is ThiefAI && hasEmptyHouseForThief) currentContext.MarkOutOfHouse(ai);
         }
 
         foreach (CharacterAI ai in participants)
@@ -105,13 +105,11 @@ public partial class GameManager
 
     private void BuildContext()
     {
-        currentContext = new AIContext
-        {
-            NightIndex = nightIndex,
-            HasEmptyHouseForThief = hasEmptyHouseForThief
-        };
-        currentContext.Participants.AddRange(participants);
-        currentContext.DeadParticipants.AddRange(deadParticipants);
-        currentContext.ActiveRoles.AddRange(activeRoles);
+        currentContext = new AIContext(
+            nightIndex,
+            hasEmptyHouseForThief,
+            participants,
+            deadParticipants,
+            activeRoles);
     }
 }

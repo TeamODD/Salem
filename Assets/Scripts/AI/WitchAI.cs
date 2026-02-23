@@ -9,9 +9,16 @@ public class WitchAI : CharacterAI
     private HashSet<CharacterAI> refusedVisitors = new HashSet<CharacterAI>(); // 내가 거부한 방문자들
 
     public override CharacterAI CurrentLieTarget => currentLieTarget;
+    public override bool ShouldIgnorePrayerDialogueOverride => true;
 
     // 마녀는 무조건 기도를 거부함
     public override bool WillRefusePrayer => true;
+
+    public override bool TryGetReceivedPrayerForCitizenDialogue(out bool prayerReceived)
+    {
+        prayerReceived = false;
+        return true;
+    }
 
     public override void OnVisitorRefused(CharacterAI visitor)
     {
@@ -22,7 +29,7 @@ public class WitchAI : CharacterAI
     public override void DoNightAction(AIContext context)
     {
         currentLieTarget = null;
-        string finalActionId = "witch_attack";
+        AIActionType finalActionType = AIActionType.WitchAttack;
 
         // 1. 이번 밤에 죽일 대상 정하기
         CharacterAI attackTarget = ChooseAttackTarget(context, myPersona);
@@ -42,34 +49,34 @@ public class WitchAI : CharacterAI
 
         if (pretend == Role.Roles.신자)
         {
-            context.WitchPretendedBelievers.Add(this);
-            finalActionId = DetermineLieTargetForBeliever(context, attackTarget);
+            context.MarkWitchPretendedBeliever(this);
+            finalActionType = DetermineLieTargetForBeliever(context, attackTarget);
         }
         else if (pretend == Role.Roles.불면증)
         {
             // 불면증 사칭: 홀수 날 집에 머물고 짝수 날 외출
-            finalActionId = context.IsEvenNight() ? "insomniac_walk" : "insomniac_home";
+            finalActionType = context.IsEvenNight() ? AIActionType.InsomniacWalk : AIActionType.InsomniacHome;
         }
         else if (pretend == Role.Roles.벙어리 || pretend == Role.Roles.겁쟁이)
         {
-            finalActionId = "mute_silent";
+            finalActionType = AIActionType.MuteSilent;
         }
         else if (pretend == Role.Roles.시민)
         {
-            finalActionId = "citizen_home";
+            finalActionType = AIActionType.CitizenHome;
         }
         else if (pretend == Role.Roles.좀도둑)
         {
             // 좀도둑 사칭: 빈집이 있을 때만 외출한 척
-            finalActionId = context.HasEmptyHouseForThief ? "thief_lie" : "citizen_home";
+            finalActionType = context.HasEmptyHouseForThief ? AIActionType.ThiefLie : AIActionType.CitizenHome;
         }
 
         // 실제 공격 대상은 attackTarget이지만, ActionId는 거짓말에 맞춰서 설정
-        SetAction(context, finalActionId, context.GetCharacter(attackTarget), pretendRole: pretend);
+        SetAction(context, finalActionType, context.GetCharacter(attackTarget), pretendRole: pretend);
 
         if (attackTarget != null)
         {
-            context.Attacked.Add(attackTarget);
+            context.MarkAttacked(attackTarget);
         }
     }
 
@@ -151,18 +158,18 @@ public class WitchAI : CharacterAI
         return candidates[Random.Range(0, candidates.Count)];
     }
 
-    private string DetermineLieTargetForBeliever(AIContext context, CharacterAI actualAttackTarget)
+    private AIActionType DetermineLieTargetForBeliever(AIContext context, CharacterAI actualAttackTarget)
     {
         // 20% 확률로 무작위 거짓말 (성공했다고 주장)
         if (Random.value < 0.2f)
         {
             DetermineLieTargetSimple(context, null);
-            return "believer_investigate"; 
+            return AIActionType.BelieverInvestigate;
         }
 
         // 80% 확률로 논리적 거짓말
         // 우선순위 대상: 벙어리, 산책간 불면증, 도둑질나간 좀도둑, 겁쟁이
-        List<(CharacterAI target, string actionId)> candidates = new List<(CharacterAI, string)>();
+        List<(CharacterAI target, AIActionType actionType)> candidates = new List<(CharacterAI, AIActionType)>();
 
         foreach (CharacterAI p in context.Participants)
         {
@@ -170,19 +177,19 @@ public class WitchAI : CharacterAI
 
             if (p.MyRole == Role.Roles.벙어리)
             {
-                candidates.Add((p, "believer_investigate"));
+                candidates.Add((p, AIActionType.BelieverInvestigate));
             }
             else if (p.MyRole == Role.Roles.불면증 && context.IsEvenNight())
             {
-                candidates.Add((p, "believer_absent"));
+                candidates.Add((p, AIActionType.BelieverAbsent));
             }
             else if (p.MyRole == Role.Roles.좀도둑 && context.HasEmptyHouseForThief)
             {
-                candidates.Add((p, "believer_absent"));
+                candidates.Add((p, AIActionType.BelieverAbsent));
             }
             else if (p.MyRole == Role.Roles.겁쟁이)
             {
-                candidates.Add((p, "believer_refused"));
+                candidates.Add((p, AIActionType.BelieverRefused));
             }
         }
 
@@ -190,7 +197,7 @@ public class WitchAI : CharacterAI
         {
             var choice = candidates[Random.Range(0, candidates.Count)];
             currentLieTarget = choice.target;
-            return choice.actionId;
+            return choice.actionType;
         }
 
         // 위 조건에 맞는 대상이 없으면 오늘 죽인 사람을 대상으로 함 (시체 발견)
@@ -199,10 +206,10 @@ public class WitchAI : CharacterAI
         if (currentLieTarget == null)
         {
             DetermineLieTargetSimple(context, null);
-            return "believer_investigate";
+            return AIActionType.BelieverInvestigate;
         }
 
-        return "believer_body_found";
+        return AIActionType.BelieverBodyFound;
     }
 
     private void DetermineLieTargetSimple(AIContext context, CharacterAI defaultTarget)

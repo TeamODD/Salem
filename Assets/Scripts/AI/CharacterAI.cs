@@ -16,13 +16,20 @@ public abstract class CharacterAI : MonoBehaviour
     public string DisplayName => string.IsNullOrEmpty(displayName) ? gameObject.name : displayName;
     public virtual CharacterAI CurrentLieTarget => null;
     public virtual bool WillRefusePrayer => false;
+    public virtual bool ShouldIgnorePrayerDialogueOverride => false;
 
     public abstract void DoNightAction(AIContext context);
     public abstract void ResolveMorning(AIContext context);
 
-    protected void SetAction(AIContext context, string actionId, Character target = null, Role.Roles? pretendRole = null, bool success = true)
+    public virtual bool TryGetReceivedPrayerForCitizenDialogue(out bool receivedPrayer)
     {
-        lastAction = new AIAction(actionId, target, pretendRole, success);
+        receivedPrayer = false;
+        return false;
+    }
+
+    protected void SetAction(AIContext context, AIActionType actionType, Character target = null, Role.Roles? pretendRole = null, bool success = true)
+    {
+        lastAction = new AIAction(actionType, target, pretendRole, success);
         if (context != null)
         {
             context.RegisterAction(this, lastAction);

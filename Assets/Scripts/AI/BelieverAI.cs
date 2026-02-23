@@ -12,21 +12,21 @@ public class BelieverAI : CharacterAI
         {
             if (ai == null || ai == this) continue;
             if (investigated.Contains(ai)) continue;
-            if (context.WitchPretendedBelievers.Contains(ai)) continue;
+            if (context.IsWitchPretendedBeliever(ai)) continue;
             candidates.Add(ai);
         }
 
         if (candidates.Count == 0)
         {
             Debug.Log($"[Believer] {DisplayName} -> 조사 대상 없음 (집에 머무름)");
-            SetAction(context, "believer_stay_home", target: null);
+            SetAction(context, AIActionType.BelieverStayHome, target: null);
             return;
         }
 
         CharacterAI target = candidates[Random.Range(0, candidates.Count)];
         Debug.Log($"[Believer] {DisplayName} -> 조사 대상: {target.DisplayName}");
         investigated.Add(target);
-        SetAction(context, "believer_investigate", context.GetCharacter(target));
+        SetAction(context, AIActionType.BelieverInvestigate, context.GetCharacter(target));
     }
 
     public override void ResolveMorning(AIContext context)
@@ -37,32 +37,32 @@ public class BelieverAI : CharacterAI
         if (targetAI == null) return;
 
         bool isHome = context.IsTargetHome(targetAI);
-        bool isDead = context.Attacked.Contains(targetAI);
+        bool isDead = context.IsAttacked(targetAI);
 
         if (isDead)
         {
             // 시체 발견
             lastAction.Success = false;
-            lastAction.ActionId = "believer_body_found";
+            lastAction.ActionType = AIActionType.BelieverBodyFound;
         }
         else if (!isHome)
         {
             // 부재
             lastAction.Success = false;
-            lastAction.ActionId = "believer_absent";
+            lastAction.ActionType = AIActionType.BelieverAbsent;
         }
         else if (targetAI.WillRefusePrayer)
         {
             // 거부
             lastAction.Success = false;
-            lastAction.ActionId = "believer_refused";
+            lastAction.ActionType = AIActionType.BelieverRefused;
             targetAI.OnVisitorRefused(this); // 거부 사실 통보
         }
         else
         {
             // 성공
             lastAction.Success = true;
-            context.PrayerReceived.Add(targetAI);
+            context.MarkPrayerReceived(targetAI);
         }
     }
 }

@@ -2466,6 +2466,10 @@ PrefabInstance:
       propertyPath: 'characterObjects.Array.data[4]'
       value: 
       objectReference: {fileID: 1014194113}
+    - target: {fileID: 6534145881483108040, guid: e4ef09fad65d78f40a22c5d7922dde0c, type: 3}
+      propertyPath: yarnProject
+      value: 
+      objectReference: {fileID: 7545569452688597077, guid: ef6ada78194a27642870fc5c9b7bdd91, type: 3}
     - target: {fileID: 7348348518353863576, guid: e4ef09fad65d78f40a22c5d7922dde0c, type: 3}
       propertyPath: m_Camera
       value: 

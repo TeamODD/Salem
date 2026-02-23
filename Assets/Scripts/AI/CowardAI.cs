@@ -8,7 +8,7 @@ public class CowardAI : CharacterAI
     public override void DoNightAction(AIContext context)
     {
         Debug.Log($"[Coward] {DisplayName} -> 집에 머무름 (겁쟁이)");
-        SetAction(context, "coward_plea");
+        SetAction(context, AIActionType.CowardPlea);
     }
 
     public override void ResolveMorning(AIContext context)
