@@ -65,7 +65,7 @@ public class IntroManager : MonoBehaviour
         uniqueRoles.Remove(Role.Roles.마녀);
 
         string rolesStr = string.Join(", ", uniqueRoles);
-        string infoText = $"{levelName}\n\n이 마을에는 {rolesStr}이(가) 살고 있다.\n\n이들 중에는 1명의 마녀가 숨어있다.";
+        string infoText = $"{levelName}\n\n이 마을에는 {rolesStr}이(가) 살고 있다.\n\n<color=red>이들 중에는 1명의 마녀가 숨어있다.</color>";
 
         PlayIntroSequence(infoText);
     }

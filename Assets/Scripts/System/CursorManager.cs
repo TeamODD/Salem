@@ -55,6 +55,6 @@ public class CursorManager : MonoBehaviour
     void Update()
     {
 
-    }    
+    }
 }
 

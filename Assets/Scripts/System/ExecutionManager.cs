@@ -20,7 +20,8 @@ public class ExecutionManager : MonoBehaviour
     [SerializeField] private bool isAiming = false;
 
     private CharacterAI _pendingTarget;
-
+    private DialogueRunner _dialogueRunner;
+    private GameManager _gameManager;
 
     public bool IsAiming => isAiming;
     public int CurrentBullets => currentBullets;
@@ -43,10 +44,11 @@ public class ExecutionManager : MonoBehaviour
         UpdateBulletUI();
 
         // 코드에서 직접 명령어를 등록하여 오브젝트 이름 문제를 해결합니다.
-        var dialogueRunner = FindFirstObjectByType<DialogueRunner>();
-        if (dialogueRunner != null)
+        _dialogueRunner = FindFirstObjectByType<DialogueRunner>();
+        _gameManager = FindFirstObjectByType<GameManager>();
+        if (_dialogueRunner != null)
         {
-            dialogueRunner.AddCommandHandler("execute_pending", () => ExecutePendingTarget());
+            _dialogueRunner.AddCommandHandler("execute_pending", ExecutePendingTarget);
         }
     }
 
@@ -106,10 +108,14 @@ public class ExecutionManager : MonoBehaviour
         // EffectManager.Instance.ShowBloodEffect(target.transform.position);
 
         // 3. GameManager에게 통보 (사망 처리 및 승리 체크)
-        GameManager aiManager = FindFirstObjectByType<GameManager>();
-        if (aiManager != null)
+        if (_gameManager == null)
         {
-            aiManager.OnCharacterExecuted(target);
+            _gameManager = FindFirstObjectByType<GameManager>();
+        }
+
+        if (_gameManager != null)
+        {
+            _gameManager.OnCharacterExecuted(target);
         }
         else
         {
