@@ -104,8 +104,11 @@ public class ExecutionManager : MonoBehaviour
         
         if (isAiming) ToggleAiming(false); // 발사 후 장전 해제 (이미 해제된 상태면 무시)
 
-        // 2. 처형 효과 (피 튀김 등) - 추후 구현 or EffectManager 호출
-        // EffectManager.Instance.ShowBloodEffect(target.transform.position);
+        // 2. 처형 효과
+        if (ExecutionEffect.Instance != null)
+        {
+            ExecutionEffect.Instance.ExecuteEffect(target.transform.position);
+        }
 
         // 3. GameManager에게 통보 (사망 처리 및 승리 체크)
         if (_gameManager == null)

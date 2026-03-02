@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 6039910a1be25034da08da5df2a461b0
+guid: 2696f87aa587a6044aa087e2d51a50a9
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -2841190859945255784
-    second: Silver Bullet_Bloody_0
+      213: -4647912217861789930
+    second: "\uC2DC\uC791\uD654\uBA74 \uBC30\uACBD_0"
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,23 +113,23 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Silver Bullet_Bloody_0
+      name: "\uC2DC\uC791\uD654\uBA74 \uBC30\uACBD_0"
       rect:
         serializedVersion: 2
-        x: 11
+        x: 0
         y: 0
-        width: 83
-        height: 100
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+        width: 2500
+        height: 2000
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 89c50e557ff0298d0800000000000000
-      internalID: -2841190859945255784
+      spriteID: 617662ba67c4f7fb0800000000000000
+      internalID: -4647912217861789930
       vertices: []
       indices: 
       edges: []
@@ -138,7 +138,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: ee5e77240c1c69d45859affa16dfc322
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -148,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Silver Bullet_Bloody_0: -2841190859945255784
+      "\uC2DC\uC791\uD654\uBA74 \uBC30\uACBD_0": -4647912217861789930
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -30,15 +30,7 @@ public class TutorialManager : MonoBehaviour
     public float IntroDisplayDuration = 2.0f;
 
     [Header("역할 설명 UI (팝업)")]
-    public GameObject RoleIntroPanel;
-    public TextMeshProUGUI RoleNameText;
-    public Image RoleIconImage;
-    public TextMeshProUGUI RoleDescText;
-    public Button RoleIntroCloseButton;
-    public TextMeshProUGUI RolePageIndicator; // "최대 1/3" 형식
-    public Button RolePrevButton; // 이전 버튼 (선택적)
-    public Button RoleNextButton; // 다음 버튼 (선택적)
-    public Button RoleExitButton;
+    public RoleInfoPanelController RoleInfoPanel;
     public Button RoleInfoOpenButton;
 
     [Header("시나리오 모드 참조")]
@@ -64,8 +56,6 @@ public class TutorialManager : MonoBehaviour
 
     private bool _isShowingIntro = false;
     private bool _isShowingRolePopup = false;
-    private int _currentRoleIndex = 0;
-    private List<RoleEntry> _currentRoleList;
     private bool _wasBlockerActive;
 
     private TutorialRaycastFilter _blockerFilter;
@@ -84,16 +74,11 @@ public class TutorialManager : MonoBehaviour
             if (_blockerFilter == null) _blockerFilter = Blocker.gameObject.AddComponent<TutorialRaycastFilter>();
         }
         if (NextButton != null) NextButton.onClick.AddListener(OnNextButtonClicked);
-        if (RoleIntroCloseButton != null) RoleIntroCloseButton.onClick.AddListener(OnRoleIntroCloseClicked);
-        if (RolePrevButton != null) RolePrevButton.onClick.AddListener(OnRolePrevClicked);
-        if (RoleNextButton != null) RoleNextButton.onClick.AddListener(OnRoleNextClicked);
-        if (RoleExitButton != null) RoleExitButton.onClick.AddListener(OnRoleExitClicked);
         if (RoleInfoOpenButton != null) RoleInfoOpenButton.onClick.AddListener(ShowRolePopup);
         
         // 초기 상태 설정
         if (DialogueBox != null) DialogueBox.gameObject.SetActive(false);
         if (IntroPanel != null) { IntroPanel.alpha = 0; IntroPanel.gameObject.SetActive(false); }
-        if (RoleIntroPanel != null) RoleIntroPanel.SetActive(false);
 
         // 시나리오 핸들러 초기화
         _scenarioHandler = gameObject.GetComponent<TutorialScenarioHandler>();
@@ -160,17 +145,14 @@ public class TutorialManager : MonoBehaviour
             IntroPanel.alpha = 0;
             IntroPanel.gameObject.SetActive(false);
         }
-        if (RoleIntroPanel != null)
+        if (RoleInfoPanel != null && RoleInfoPanel.IsOpen)
         {
-            RoleIntroPanel.transform.DOKill();
-            RoleIntroPanel.SetActive(false);
+            RoleInfoPanel.Close();
         }
 
         // 3. 내부 상태 플래그 초기화
         _isShowingIntro = false;
         _isShowingRolePopup = false;
-        _currentRoleIndex = 0;
-        _currentRoleList = null;
         _wasBlockerActive = false;
 
         // 4. 진행 중인 Yarn 대화 중단
@@ -383,21 +365,20 @@ public class TutorialManager : MonoBehaviour
     {
         if (_isShowingRolePopup) return;
 
-        if (RoleIntroPanel == null)
+        if (RoleInfoPanel == null)
         {
             _isShowingRolePopup = false;
             return;
         }
 
-        _currentRoleList = _currentStage.RoleDatabase.GetRoles(_currentStage.StageRoleNames);
-        if (_currentRoleList == null || _currentRoleList.Count == 0)
+        var currentRoleList = _currentStage.RoleDatabase.GetRoles(_currentStage.StageRoleNames);
+        if (currentRoleList == null || currentRoleList.Count == 0)
         {
             _isShowingRolePopup = false;
             return;
         }
 
         _isShowingRolePopup = true;
-        _currentRoleIndex = 0;
 
         _wasBlockerActive = Blocker != null && Blocker.gameObject.activeSelf;
         if (Blocker != null)
@@ -405,118 +386,21 @@ public class TutorialManager : MonoBehaviour
             Blocker.gameObject.SetActive(true);
         }
 
-        RoleIntroPanel.SetActive(true);
+        RoleInfoPanel.OnPanelClosed -= OnRolePanelClosed;
+        RoleInfoPanel.OnPanelClosed += OnRolePanelClosed;
+        RoleInfoPanel.Open(currentRoleList);
+    }
+
+    private void OnRolePanelClosed()
+    {
+        if (RoleInfoPanel != null) RoleInfoPanel.OnPanelClosed -= OnRolePanelClosed;
         
-        UpdateRoleDisplay();
-        
-        RoleIntroPanel.transform.localScale = Vector3.zero;
-        RoleIntroPanel.transform.DOScale(Vector3.one, 0.3f).SetEase(Ease.OutBack);
-    }
+        _isShowingRolePopup = false;
 
-    private void UpdateRoleDisplay()
-    {
-        if (_currentRoleList == null || _currentRoleIndex < 0 || _currentRoleIndex >= _currentRoleList.Count)
-            return;
-
-        RoleEntry currentRole = _currentRoleList[_currentRoleIndex];
-
-        if (RoleNameText != null) RoleNameText.text = currentRole.RoleName;
-        if (RoleDescText != null) RoleDescText.text = currentRole.RoleDescription;
-        if (RoleIconImage != null)
+        if (Blocker != null)
         {
-            if (currentRole.RoleIcon != null)
-            {
-                RoleIconImage.sprite = currentRole.RoleIcon;
-                RoleIconImage.gameObject.SetActive(true);
-            }
-            else
-            {
-                RoleIconImage.gameObject.SetActive(false);
-            }
+            Blocker.gameObject.SetActive(_wasBlockerActive);
         }
-
-        if (RolePageIndicator != null)
-        {
-            RolePageIndicator.text = $"{_currentRoleIndex + 1}/{_currentRoleList.Count}";
-        }
-
-        UpdateRoleNavigationButtons();
-    }
-
-    private void UpdateRoleNavigationButtons()
-    {
-        bool hasPrev = _currentRoleIndex > 0;
-        bool hasNext = _currentRoleIndex < _currentRoleList.Count - 1;
-
-        if (RolePrevButton != null) RolePrevButton.gameObject.SetActive(hasPrev);
-        if (RoleNextButton != null) RoleNextButton.interactable = hasNext;
-        
-        if (RoleIntroCloseButton != null)
-        {
-            var buttonText = RoleIntroCloseButton.GetComponentInChildren<TextMeshProUGUI>();
-            if (buttonText != null)
-            {
-                buttonText.text = hasNext ? "다음" : "확인";
-            }
-        }
-    }
-
-    private void OnRolePrevClicked()
-    {
-        if (!_isShowingRolePopup || _currentRoleIndex <= 0) return;
-        
-        _currentRoleIndex--;
-        UpdateRoleDisplay();
-    }
-
-    private void OnRoleNextClicked()
-    {
-        if (!_isShowingRolePopup) return;
-        
-        if (_currentRoleIndex < _currentRoleList.Count - 1)
-        {
-            _currentRoleIndex++;
-            UpdateRoleDisplay();
-        }
-    }
-
-    private void OnRoleExitClicked()
-    {
-        if (!_isShowingRolePopup) return;
-
-        RoleIntroPanel.transform.DOScale(Vector3.zero, 0.2f).SetEase(Ease.InBack).OnComplete(() =>
-        {
-            RoleIntroPanel.SetActive(false);
-            _isShowingRolePopup = false;
-            _currentRoleList = null;
-            if (Blocker != null)
-            {
-                Blocker.gameObject.SetActive(_wasBlockerActive);
-            }
-        });
-    }
-
-    private void OnRoleIntroCloseClicked()
-    {
-        if (!_isShowingRolePopup) return;
-
-        if (_currentRoleIndex < _currentRoleList.Count - 1)
-        {
-            _currentRoleIndex++;
-            UpdateRoleDisplay();
-            return;
-        }
-
-        RoleIntroPanel.transform.DOScale(Vector3.zero, 0.2f).SetEase(Ease.InBack).OnComplete(() =>
-        {
-            RoleIntroPanel.SetActive(false);
-            _isShowingRolePopup = false;
-            _currentRoleList = null;
-            if (Blocker != null)
-            {
-                Blocker.gameObject.SetActive(_wasBlockerActive);
-            }
-        });
     }
 
     #endregion

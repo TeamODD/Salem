@@ -3,6 +3,7 @@ using UnityEngine.UI;
 using TMPro;
 using DG.Tweening;
 using System.Collections.Generic;
+using System;
 
 public class RoleInfoPanelController : MonoBehaviour
 {
@@ -27,9 +28,16 @@ public class RoleInfoPanelController : MonoBehaviour
     [SerializeField] private float _openDuration = 0.3f;
     [SerializeField] private float _closeDuration = 0.2f;
 
+    [Header("사운드")]
+    [SerializeField] private AudioClip _openSound;
+    [SerializeField] private AudioClip _closeSound;
+
     private List<RoleEntry> _roleList;
     private int _currentIndex;
     private bool _isOpen;
+
+    public bool IsOpen => _isOpen;
+    public Action OnPanelClosed;
 
     private void Awake()
     {
@@ -53,15 +61,30 @@ public class RoleInfoPanelController : MonoBehaviour
     
     public void Open()
     {
+        if (_roleIntroData != null)
+        {
+            Open(_roleIntroData.AllRoles);
+        }
+    }
+
+    public void Open(List<RoleEntry> roleList)
+    {
         if (_isOpen) return;
-        if (_roleList == null || _roleList.Count == 0)
+        if (roleList == null || roleList.Count == 0)
         {
             return;
         }
 
+        _roleList = roleList;
+
+        if (_openSound != null && SoundManager.Instance != null)
+        {
+            SoundManager.Instance.PlaySFX(_openSound);
+        }
+
         _isOpen = true;
         _currentIndex = 0;
-
+    
         _panel.SetActive(true);
         UpdateDisplay();
 
@@ -73,10 +96,16 @@ public class RoleInfoPanelController : MonoBehaviour
     {
         if (!_isOpen) return;
 
+        if (_closeSound != null && SoundManager.Instance != null)
+        {
+            SoundManager.Instance.PlaySFX(_closeSound);
+        }
+
         _panel.transform.DOScale(Vector3.zero, _closeDuration).SetEase(Ease.InBack).OnComplete(() =>
         {
             _panel.SetActive(false);
             _isOpen = false;
+            OnPanelClosed?.Invoke();
         });
     }
 
@@ -139,7 +168,7 @@ public class RoleInfoPanelController : MonoBehaviour
         bool hasNext = _currentIndex < _roleList.Count - 1;
 
         if (_prevButton != null) _prevButton.gameObject.SetActive(hasPrev);
-        if (_nextButton != null) _nextButton.interactable = hasNext;
+        if (_nextButton != null) _nextButton.gameObject.SetActive(hasNext);
     }
 
     private void OnDestroy()
