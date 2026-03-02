@@ -22,12 +22,14 @@ public partial class GameManager : MonoBehaviour, IGameFlowContext
     [SerializeField] private float fadeDuration = 1.0f;
     [SerializeField] private float introLeadDelay = 0.5f;
     [SerializeField] private float nightResolveDelay = 2.0f;
+    [SerializeField] private float nightDeathNoticeDuration = 1.8f;
 
     private bool isNight;
     private bool isTransitioning;
 
     private readonly List<CharacterAI> participants = new List<CharacterAI>();
     private readonly List<CharacterAI> deadParticipants = new List<CharacterAI>();
+    private readonly List<string> lastNightDeathNames = new List<string>();
     private readonly RoleAssigner roleAssigner = new RoleAssigner();
 
     private AIContext currentContext;
@@ -149,6 +151,14 @@ public partial class GameManager : MonoBehaviour, IGameFlowContext
     public void ShowDefeatUI()
     {
         IntroManager.Instance?.ShowGameOver("<color=red><b>마녀가 당신을 죽였습니다.</b></color>");
+    }
+
+    public IEnumerator ShowNightDeathNoticeRoutine()
+    {
+        if (IntroManager.Instance == null) yield break;
+
+        IntroManager.Instance.ShowNightDeaths(lastNightDeathNames, nightDeathNoticeDuration);
+        yield return new WaitWhile(() => IntroManager.Instance.IsIntroPlaying);
     }
 
     public IEnumerator FadeOutRoutine(float duration)

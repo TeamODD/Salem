@@ -8,9 +8,11 @@ public partial class GameManager
     {
         participants.Clear();
         deadParticipants.Clear();
+        lastNightDeathNames.Clear();
 
         List<CharacterAI> newParticipants = roleAssigner.AssignRoles(characterObjects, activeRoles);
         participants.AddRange(newParticipants);
+        RoleGuessManager.Instance?.ResetAllMarksToDefault();
         Debug.Log($"<color=green>모든 캐릭터에게 새로운 직업이 부여되었습니다. (참가자: {participants.Count}명)</color>");
     }
 
@@ -40,6 +42,7 @@ public partial class GameManager
     public void RunMorning()
     {
         if (currentContext == null) BuildContext();
+        lastNightDeathNames.Clear();
 
         foreach (CharacterAI ai in participants)
         {
@@ -56,6 +59,7 @@ public partial class GameManager
             if (victim != null && participants.Contains(victim))
             {
                 Debug.Log($"[Night Event] {victim.DisplayName} 사망.");
+                lastNightDeathNames.Add(victim.DisplayName);
                 victim.gameObject.SetActive(false);
                 participants.Remove(victim);
                 deadParticipants.Add(victim);

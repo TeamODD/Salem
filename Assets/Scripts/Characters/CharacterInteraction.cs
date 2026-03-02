@@ -17,6 +17,7 @@ public class CharacterInteraction : MonoBehaviour, IPointerEnterHandler, IPointe
     private SpriteRenderer _spriteRenderer;
     private CharacterAI _characterAI;
     private GameManager _gameManager;
+    private CharacterMark _characterMark;
 
     private ICharacterFocusController _focusController;
     private IExecutionClickHandler _executionClickHandler;
@@ -33,6 +34,7 @@ public class CharacterInteraction : MonoBehaviour, IPointerEnterHandler, IPointe
         _spriteRenderer = GetComponent<SpriteRenderer>();
         _characterAI = GetComponent<CharacterAI>();
         _gameManager = GameManager.Instance;
+        _characterMark = GetComponentInChildren<CharacterMark>(true);
 
         _focusController = new CharacterFocusController(_characterVisual);
         _executionClickHandler = new CharacterExecutionClickHandler();
@@ -104,16 +106,21 @@ public class CharacterInteraction : MonoBehaviour, IPointerEnterHandler, IPointe
 
         _characterVisual.Initialize(characterData);
         UpdateColliderToMatchSprite();
+        _characterMark?.RefreshCanvasPosition();
     }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
+        if (UIEventBlocker.IsPointerOverUI) return;
+
         bool isDialogueRunning = dialogueRunner != null && dialogueRunner.IsDialogueRunning;
         _focusController.OnPointerEnter(isDialogueRunning);
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
+        if (UIEventBlocker.IsPointerOverUI) return;
+
         _focusController.OnPointerExit();
     }
 

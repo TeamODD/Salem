@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,8 +13,17 @@ public class CharacterMark : MonoBehaviour
 
     [Tooltip("World Space Canvas의 스케일 (월드 단위에 맞게 축소)")]
     [SerializeField] private float _canvasWorldScale = 0.01f;
+    [SerializeField] private float _canvasForwardOffset = -0.1f;
 
     private Canvas _parentCanvas;
+
+    private void Awake()
+    {
+        if (_markImage == null)
+        {
+            _markImage = GetComponent<Image>();
+        }
+    }
 
     void Start()
     {
@@ -22,7 +32,20 @@ public class CharacterMark : MonoBehaviour
             RoleGuessManager.Instance.RegisterMark(this);
         }
 
+        StartCoroutine(SetUpCanvasPositionDelayed());
+
         // Canvas를 캐릭터 머리 위에 자동 배치
+        // SetupCanvasPosition();
+    }
+
+    private void OnEnable()
+    {
+        StartCoroutine(SetUpCanvasPositionDelayed());
+    }
+
+    private IEnumerator SetUpCanvasPositionDelayed()
+    {
+        yield return null; // 한 프레임 대기
         SetupCanvasPosition();
     }
 
@@ -44,17 +67,22 @@ public class CharacterMark : MonoBehaviour
         SpriteRenderer spriteRenderer = characterTransform.GetComponent<SpriteRenderer>();
         if (spriteRenderer == null || spriteRenderer.sprite == null) return;
 
-        // 스프라이트의 월드 높이 계산 (캐릭터 스케일 반영)
-        float spriteHeight = spriteRenderer.sprite.bounds.size.y;
+        // 실제 렌더링 월드 bounds 상단을 기준으로 위치 계산 (스케일/피벗 반영)
+        float topY = spriteRenderer.bounds.max.y;
+        Vector3 worldTop = new Vector3(
+            spriteRenderer.bounds.center.x,
+            topY + _headOffset,
+            spriteRenderer.bounds.center.z + _canvasForwardOffset);
 
-        // Canvas의 로컬 position을 스프라이트 상단 + 오프셋으로 설정
-        // Canvas는 Character의 자식이므로 localPosition 사용
-        // 스프라이트의 pivot 기준 상단 = bounds.max.y
-        float topY = spriteRenderer.sprite.bounds.max.y;
-        _parentCanvas.transform.localPosition = new Vector3(0f, topY + _headOffset, 0f);
+        _parentCanvas.transform.position = worldTop;
 
         // World Space에 맞는 스케일 적용
         _parentCanvas.transform.localScale = new Vector3(_canvasWorldScale, _canvasWorldScale, _canvasWorldScale);
+    }
+
+    public void RefreshCanvasPosition()
+    {
+        SetupCanvasPosition();
     }
 
     public void OnMarkClicked()

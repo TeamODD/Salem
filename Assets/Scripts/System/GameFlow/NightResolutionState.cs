@@ -36,6 +36,7 @@ public sealed class NightResolutionState : GameFlowStateBase
         Context.RunNight();
         yield return new WaitForSeconds(Context.NightResolveDelay);
         Context.RunMorning();
+        yield return Context.ShowNightDeathNoticeRoutine();
 
         Debug.Log("--- 아침이 밝았습니다 ---");
 

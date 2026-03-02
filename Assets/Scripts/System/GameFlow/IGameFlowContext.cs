@@ -24,6 +24,7 @@ public interface IGameFlowContext
     bool IsWinConditionMet();
     bool IsDefeatConditionMet();
     void ShowDefeatUI();
+    IEnumerator ShowNightDeathNoticeRoutine();
 
     IEnumerator FadeOutRoutine(float duration);
     IEnumerator FadeInRoutine(float duration);
