@@ -4,7 +4,7 @@ using UnityEditor;
 [CustomPropertyDrawer(typeof(ActionIdAttribute))]
 public class ActionIdDrawer : PropertyDrawer
 {
-    // 여기에 추가하고 싶은 Action ID들을 리스트로 적어주세요.
+    // 추가하고 싶은 Action ID들을 리스트로 작성
     private readonly string[] actionIds = new string[]
     {
         "None",

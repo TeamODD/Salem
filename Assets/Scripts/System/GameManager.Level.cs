@@ -30,10 +30,12 @@ public partial class GameManager
 
         participants.Clear();
         deadParticipants.Clear();
+        lastNightDeathNames.Clear();
 
         Debug.Log($"[GameManager] 역할 할당 시작. 오브젝트 수: {characterObjects.Count}, 예정된 역할 수: {activeRoles.Count}");
         List<CharacterAI> newParticipants = roleAssigner.AssignRoles(characterObjects, activeRoles);
         participants.AddRange(newParticipants);
+        RoleGuessManager.Instance?.ResetAllMarksToDefault();
         Debug.Log($"[GameManager] 역할 할당 완료. 생성된 참가자 수: {participants.Count}");
 
         nightIndex = 1;

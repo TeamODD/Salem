@@ -31,6 +31,7 @@ public class TunnelVisionEffect : MonoBehaviour
     }
     public void StartTunnelVision()
     {
+        Debug.Log("Start Tunnel Vision Effect");
         _isProcessing = true;
 
         DOTween.Kill(ID);

@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 70443e98beaafca4ca2a7d1413cc6171, type: 3}
-  m_Name: LevelData_2
+  m_Name: LevelData_4
   m_EditorClassIdentifier: Assembly-CSharp::LevelData
-  LevelName: Stage 2
+  LevelName: Stage 4
   IntroText: asdasdasd
-  RolesInLevel: 0100000004000000030000000600000000000000
+  RolesInLevel: 0000000002000000050000000400000006000000
   CharacterDatas:
   - {fileID: 11400000, guid: efdd39424d7557e48906893d6124ba85, type: 2}
   - {fileID: 11400000, guid: fc9bf327e4dca34449de6081e57a2778, type: 2}

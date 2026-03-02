@@ -69,6 +69,17 @@ public class RoleGuessManager : MonoBehaviour
         }
     }
 
+    public void ResetAllMarksToDefault()
+    {
+        CloseSelector();
+        _allMarks.RemoveAll(mark => mark == null);
+
+        for (int i = 0; i < _allMarks.Count; i++)
+        {
+            _allMarks[i].SetGuessedRole(_defaultSprite);
+        }
+    }
+
     public void OpenSelector(CharacterMark mark)
     {
         if (_selectorPanel.activeSelf && _currentActiveMark == mark)

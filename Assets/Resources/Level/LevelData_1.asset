@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70443e98beaafca4ca2a7d1413cc6171, type: 3}
   m_Name: LevelData_1
   m_EditorClassIdentifier: Assembly-CSharp::LevelData
-  LevelName: 1stage
+  LevelName: Stage 1
   IntroText: asdasdasd
   RolesInLevel: 0000000001000000020000000300000006000000
   CharacterDatas:
