@@ -452,6 +452,7 @@ MonoBehaviour:
   _defaultMark: {fileID: -7459404443261033276, guid: 6b67d2417f490cc4eb8633bec2118bfd, type: 3}
   _headOffset: 1
   _canvasWorldScale: 0.01
+  _canvasForwardOffset: -0.1
 --- !u!114 &207049713
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -625,6 +626,7 @@ MonoBehaviour:
   _defaultMark: {fileID: -7459404443261033276, guid: 6b67d2417f490cc4eb8633bec2118bfd, type: 3}
   _headOffset: 1
   _canvasWorldScale: 0.01
+  _canvasForwardOffset: -0.1
 --- !u!114 &221496952
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2492,6 +2494,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 8300000, guid: aa5ff67ac4f160c468c635dcc46fbbe2, type: 3}
     - target: {fileID: 7529363679796437245, guid: e4ef09fad65d78f40a22c5d7922dde0c, type: 3}
+      propertyPath: _soundDB
+      value: 
+      objectReference: {fileID: 11400000, guid: 4605cd5e4ce5e9a40814479542b3f464, type: 2}
+    - target: {fileID: 7529363679796437245, guid: e4ef09fad65d78f40a22c5d7922dde0c, type: 3}
       propertyPath: _loopSfxSource
       value: 
       objectReference: {fileID: 427593113}
@@ -2869,6 +2875,7 @@ MonoBehaviour:
   _defaultMark: {fileID: -7459404443261033276, guid: 6b67d2417f490cc4eb8633bec2118bfd, type: 3}
   _headOffset: 1
   _canvasWorldScale: 0.01
+  _canvasForwardOffset: -0.1
 --- !u!114 &772114878
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3277,6 +3284,7 @@ MonoBehaviour:
   _defaultMark: {fileID: -7459404443261033276, guid: 6b67d2417f490cc4eb8633bec2118bfd, type: 3}
   _headOffset: 1
   _canvasWorldScale: 0.01
+  _canvasForwardOffset: -0.1
 --- !u!114 &905635347
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6484,6 +6492,7 @@ MonoBehaviour:
   _defaultMark: {fileID: -7459404443261033276, guid: 6b67d2417f490cc4eb8633bec2118bfd, type: 3}
   _headOffset: 1
   _canvasWorldScale: 0.01
+  _canvasForwardOffset: -0.1
 --- !u!114 &2078577800
 MonoBehaviour:
   m_ObjectHideFlags: 0

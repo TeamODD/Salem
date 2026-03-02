@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 2696f87aa587a6044aa087e2d51a50a9
+guid: eacd8cb42f2d52649915021123e5741c
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -4647912217861789930
-    second: "\uC2DC\uC791\uD654\uBA74 \uBC30\uACBD_0"
+      213: 2645442849034834988
+    second: "Salem\uB85C\uACE0_0"
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,23 +113,23 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: "\uC2DC\uC791\uD654\uBA74 \uBC30\uACBD_0"
+      name: "Salem\uB85C\uACE0_0"
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 2500
-        height: 2000
-      alignment: 9
-      pivot: {x: 0.6989269, y: 0.6586835}
+        x: 245
+        y: 583
+        width: 626
+        height: 470
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 617662ba67c4f7fb0800000000000000
-      internalID: -4647912217861789930
+      spriteID: c24915a414086b420800000000000000
+      internalID: 2645442849034834988
       vertices: []
       indices: 
       edges: []
@@ -138,7 +138,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: a6915ff285bdd4846859712b684b5a0e
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -148,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      "\uC2DC\uC791\uD654\uBA74 \uBC30\uACBD_0": -4647912217861789930
+      "Salem\uB85C\uACE0_0": 2645442849034834988
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

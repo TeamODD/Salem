@@ -50,13 +50,16 @@ public class RoleGuessManager : MonoBehaviour
 
         for (int i = 0; i < _roleIcons.Count; i++)
         {
-            int index = i;
-            _roleIcons[i].TargetButton.onClick.AddListener(() => OnSelectRole(index));
-        }
+            if (_roleIcons[i].TargetButton != null)
+            {
+                int index = i;
+                _roleIcons[i].TargetButton.onClick.AddListener(() => OnSelectRole(index));
+            }
 
-        if (_defaultButton != null)
-        {
-            _defaultButton.onClick.AddListener(ResetToDefault);
+            if (_defaultButton != null)
+            {
+                _defaultButton.onClick.AddListener(ResetToDefault);
+            }
         }
     }
 

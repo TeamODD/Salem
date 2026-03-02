@@ -22,13 +22,7 @@ MonoBehaviour:
   SFXList:
   - Type: 1
     Clip: {fileID: 0}
-  - Type: 0
-    Clip: {fileID: 0}
-  - Type: 0
-    Clip: {fileID: 0}
-  - Type: 0
-    Clip: {fileID: 0}
-  - Type: 0
-    Clip: {fileID: 0}
+  - Type: 3
+    Clip: {fileID: 8300000, guid: 76852446b854156458e0463279f29fc3, type: 3}
   - Type: 0
     Clip: {fileID: 0}
