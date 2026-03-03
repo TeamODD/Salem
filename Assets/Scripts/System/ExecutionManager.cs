@@ -82,6 +82,16 @@ public class ExecutionManager : MonoBehaviour
 #if UNITY_EDITOR
             Debug.Log("장전 완료. 대상을 선택하세요.");
 #endif
+
+            // 장전 완료 시 사운드 효과
+            if (SoundManager.Instance != null)
+            {
+                SoundManager.Instance.PauseBGM();
+                SoundManager.Instance.PlaySFXLoop(SFXType.Heartbeat);
+                SoundManager.Instance.PlaySFX(SFXType.LoadPistol);
+            }
+            if (TunnelVisionEffect.Instance != null)
+                TunnelVisionEffect.Instance.StartTunnelVision();
         }
         else
         {
@@ -89,6 +99,15 @@ public class ExecutionManager : MonoBehaviour
 #if UNITY_EDITOR
             Debug.Log("장전 해제.");
 #endif
+
+            // 장전 해제 시 사운드 효과
+            if (SoundManager.Instance != null)
+            {
+                SoundManager.Instance.FadeSFXLoop();
+                SoundManager.Instance.ResumeBGM();
+            }
+            if (TunnelVisionEffect.Instance != null)
+                TunnelVisionEffect.Instance.ResetVision();
         }
     }
 
@@ -108,6 +127,13 @@ public class ExecutionManager : MonoBehaviour
         if (ExecutionEffect.Instance != null)
         {
             ExecutionEffect.Instance.ExecuteEffect(target.transform.position);
+        }
+
+        if (SoundManager.Instance != null)
+        {
+            SoundManager.Instance.FadeSFXLoop();
+            SoundManager.Instance.PlaySFX(SFXType.GunShot);
+            SoundManager.Instance.PlaySFX(SFXType.BloodSpatter);
         }
 
         // 3. GameManager에게 통보 (사망 처리 및 승리 체크)

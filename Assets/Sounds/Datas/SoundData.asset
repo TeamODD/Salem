@@ -20,9 +20,13 @@ MonoBehaviour:
   - Type: 2
     Clip: {fileID: 8300000, guid: aa5ff67ac4f160c468c635dcc46fbbe2, type: 3}
   SFXList:
-  - Type: 1
-    Clip: {fileID: 0}
-  - Type: 3
+  - Type: 5
     Clip: {fileID: 8300000, guid: 76852446b854156458e0463279f29fc3, type: 3}
-  - Type: 0
-    Clip: {fileID: 0}
+  - Type: 3
+    Clip: {fileID: 8300000, guid: 479091cc82fa13740998739fba25c4da, type: 3}
+  - Type: 4
+    Clip: {fileID: 8300000, guid: 15e8e6e71aee03d4d9fcc15d222f2222, type: 3}
+  - Type: 6
+    Clip: {fileID: 8300000, guid: 65a55f5f87ec56347928903067971b0f, type: 3}
+  - Type: 7
+    Clip: {fileID: 8300000, guid: 48fe7f0d4e4cb0f4aac416cb5105e71d, type: 3}

@@ -74,7 +74,7 @@ public class RoleInfoPanelController : MonoBehaviour
         {
             return;
         }
-
+        
         _roleList = roleList;
 
         if (_openSound != null && SoundManager.Instance != null)
@@ -112,7 +112,7 @@ public class RoleInfoPanelController : MonoBehaviour
     private void ShowPrev()
     {
         if (!_isOpen || _currentIndex <= 0) return;
-
+        SoundManager.Instance.PlaySFX(SFXType.PageFlip);
         _currentIndex--;
         UpdateDisplay();
     }
@@ -121,7 +121,7 @@ public class RoleInfoPanelController : MonoBehaviour
     {
         if (!_isOpen || _roleList == null) return;
         if (_currentIndex >= _roleList.Count - 1) return;
-
+        SoundManager.Instance.PlaySFX(SFXType.PageFlip);
         _currentIndex++;
         UpdateDisplay();
     }

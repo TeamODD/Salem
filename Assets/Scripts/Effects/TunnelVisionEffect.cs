@@ -6,10 +6,24 @@ using UnityEngine.InputSystem;
 
 public class TunnelVisionEffect : MonoBehaviour
 {
+    public static TunnelVisionEffect Instance { get; private set; }
     [SerializeField] private Volume _globalVolume;
     private Vignette _vignette;
     private bool _isProcessing = false;
     private const string ID = "LoadIntensity";
+
+    void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+    
     void Start()
     {
         if (_globalVolume.profile.TryGet<Vignette>(out var tmpVignette))

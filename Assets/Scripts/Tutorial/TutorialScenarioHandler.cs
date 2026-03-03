@@ -34,6 +34,8 @@ public class TutorialScenarioHandler : MonoBehaviour
     private bool _isWaitingForCharacterClick = false;
     private bool _isShowingTestimony = false;
 
+    private TutorialCharacterAI _lastExecutedCharacter;
+
     // 상태 확인용 프로퍼티
     public bool IsScenarioMode => _isScenarioMode;
     public bool IsWaitingForAnswer => _isWaitingForAnswer;
@@ -123,8 +125,17 @@ public class TutorialScenarioHandler : MonoBehaviour
         _currentPhaseIndex = 0;
         _completedTestimonies.Clear();
         _currentStage = null;
+        _lastExecutedCharacter = null; // 처형된 캐릭터 초기화
 
         ResetScenarioCharacters();
+    }
+
+    /// <summary>
+    /// 마지막으로 처형된 캐릭터 반환
+    /// </summary>
+    public CharacterAI GetLastExecutedCharacter()
+    {
+        return _lastExecutedCharacter;
     }
 
     #endregion
@@ -482,6 +493,7 @@ public class TutorialScenarioHandler : MonoBehaviour
     /// </summary>
     public void OnCharacterExecuted(CharacterAI executedCharacter)
     {
+        _lastExecutedCharacter = executedCharacter as TutorialCharacterAI; // 최근 처형 캐릭터 기록
         if (!_isWaitingForAnswer) return;
 
         int characterIndex = _characters.IndexOf(executedCharacter);
@@ -528,6 +540,7 @@ public class TutorialScenarioHandler : MonoBehaviour
             var deadCharacter = _characters[_currentScenarioRound.DeathCharacterIndex];
             if (deadCharacter != null)
             {
+                _lastExecutedCharacter = deadCharacter as TutorialCharacterAI;
                 deadCharacter.gameObject.SetActive(false);
             }
         }

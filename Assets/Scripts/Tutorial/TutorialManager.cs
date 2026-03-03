@@ -29,6 +29,12 @@ public class TutorialManager : MonoBehaviour
     public float IntroFadeDuration = 0.5f;
     public float IntroDisplayDuration = 2.0f;
 
+    [Header("스킵 UI (검은 화면 및 처형자 표시)")]
+    public CanvasGroup SkipBlackScreen;
+    public TextMeshProUGUI ExecutedCharacterNameText;
+    public float SkipScreenDuration = 2.0f; // 검은 화면 표시 시간
+    public float ExecutedCharacterNameDisplayDuration = 1.5f; // 캐릭터 이름 표시 시간
+
     [Header("역할 설명 UI (팝업)")]
     public RoleInfoPanelController RoleInfoPanel;
     public Button RoleInfoOpenButton;
@@ -74,7 +80,8 @@ public class TutorialManager : MonoBehaviour
             if (_blockerFilter == null) _blockerFilter = Blocker.gameObject.AddComponent<TutorialRaycastFilter>();
         }
         if (NextButton != null) NextButton.onClick.AddListener(OnNextButtonClicked);
-        if (RoleInfoOpenButton != null) RoleInfoOpenButton.onClick.AddListener(ShowRolePopup);
+        if (RoleInfoOpenButton != null) RoleInfoOpenButton.onClick.AddListener(ShowAllRoles);
+        if (SkipButton != null) SkipButton.onClick.AddListener(OnSkipButtonClicked);
         
         // 초기 상태 설정
         if (DialogueBox != null) DialogueBox.gameObject.SetActive(false);
@@ -148,6 +155,11 @@ public class TutorialManager : MonoBehaviour
         if (RoleInfoPanel != null && RoleInfoPanel.IsOpen)
         {
             RoleInfoPanel.Close();
+        }
+
+        if (RoleGuessManager.Instance != null)
+        {
+            RoleGuessManager.Instance.ResetAllMarksToDefault();
         }
 
         // 3. 내부 상태 플래그 초기화
@@ -271,6 +283,7 @@ public class TutorialManager : MonoBehaviour
         
         if (step != null)
         {
+            SoundManager.Instance.PlaySFX(SFXType.PageFlip);
             if (step.Type == StepType.Dialogue)
             {
                 CompleteStep();
@@ -361,6 +374,27 @@ public class TutorialManager : MonoBehaviour
         ShowStep(_currentStepIndex);
     }
 
+    public void ShowAllRoles()
+    {
+        if (_isShowingRolePopup) return;
+
+        if (RoleInfoPanel == null)
+        {
+            return;
+        }
+
+        _isShowingRolePopup = true;
+
+        _wasBlockerActive = Blocker != null && Blocker.gameObject.activeSelf;
+        if (Blocker != null)
+        {
+            Blocker.gameObject.SetActive(true);
+        }
+
+        RoleInfoPanel.OnPanelClosed -= OnRolePanelClosed;
+        RoleInfoPanel.OnPanelClosed += OnRolePanelClosed;
+        RoleInfoPanel.Open();
+    }
     public void ShowRolePopup()
     {
         if (_isShowingRolePopup) return;
@@ -446,11 +480,46 @@ public class TutorialManager : MonoBehaviour
     // TutorialTargetTrigger 등 외부에서 호출하는 메서드들을 핸들러로 위임
     public void OnScenarioCharacterClicked(CharacterAI character) => _scenarioHandler.OnCharacterClicked(character);
     public void CompleteScenarioTestimony() => _scenarioHandler.CompleteTestimony();
-    public void OnSkipButtonClicked() => _scenarioHandler.OnSkipButtonClicked();
+    public void OnSkipButtonClicked()
+    {
+        // 스킵 화면 표시 (검은 화면 + 캐릭터 이름)
+        StartCoroutine(ShowSkipScreen());
+        _scenarioHandler.OnSkipButtonClicked();
+    }
     public bool IsCorrectExecutionTarget(CharacterAI target) => _scenarioHandler.IsCorrectExecutionTarget(target);
     public void ShowWrongExecutionFeedback() => _scenarioHandler.ShowWrongExecutionFeedback();
     public void OnScenarioCharacterExecuted(CharacterAI character) => _scenarioHandler.OnCharacterExecuted(character);
     public List<RoleEntry> GetCurrentScenarioNewRoles() => _scenarioHandler.GetCurrentNewRoles();
+
+    private IEnumerator ShowSkipScreen()
+    {
+        if (SkipBlackScreen == null) yield break;
+
+        SkipBlackScreen.gameObject.SetActive(true);
+        SkipBlackScreen.alpha = 0f;
+        yield return SkipBlackScreen.DOFade(1f, 0.1f).WaitForCompletion();
+        
+        if (ExecutedCharacterNameText != null)
+        {
+            string characterName = GetLastExecutedCharacterName();
+            ExecutedCharacterNameText.text = characterName + "이(가) 마녀에게 살해당했습니다.";
+            ExecutedCharacterNameText.gameObject.SetActive(true);
+
+            yield return new WaitForSeconds(ExecutedCharacterNameDisplayDuration);
+            ExecutedCharacterNameText.gameObject.SetActive(false);
+        }
+
+        yield return new WaitForSeconds(0.5f);
+        yield return SkipBlackScreen.DOFade(0f, 0.3f).WaitForCompletion();
+        SkipBlackScreen.gameObject.SetActive(false);
+    }
+
+    private string GetLastExecutedCharacterName()
+    {
+        // 마지막 처형된 캐릭터 이름을 가져옴 (TutorialCharacterAI의 DisplayName 참조)
+        CharacterAI lastExecuted = _scenarioHandler.GetLastExecutedCharacter();
+        return lastExecuted != null ? lastExecuted.DisplayName : "Unknown";
+    }
 
     // 시나리오 모드 상태 확인용 프로퍼티 (외부 호환성)
     public bool IsScenarioMode => _scenarioHandler.IsScenarioMode;

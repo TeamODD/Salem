@@ -1630,6 +1630,11 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!82 &1117220989 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 6705074925560249194, guid: ed57ff3523f666448b1ee8a5cd79da6f, type: 3}
+  m_PrefabInstance: {fileID: 1678827087}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1119427645 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4811771801860156352, guid: 2a602ada7005e8d4b8798571b8994f6a, type: 3}
@@ -2435,6 +2440,10 @@ PrefabInstance:
       propertyPath: _soundDB
       value: 
       objectReference: {fileID: 11400000, guid: 4605cd5e4ce5e9a40814479542b3f464, type: 2}
+    - target: {fileID: 8872244223561687928, guid: ed57ff3523f666448b1ee8a5cd79da6f, type: 3}
+      propertyPath: _loopSfxSource
+      value: 
+      objectReference: {fileID: 1117220989}
     - target: {fileID: 8872504731032458222, guid: ed57ff3523f666448b1ee8a5cd79da6f, type: 3}
       propertyPath: _bgmSlider
       value: 

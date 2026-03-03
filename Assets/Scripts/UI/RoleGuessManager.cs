@@ -1,7 +1,9 @@
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.InputSystem;
 using System.Collections.Generic;
 using System;
+using UnityEngine.EventSystems;
 
 [Serializable]
 public class RoleIconData
@@ -59,6 +61,18 @@ public class RoleGuessManager : MonoBehaviour
             if (_defaultButton != null)
             {
                 _defaultButton.onClick.AddListener(ResetToDefault);
+            }
+        }
+    }
+
+    void Update()
+    {
+        if (_selectorPanel.activeSelf && Mouse.current.leftButton.wasPressedThisFrame)
+        {
+            // 셀렉터 패널 내부 또는 마크 이미지 위가 아닐 때만 닫기
+            if (!IsPointerOverSelector() && !IsPointerOverMark())
+            {
+                CloseSelector();
             }
         }
     }
@@ -125,6 +139,35 @@ public class RoleGuessManager : MonoBehaviour
     {
         _selectorPanel.SetActive(false);
         _currentActiveMark = null;
+    }
+
+    private bool IsPointerOverSelector()
+    {
+        RectTransform panelRect = _selectorPanel.GetComponent<RectTransform>();
+        if (panelRect == null) return false;
+
+        return RectTransformUtility.RectangleContainsScreenPoint(panelRect, Mouse.current.position.ReadValue());
+    }
+
+    private bool IsPointerOverMark()
+    {
+        PointerEventData pointerEventData = new PointerEventData(EventSystem.current)
+        {
+            position = Mouse.current.position.ReadValue()
+        };
+
+        List<RaycastResult> results = new List<RaycastResult>();
+        EventSystem.current.RaycastAll(pointerEventData, results);
+        
+        foreach (RaycastResult result in results)
+        {
+            if (result.gameObject.GetComponent<CharacterMark>() != null)
+            {
+                return true;
+            }
+        }
+        
+        return false;
     }
 
     /// <summary>

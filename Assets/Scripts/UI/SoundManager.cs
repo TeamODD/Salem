@@ -140,6 +140,24 @@ public class SoundManager : MonoBehaviour
         _loopSfxSource.Play();
     }
 
+    public void PlaySFXLoop(SFXType type)
+    {
+        if (_soundDB == null) return;
+
+        AudioClip clip = _soundDB.GetSFXClip(type);
+        if (clip != null)
+        {
+            PlaySFXLoop(clip);
+        }
+    }
+
+    public void FadeSFXLoop()
+    {
+        if (_loopSfxSource != null && _loopSfxSource.isPlaying)
+        {
+            _loopSfxSource.loop = false;
+        }
+    }
     public void StopSFXLoop()
     {
         if (_loopSfxSource != null && _loopSfxSource.isPlaying)
