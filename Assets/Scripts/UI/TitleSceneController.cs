@@ -147,17 +147,17 @@ public class TitleSceneController : MonoBehaviour
         // 상황에서 잠시 기다림
         yield return new WaitForSeconds(WaitTimeAfterAnimation);
 
+        // 쿵 효과음
+        if (SoundManager.Instance != null && ThumpSfxClip != null)
+        {
+            SoundManager.Instance.PlaySFX(ThumpSfxClip);
+        }
+        
         // 단번에 화면이 꺼짐 (블랙스크린 표출)
         if (BlackScreen != null)
         {
             BlackScreen.color = Color.black;
             BlackScreen.gameObject.SetActive(true);
-        }
-
-        // 쿵 효과음
-        if (SoundManager.Instance != null && ThumpSfxClip != null)
-        {
-            SoundManager.Instance.PlaySFX(ThumpSfxClip);
         }
 
         // 화면 꺼진 뒤의 극적인 잠시 대기

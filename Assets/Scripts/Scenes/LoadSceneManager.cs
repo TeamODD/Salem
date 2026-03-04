@@ -15,6 +15,7 @@ public class LoadSceneManager : MonoBehaviour
         TitleScene,
         MainScene,
         GameOverScene,
-        TutorialScene
+        TutorialScene,
+        CreditScene
     }
 }
