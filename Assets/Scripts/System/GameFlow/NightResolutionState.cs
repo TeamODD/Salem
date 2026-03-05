@@ -52,6 +52,8 @@ public sealed class NightResolutionState : GameFlowStateBase
             yield break;
         }
 
+        // 다음날 화면이 보이기 전에 타이머 UI만 비우고, 낮 시작 전까지는 정지 상태를 유지한다.
+        Context.ResetTimerPaused();
         yield return Context.FadeInRoutine(Context.FadeDuration);
         Context.ChangeState(new DayState(Context));
     }

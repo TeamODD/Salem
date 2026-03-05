@@ -72,7 +72,7 @@ tags:
 title: Character_1_Received_Prayer
 tags: 
 ---
-에드먼드: 어제는 글쎄.. {$targetName}이 기도를 해주러 오더군.. 내.. 죽을 날이 가까워져서 그런가..
+에드먼드: 어제는 글쎄.. {$targetName}이(가) 기도를 해주러 오더군.. 내.. 죽을 날이 가까워져서 그런가..
 ===
 
 title: Character_1_Coward_Plea
@@ -159,7 +159,7 @@ tags:
 title: Character_2_Received_Prayer
 tags: 
 ---
-오스왈드: 어제 {$targetName}이 찾아와서 기도를 해주더군요. 뭐, 공짜니까 받긴 했습니다만 효과가 있을지는 모르겠네요.
+오스왈드: 어제 {$targetName}이(가) 찾아와서 기도를 해주더군요. 뭐, 공짜니까 받긴 했습니다만 효과가 있을지는 모르겠네요.
 ===
 
 title: Character_2_Mute_Silent
@@ -321,7 +321,7 @@ tags:
 title: Character_4_Received_Prayer
 tags: 
 ---
-고드릭: 어제 {$targetName}이 와서 주절주절 기도를 하더군. 뭐 그리 할 말이 많은지.. 시간 아깝게시리.
+고드릭: 어제 {$targetName}이(가) 와서 주절주절 기도를 하더군. 뭐 그리 할 말이 많은지.. 시간 아깝게시리.
 ===
 
 title: Character_4_Mute_Silent
@@ -402,7 +402,7 @@ tags:
 title: Character_5_Received_Prayer
 tags: 
 ---
-힐다: 어제 {$targetName}이 기도를 해주러 왔더라고. 뭐, 기왕 온 김에 여관 홍보도 좀 부탁했지.
+힐다: 어제 {$targetName}이(가) 기도를 해주러 왔더라고. 뭐, 기왕 온 김에 여관 홍보도 좀 부탁했지.
 ===
 
 title: Character_5_Mute_Silent

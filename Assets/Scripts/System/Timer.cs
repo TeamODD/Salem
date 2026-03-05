@@ -27,7 +27,7 @@ public class Timer : MonoBehaviour
 
     void Start()
     {
-        _stopTimer = false;
+        _stopTimer = true;
         _isShaking = false;
 
         TimerSlider.maxValue = GameTime;
@@ -90,13 +90,29 @@ public class Timer : MonoBehaviour
         StopShake();
     }
 
+    public void ResetTimerPaused()
+    {
+        _currentTime = GameTime;
+        _stopTimer = true;
+        TimerSlider.value = 0;
+        StopShake();
+    }
+
     public void FinishImmediately()
     {
         if (_stopTimer) return;
 
         _currentTime = 0;
         _stopTimer = true;
-        TimerSlider.value = GameTime;
+        StopShake();
+        OnTimeUp?.Invoke();
+    }
+
+    public void ExpireWithoutFill()
+    {
+        if (_stopTimer) return;
+
+        _stopTimer = true;
         StopShake();
         OnTimeUp?.Invoke();
     }

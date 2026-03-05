@@ -88,7 +88,7 @@ public partial class GameManager : MonoBehaviour, IGameFlowContext
         if (Timer.Instance == null) return;
 
         Debug.Log("낮 시간을 건너뜁니다.");
-        Timer.Instance.FinishImmediately();
+        Timer.Instance.ExpireWithoutFill();
     }
 
     public void OnCharacterExecuted(CharacterAI victim)
@@ -136,6 +136,11 @@ public partial class GameManager : MonoBehaviour, IGameFlowContext
     public void StopTimer()
     {
         Timer.Instance?.StopTimer();
+    }
+
+    public void ResetTimerPaused()
+    {
+        Timer.Instance?.ResetTimerPaused();
     }
 
     public void ResetTimer()

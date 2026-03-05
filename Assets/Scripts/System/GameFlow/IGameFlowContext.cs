@@ -14,6 +14,7 @@ public interface IGameFlowContext
     void SetTransitioning(bool value);
     void SetNight(bool value);
     void StopTimer();
+    void ResetTimerPaused();
     void ResetTimer();
     void SetFadeOpaque();
 
