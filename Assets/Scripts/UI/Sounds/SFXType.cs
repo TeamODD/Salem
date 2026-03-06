@@ -7,5 +7,11 @@ public enum SFXType
     BloodSpatter,
     GunShot,
     Heartbeat,
-    LoadPistol
+    LoadPistol,
+    Memo,
+    Fire,
+    Footstep,
+    AngryPeople,
+    ClockTick,
+    TimeOver
 }

@@ -4,6 +4,7 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TMPro;
 using DG.Tweening;
+using UnityEditor;
 
 public class TitleSceneController : MonoBehaviour
 {
@@ -35,15 +36,22 @@ public class TitleSceneController : MonoBehaviour
     public float AnimationDuration = 5f;
     public float WaitTimeAfterAnimation = 1f;
     public float BlackScreenDuration = 3f;
+    public float ToolAnimationDuration = 1f;
 
     [Header("타겟 값 (배율)")]
     public Color TitleTargetColor = Color.red;
     public float WomanScaleMultiplier = 0.5f;
     public float MoonScaleMultiplier = 1.5f;
     public float TargetBgmVolume = 1f;
+    public float TargetSfxVolume = 1f;    
+    public float FootStepWaitTime = 3f; // 발소리 재생 시작까지의 대기 시간
+    public float FootstepInterval = 0.5f;
+    
 
     [Header("오디오")]
     public AudioClip TitleBgmClip; // 게임 시작 버튼을 누르면 서서히 커질 BGM
+    public AudioClip FireSfxClip;
+    public AudioClip AngryPeopleSfxClip;
     public AudioClip ThumpSfxClip; // 화면이 꺼질 때 재생할 쿵 소리
     
     [Header("씬 전환")]
@@ -51,6 +59,7 @@ public class TitleSceneController : MonoBehaviour
 
     private void Start()
     {
+        SoundManager.Instance.PlayBGM(BGMType.Title_01);
         if (TitleRenderer != null)
             TitleRenderer.color = Color.white;
 
@@ -78,8 +87,11 @@ public class TitleSceneController : MonoBehaviour
 
         if (SoundManager.Instance != null && TitleBgmClip != null)
         {
-            SoundManager.Instance.SetBGMVolume(0f);
+            SoundManager.Instance.SetBGMVolume(0.5f);
+            SoundManager.Instance.SetSFXVolume(0f);
             SoundManager.Instance.PlayBGM(TitleBgmClip);
+            SoundManager.Instance.PlaySFX(FireSfxClip);
+            SoundManager.Instance.PlaySFX(AngryPeopleSfxClip);
         }
 
         Sequence seq = DOTween.Sequence();
@@ -117,15 +129,21 @@ public class TitleSceneController : MonoBehaviour
         if (BackgroundMoonRenderer != null)
             seq.Join(BackgroundMoonRenderer.transform.DOScale(BackgroundMoonRenderer.transform.localScale * MoonScaleMultiplier, AnimationDuration));
 
-        // 6. BGM 볼륨 점점 커짐
+        // 6. 볼륨 점점 커짐
         if (SoundManager.Instance != null)
         {
-            seq.Join(DOTween.To(() => SoundManager.Instance.GetBGMVolume(), 
-                                x => SoundManager.Instance.SetBGMVolume(x), 
-                                TargetBgmVolume, AnimationDuration).SetEase(Ease.Linear));
+             seq.Join(DOTween.To(() => SoundManager.Instance.GetBGMVolume(),
+                                 x => SoundManager.Instance.SetBGMVolume(x),
+                                 TargetBgmVolume, AnimationDuration).SetEase(Ease.Linear));
+            seq.Join(DOTween.To(() => SoundManager.Instance.GetSFXVolume(),
+                                x => SoundManager.Instance.SetSFXVolume(x),
+                                TargetSfxVolume, AnimationDuration).SetEase(Ease.Linear));
         }
 
-        // 7. 애니메이션 완료 후 대기 및 씬 전환 코루틴 실행
+        // 7. 잠시 뒤에 Footstep 효과음을 4번 재생
+        seq.InsertCallback(FootStepWaitTime, () => StartCoroutine(PlayFootstepsRoutine()));
+
+        // 8. 애니메이션 완료 후 대기 및 씬 전환 코루틴 실행
         seq.OnComplete(() =>
         {
             foreach (var tool in ToolAnimations)
@@ -134,12 +152,28 @@ public class TitleSceneController : MonoBehaviour
                 Transform child = tool.ToolRenderer.transform;
 
                 child.localPosition = tool.StartLocalPos;
-                child.DOLocalMove(tool.EndLocalPos, AnimationDuration * 0.2f)
+                child.DOLocalMove(tool.EndLocalPos, ToolAnimationDuration)
                     .SetEase(Ease.OutCubic);
             }
             
             StartCoroutine(EndSequenceRoutine());
         });
+    }
+
+    private IEnumerator PlayFootstepsRoutine()
+    {
+        for (int i = 0; i < 4; i++)
+        {
+            if (SoundManager.Instance != null)
+            {
+                SoundManager.Instance.PlaySFX(SFXType.Footstep);
+            }
+            
+            if (i < 3) // 마지막이 아닐 때만 대기
+            {
+                yield return new WaitForSeconds(FootstepInterval);
+            }
+        }
     }
 
     private IEnumerator EndSequenceRoutine()
@@ -150,15 +184,18 @@ public class TitleSceneController : MonoBehaviour
         // 쿵 효과음
         if (SoundManager.Instance != null && ThumpSfxClip != null)
         {
+            SoundManager.Instance.StopBGM();
+            SoundManager.Instance.StopSFX();
             SoundManager.Instance.PlaySFX(ThumpSfxClip);
         }
-        
+
         // 단번에 화면이 꺼짐 (블랙스크린 표출)
         if (BlackScreen != null)
         {
             BlackScreen.color = Color.black;
             BlackScreen.gameObject.SetActive(true);
         }
+        
 
         // 화면 꺼진 뒤의 극적인 잠시 대기
         yield return new WaitForSeconds(BlackScreenDuration);

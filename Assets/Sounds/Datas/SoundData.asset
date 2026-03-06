@@ -14,10 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SoundData
   BGMList:
   - Type: 0
-    Clip: {fileID: 8300000, guid: aa5ff67ac4f160c468c635dcc46fbbe2, type: 3}
+    Clip: {fileID: 8300000, guid: a304597a63d69204fa0f23ce9aaff45b, type: 3}
   - Type: 1
-    Clip: {fileID: 8300000, guid: aa5ff67ac4f160c468c635dcc46fbbe2, type: 3}
+    Clip: {fileID: 8300000, guid: b13841ade07388e459b43a35f3a4f40b, type: 3}
   - Type: 2
+    Clip: {fileID: 8300000, guid: aa5ff67ac4f160c468c635dcc46fbbe2, type: 3}
+  - Type: 3
     Clip: {fileID: 8300000, guid: aa5ff67ac4f160c468c635dcc46fbbe2, type: 3}
   SFXList:
   - Type: 5
@@ -30,3 +32,15 @@ MonoBehaviour:
     Clip: {fileID: 8300000, guid: 65a55f5f87ec56347928903067971b0f, type: 3}
   - Type: 7
     Clip: {fileID: 8300000, guid: 48fe7f0d4e4cb0f4aac416cb5105e71d, type: 3}
+  - Type: 8
+    Clip: {fileID: 8300000, guid: 8d331969aea8f904bb5c98a55f975c36, type: 3}
+  - Type: 9
+    Clip: {fileID: 8300000, guid: 4d865408e08bdc545bd8decd46f9277f, type: 3}
+  - Type: 10
+    Clip: {fileID: 8300000, guid: d3ffe457445278c479411d33ba95ac8a, type: 3}
+  - Type: 12
+    Clip: {fileID: 8300000, guid: c03f7cb918b41c048b91354617fc9b40, type: 3}
+  - Type: 11
+    Clip: {fileID: 8300000, guid: 3d493754f5763b14ca93d591658ce64c, type: 3}
+  - Type: 13
+    Clip: {fileID: 8300000, guid: c3e5a2fe1a97efe4c800c1079cef0a89, type: 3}

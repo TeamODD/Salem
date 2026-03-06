@@ -116,6 +116,7 @@ public class RoleGuessManager : MonoBehaviour
     {
         if (_currentActiveMark != null && _defaultSprite != null)
         {
+            SoundManager.Instance.PlaySFX(SFXType.Memo);
             _currentActiveMark.SetGuessedRole(_defaultSprite);
         }
 
@@ -129,6 +130,7 @@ public class RoleGuessManager : MonoBehaviour
 
         if (_currentActiveMark != null)
         {
+            SoundManager.Instance.PlaySFX(SFXType.Memo);
             _currentActiveMark.SetGuessedRole(icon);
         }
 

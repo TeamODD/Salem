@@ -41,7 +41,7 @@ public class SoundManager : MonoBehaviour
     {
         if (scene.name == "TitleScene")
         {
-            PlayBGM(BGMType.Title);
+            PlayBGM(BGMType.Title_01);
         }
         else if (scene.name == "MainScene")
         {
@@ -109,6 +109,23 @@ public class SoundManager : MonoBehaviour
         if (_bgmSource != null)
         {
             _bgmSource.volume = volume;
+        }
+    }
+
+    public float GetSFXVolume()
+    {
+        return _sfxSource != null ? _sfxSource.volume : 0f;
+    }
+    
+    public void SetSFXVolume(float volume)
+    {
+        if (_sfxSource != null)
+        {
+            _sfxSource.volume = volume;
+        }
+        if (_loopSfxSource != null)
+        {
+            _loopSfxSource.volume = volume;
         }
     }
 
