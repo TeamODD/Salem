@@ -482,8 +482,6 @@ public class TutorialManager : MonoBehaviour
     public void CompleteScenarioTestimony() => _scenarioHandler.CompleteTestimony();
     public void OnSkipButtonClicked()
     {
-        // 스킵 화면 표시 (검은 화면 + 캐릭터 이름)
-        StartCoroutine(ShowSkipScreen());
         _scenarioHandler.OnSkipButtonClicked();
     }
     public bool IsCorrectExecutionTarget(CharacterAI target) => _scenarioHandler.IsCorrectExecutionTarget(target);
@@ -491,7 +489,7 @@ public class TutorialManager : MonoBehaviour
     public void OnScenarioCharacterExecuted(CharacterAI character) => _scenarioHandler.OnCharacterExecuted(character);
     public List<RoleEntry> GetCurrentScenarioNewRoles() => _scenarioHandler.GetCurrentNewRoles();
 
-    private IEnumerator ShowSkipScreen()
+    public IEnumerator ShowSkipScreen()
     {
         if (SkipBlackScreen == null) yield break;
 

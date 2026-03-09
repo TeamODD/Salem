@@ -4,6 +4,7 @@ using UnityEngine.InputSystem;
 using System.Collections.Generic;
 using System;
 using UnityEngine.EventSystems;
+using DG.Tweening;
 
 [Serializable]
 public class RoleIconData
@@ -31,6 +32,7 @@ public class RoleGuessManager : MonoBehaviour
     private CharacterMark _currentActiveMark;
     private List<CharacterMark> _allMarks = new List<CharacterMark>();
     private RectTransform _selectorCanvasRect;
+    private RectTransform _selectorPanelRect;
     private Camera _mainCamera;
 
     void Awake()
@@ -49,6 +51,9 @@ public class RoleGuessManager : MonoBehaviour
         {
             _selectorCanvasRect = selectorCanvas.GetComponent<RectTransform>();
         }
+
+        // selectorPanel의 RectTransform 캐싱
+        _selectorPanelRect = _selectorPanel.GetComponent<RectTransform>();
 
         for (int i = 0; i < _roleIcons.Count; i++)
         {
@@ -99,23 +104,23 @@ public class RoleGuessManager : MonoBehaviour
 
     public void OpenSelector(CharacterMark mark)
     {
+        SoundManager.Instance.PlaySFX(SFXType.ButtonClick);
         if (_selectorPanel.activeSelf && _currentActiveMark == mark)
         {
             CloseSelector();
             return;
         }
-
         _currentActiveMark = mark;
         _selectorPanel.SetActive(true);
 
-        // Mark의 월드 좌표를 Screen Space Canvas 좌표로 변환하여 패널 배치
-        PositionSelectorAboveMark(mark);
+        AnimatePanelToPosition(mark);
     }
 
     public void ResetToDefault()
     {
         if (_currentActiveMark != null && _defaultSprite != null)
         {
+            SoundManager.Instance.StopSFX();
             SoundManager.Instance.PlaySFX(SFXType.Memo);
             _currentActiveMark.SetGuessedRole(_defaultSprite);
         }
@@ -130,6 +135,7 @@ public class RoleGuessManager : MonoBehaviour
 
         if (_currentActiveMark != null)
         {
+            SoundManager.Instance.StopSFX();
             SoundManager.Instance.PlaySFX(SFXType.Memo);
             _currentActiveMark.SetGuessedRole(icon);
         }
@@ -139,8 +145,13 @@ public class RoleGuessManager : MonoBehaviour
 
     public void CloseSelector()
     {
-        _selectorPanel.SetActive(false);
-        _currentActiveMark = null;
+        if (!_selectorPanel.activeSelf) return;
+
+        _selectorPanelRect.DOScale(Vector3.zero, 0.1f).SetEase(Ease.InBack).OnComplete(() =>
+        {
+            _selectorPanel.SetActive(false);
+            _currentActiveMark = null;
+        });
     }
 
     private bool IsPointerOverSelector()
@@ -160,7 +171,7 @@ public class RoleGuessManager : MonoBehaviour
 
         List<RaycastResult> results = new List<RaycastResult>();
         EventSystem.current.RaycastAll(pointerEventData, results);
-        
+
         foreach (RaycastResult result in results)
         {
             if (result.gameObject.GetComponent<CharacterMark>() != null)
@@ -168,14 +179,11 @@ public class RoleGuessManager : MonoBehaviour
                 return true;
             }
         }
-        
+
         return false;
     }
 
-    /// <summary>
-    /// Mark(World Space)의 월드 좌표를 Screen Space Canvas 좌표로 변환하여
-    /// selectorPanel을 마크 위에 올바르게 배치합니다.
-    /// </summary>
+    /*
     private void PositionSelectorAboveMark(CharacterMark mark)
     {
         if (_mainCamera == null) _mainCamera = Camera.main;
@@ -187,12 +195,75 @@ public class RoleGuessManager : MonoBehaviour
         // 2. 스크린 좌표에 Y 오프셋 추가 (스크린 픽셀 단위)
         screenPos.y += _selectorYOffset;
 
-        // 3. 스크린 좌표 → Screen Space Canvas의 로컬 좌표
-        RectTransform panelRect = _selectorPanel.GetComponent<RectTransform>();
+        // 3. 화면 경계 내로 클램핑 (스크린 좌표) – 기본적인 제한
+        screenPos.x = Mathf.Clamp(screenPos.x, 0, Screen.width);
+        screenPos.y = Mathf.Clamp(screenPos.y, 0, Screen.height);
+
+        // 4. 스크린 좌표 → Screen Space Canvas의 로컬 좌표
         Vector2 localPoint;
         RectTransformUtility.ScreenPointToLocalPointInRectangle(
             _selectorCanvasRect, screenPos, null, out localPoint);
 
-        panelRect.anchoredPosition = localPoint;
+        // 5. 캔버스 크기와 패널 크기를 고려하여 로컬 좌표를 추가로 클램핑
+        if (_selectorCanvasRect != null && _selectorPanelRect != null)
+        {
+            Vector2 canvasSize = _selectorCanvasRect.rect.size;
+            Vector2 panelSize = _selectorPanelRect.rect.size;
+
+            float halfCanvasWidth = canvasSize.x * 0.5f;
+            float halfCanvasHeight = canvasSize.y * 0.5f;
+            float halfPanelWidth = panelSize.x * 0.5f;
+            float halfPanelHeight = panelSize.y * 0.5f;
+
+            localPoint.x = Mathf.Clamp(localPoint.x,
+                -halfCanvasWidth + halfPanelWidth,
+                 halfCanvasWidth - halfPanelWidth);
+            localPoint.y = Mathf.Clamp(localPoint.y,
+                -halfCanvasHeight + halfPanelHeight,
+                 halfCanvasHeight - halfPanelHeight);
+        }
+
+        _selectorPanelRect.anchoredPosition = localPoint;
+    }
+    */
+    
+    private void AnimatePanelToPosition(CharacterMark mark)
+    {
+        if (_mainCamera == null) _mainCamera = Camera.main;
+        if (_mainCamera == null || _selectorCanvasRect == null || _selectorPanelRect == null) return;
+
+        // 최종 위치 계산 (PositionSelectorAboveMark와 동일 로직)
+        Vector3 screenPos = _mainCamera.WorldToScreenPoint(mark.transform.position);
+        screenPos.y += _selectorYOffset;
+        screenPos.x = Mathf.Clamp(screenPos.x, 0, Screen.width);
+        screenPos.y = Mathf.Clamp(screenPos.y, 0, Screen.height);
+
+        Vector2 finalLocalPoint;
+        RectTransformUtility.ScreenPointToLocalPointInRectangle(
+            _selectorCanvasRect, screenPos, null, out finalLocalPoint);
+
+        // 캔버스 크기 고려 클램핑
+        Vector2 canvasSize = _selectorCanvasRect.rect.size;
+        Vector2 panelSize = _selectorPanelRect.rect.size;
+        float halfCanvasWidth = canvasSize.x * 0.5f;
+        float halfCanvasHeight = canvasSize.y * 0.5f;
+        float halfPanelWidth = panelSize.x * 0.5f;
+        float halfPanelHeight = panelSize.y * 0.5f;
+        finalLocalPoint.x = Mathf.Clamp(finalLocalPoint.x, -halfCanvasWidth + halfPanelWidth, halfCanvasWidth - halfPanelWidth);
+        finalLocalPoint.y = Mathf.Clamp(finalLocalPoint.y, -halfCanvasHeight + halfPanelHeight, halfCanvasHeight - halfPanelHeight);
+
+        // 초기 위치: 최종 Y에서 오프셋만큼 아래로 (펼쳐지는 효과)
+        Canvas canvas = _selectorCanvasRect.GetComponent<Canvas>();
+        float scaleFactor = canvas != null ? canvas.scaleFactor : 1f;
+        float localOffsetY = _selectorYOffset / scaleFactor;
+        Vector2 initialLocalPoint = new Vector2(finalLocalPoint.x, finalLocalPoint.y - localOffsetY);
+
+        // 초기 상태 설정
+        _selectorPanelRect.anchoredPosition = initialLocalPoint;
+        _selectorPanelRect.localScale = Vector3.zero;
+
+        Sequence seq = DOTween.Sequence();
+        seq.Append(_selectorPanelRect.DOScale(Vector3.one, 0.2f).SetEase(Ease.OutBack));
+        seq.Join(_selectorPanelRect.DOAnchorPos(finalLocalPoint, 0.2f).SetEase(Ease.OutBack));
     }
 }

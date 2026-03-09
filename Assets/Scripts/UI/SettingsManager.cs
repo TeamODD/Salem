@@ -38,13 +38,15 @@ public class SettingsManager : MonoBehaviour
     }
     public void OpenSettings()
     {
+        SoundManager.Instance.PlaySFX(SFXType.ButtonClick);
         _settingsPanel.SetActive(true);
-        SoundManager.Instance.PauseBGM();
+        //SoundManager.Instance.PauseBGM();
         Time.timeScale = 0f;
     }
 
     public void CloseSettings()
     {
+        SoundManager.Instance.PlaySFX(SFXType.ButtonClick);
         _settingsPanel.SetActive(false);
         SoundManager.Instance.ResumeBGM();
         Time.timeScale = 1f;
@@ -52,12 +54,14 @@ public class SettingsManager : MonoBehaviour
 
     public void GotoTitle()
     {
+        SoundManager.Instance.PlaySFX(SFXType.ButtonClick);
         Time.timeScale = 1f;
         SceneManager.LoadScene("TitleScene");
     }
 
     public void QuitGame()
     {
+        SoundManager.Instance.PlaySFX(SFXType.ButtonClick);
 #if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
 #else

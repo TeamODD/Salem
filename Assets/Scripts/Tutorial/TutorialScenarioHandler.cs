@@ -446,6 +446,7 @@ public class TutorialScenarioHandler : MonoBehaviour
     /// </summary>
     public void OnSkipButtonClicked()
     {
+        SoundManager.Instance.PlaySFX(SFXType.ButtonClick);
         if (!_isWaitingForAnswer) return;
 
         var answer = _currentScenarioRound?.CorrectAnswer;
@@ -455,6 +456,8 @@ public class TutorialScenarioHandler : MonoBehaviour
         {
             ShowFeedback(answer.CorrectAnswerMessage, true);
             _isWaitingForAnswer = false;
+            // 스킵 화면 표시
+            TutorialManager.Instance.StartCoroutine(TutorialManager.Instance.ShowSkipScreen());
             ProcessRoundEnd();
         }
         else

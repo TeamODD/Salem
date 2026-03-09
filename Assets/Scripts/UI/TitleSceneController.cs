@@ -10,7 +10,6 @@ public class TitleSceneController : MonoBehaviour
 {
     [Header("UI")]
     public SpriteRenderer TitleRenderer;
-    public Button GameStartButton;
     public CanvasGroup OtherTextsGroup; // 튜토리얼, 환경설정, 크레딧 등 하단 텍스트 그룹
     public Image BlackScreen; // 화면이 꺼질 때 사용할 검은색 전체 화면 이미지
 
@@ -53,9 +52,15 @@ public class TitleSceneController : MonoBehaviour
     public AudioClip FireSfxClip;
     public AudioClip AngryPeopleSfxClip;
     public AudioClip ThumpSfxClip; // 화면이 꺼질 때 재생할 쿵 소리
-    
+
     [Header("씬 전환")]
     public string NextSceneName = "MainScene";
+
+    [Header("버튼")]
+    public Button StartButton;
+    public Button TutorialButton;
+    public Button CreditButton;
+    public Button ExitButton;
 
     private void Start()
     {
@@ -68,7 +73,10 @@ public class TitleSceneController : MonoBehaviour
         SetAlpha(FireBackRenderer, 0f);
         SetAlpha(FireFrontRenderer, 0f);
 
-        GameStartButton.onClick.AddListener(OnGameStartPressed);
+        StartButton.onClick.AddListener(OnGameStartPressed);
+        TutorialButton.onClick.AddListener(ButtonPressed);
+        CreditButton.onClick.AddListener(ButtonPressed);
+        ExitButton.onClick.AddListener(ButtonPressed);
     }
 
     private void SetAlpha(SpriteRenderer sr, float alpha)
@@ -83,7 +91,7 @@ public class TitleSceneController : MonoBehaviour
 
     private void OnGameStartPressed()
     {
-        GameStartButton.interactable = false;
+        StartButton.interactable = false;
 
         if (SoundManager.Instance != null && TitleBgmClip != null)
         {
@@ -195,12 +203,17 @@ public class TitleSceneController : MonoBehaviour
             BlackScreen.color = Color.black;
             BlackScreen.gameObject.SetActive(true);
         }
-        
+
 
         // 화면 꺼진 뒤의 극적인 잠시 대기
         yield return new WaitForSeconds(BlackScreenDuration);
 
         // 게임 시작 (씬 전환)
         SceneManager.LoadScene(NextSceneName);
+    }
+
+    private void ButtonPressed()
+    {
+        SoundManager.Instance.PlaySFX(SFXType.ButtonClick);
     }
 }
