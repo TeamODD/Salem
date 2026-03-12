@@ -31,6 +31,7 @@ public partial class GameManager
         participants.Clear();
         deadParticipants.Clear();
         lastNightDeathNames.Clear();
+        processedDeadCountInLevel = 0;
 
         Debug.Log($"[GameManager] 역할 할당 시작. 오브젝트 수: {characterObjects.Count}, 예정된 역할 수: {activeRoles.Count}");
         List<CharacterAI> newParticipants = roleAssigner.AssignRoles(characterObjects, activeRoles);

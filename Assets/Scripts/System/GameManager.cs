@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public partial class GameManager : MonoBehaviour, IGameFlowContext
 {
@@ -36,6 +37,11 @@ public partial class GameManager : MonoBehaviour, IGameFlowContext
     private IGameFlowState currentState;
     private Coroutine stateRoutine;
 
+    private int totalRoundsCompleted;
+    private int totalSacrificedExcludingWitch;
+    private int totalCorrectMemoCount;
+    private int processedDeadCountInLevel;
+
     public AIContext CurrentContext => currentContext;
     public bool IsNight => isNight;
     public bool IsTransitioning => isTransitioning;
@@ -59,6 +65,9 @@ public partial class GameManager : MonoBehaviour, IGameFlowContext
 
     private void Start()
     {
+        ScoreRuntimeData.Clear();
+        ResetScoreSession();
+
         if (Timer.Instance != null)
         {
             Timer.Instance.OnTimeUp += OnTimerEnded;
@@ -158,6 +167,31 @@ public partial class GameManager : MonoBehaviour, IGameFlowContext
         IntroManager.Instance?.ShowGameOver("<color=red><b>마녀가 당신을 죽였습니다.</b></color>");
     }
 
+    public void RecordRoundEndMetrics()
+    {
+        int correctMemoCount = RoleGuessManager.Instance != null
+            ? RoleGuessManager.Instance.CountCorrectGuesses()
+            : 0;
+
+        totalRoundsCompleted++;
+        totalCorrectMemoCount += correctMemoCount;
+
+        Debug.Log($"[Score] 라운드 종료 집계 - 라운드: {totalRoundsCompleted}, 정답 추리 누적: {totalCorrectMemoCount}");
+    }
+
+    public void FinalizeScoreAndOpenResult(bool isVictory)
+    {
+        SyncSacrificeCountFromDeadParticipants();
+
+        ScoreManager.ScoreResult result = ScoreManager.CalculateScore(
+            totalRoundsCompleted,
+            totalSacrificedExcludingWitch,
+            totalCorrectMemoCount);
+
+        ScoreRuntimeData.Set(result, isVictory);
+        SceneManager.LoadScene("ScoreScene");
+    }
+
     public IEnumerator ShowNightDeathNoticeRoutine()
     {
         if (IntroManager.Instance == null) yield break;
@@ -182,5 +216,33 @@ public partial class GameManager : MonoBehaviour, IGameFlowContext
         bool done = false;
         GlobalFadeManager.Instance.FadeFullIn(duration, () => done = true);
         yield return new WaitUntil(() => done);
+    }
+
+    private void ResetScoreSession()
+    {
+        totalRoundsCompleted = 0;
+        totalSacrificedExcludingWitch = 0;
+        totalCorrectMemoCount = 0;
+        processedDeadCountInLevel = 0;
+    }
+
+    private void SyncSacrificeCountFromDeadParticipants()
+    {
+        int currentDeadExcludingWitch = 0;
+        for (int i = 0; i < deadParticipants.Count; i++)
+        {
+            CharacterAI dead = deadParticipants[i];
+            if (dead == null) continue;
+            if (dead.MyRole == Role.Roles.마녀) continue;
+            currentDeadExcludingWitch++;
+        }
+
+        int delta = currentDeadExcludingWitch - processedDeadCountInLevel;
+        if (delta > 0)
+        {
+            totalSacrificedExcludingWitch += delta;
+        }
+
+        processedDeadCountInLevel = currentDeadExcludingWitch;
     }
 }

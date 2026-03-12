@@ -16,6 +16,9 @@ public class CharacterMark : MonoBehaviour
     [SerializeField] private float _canvasForwardOffset = -0.1f;
 
     private Canvas _parentCanvas;
+    private Role.Roles? _guessedRole;
+
+    public Role.Roles? GuessedRole => _guessedRole;
 
     private void Awake()
     {
@@ -92,6 +95,26 @@ public class CharacterMark : MonoBehaviour
 
     public void SetGuessedRole(Sprite newIcon)
     {
+        _guessedRole = null;
         _markImage.sprite = newIcon != null ? newIcon : _defaultMark;
+    }
+
+    public void SetGuessedRole(Role.Roles? guessedRole, Sprite newIcon)
+    {
+        _guessedRole = guessedRole;
+        _markImage.sprite = newIcon != null ? newIcon : _defaultMark;
+    }
+
+    public CharacterAI GetAttachedCharacterAI()
+    {
+        if (_parentCanvas == null)
+        {
+            _parentCanvas = GetComponentInParent<Canvas>();
+        }
+
+        Transform characterTransform = _parentCanvas != null ? _parentCanvas.transform.parent : null;
+        if (characterTransform == null) return null;
+
+        return characterTransform.GetComponent<CharacterAI>();
     }
 }
