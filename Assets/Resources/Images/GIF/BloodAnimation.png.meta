@@ -1,0 +1,1214 @@
+fileFormatVersion: 2
+guid: 2b8cf6ad93fb3ef4ca4d5d4317a2fa81
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -1658590995752653846
+    second: BloodAnimation_0
+  - first:
+      213: -6712693822556392053
+    second: BloodAnimation_1
+  - first:
+      213: 4581445775638946112
+    second: BloodAnimation_2
+  - first:
+      213: 3718754155975561066
+    second: BloodAnimation_3
+  - first:
+      213: 6774778845659252019
+    second: BloodAnimation_4
+  - first:
+      213: 7383629671526640403
+    second: BloodAnimation_5
+  - first:
+      213: -959697169643793879
+    second: BloodAnimation_6
+  - first:
+      213: 3093379301704347934
+    second: BloodAnimation_7
+  - first:
+      213: -3100824058117756119
+    second: BloodAnimation_8
+  - first:
+      213: -393339792394274757
+    second: BloodAnimation_9
+  - first:
+      213: -6020571924152282770
+    second: BloodAnimation_10
+  - first:
+      213: 5431746338417584379
+    second: BloodAnimation_11
+  - first:
+      213: 7078541054394352809
+    second: BloodAnimation_12
+  - first:
+      213: -2940145817221199367
+    second: BloodAnimation_13
+  - first:
+      213: -2637097748080188363
+    second: BloodAnimation_14
+  - first:
+      213: 8207327324217130064
+    second: BloodAnimation_15
+  - first:
+      213: 6825642190694926786
+    second: BloodAnimation_16
+  - first:
+      213: -3851436791707158769
+    second: BloodAnimation_17
+  - first:
+      213: -6665729818084516386
+    second: BloodAnimation_18
+  - first:
+      213: -1850756652343781653
+    second: BloodAnimation_19
+  - first:
+      213: 8190914007099629777
+    second: BloodAnimation_20
+  - first:
+      213: -2788220194797539282
+    second: BloodAnimation_21
+  - first:
+      213: 5138407458133296631
+    second: BloodAnimation_22
+  - first:
+      213: -1749044115601834385
+    second: BloodAnimation_23
+  - first:
+      213: -1657461689914300931
+    second: BloodAnimation_24
+  - first:
+      213: 2528382926373631537
+    second: BloodAnimation_25
+  - first:
+      213: -1991120395480996977
+    second: BloodAnimation_26
+  - first:
+      213: -936133425629844724
+    second: BloodAnimation_27
+  - first:
+      213: -2829868229771521463
+    second: BloodAnimation_28
+  - first:
+      213: -4627236799122022614
+    second: BloodAnimation_29
+  - first:
+      213: -2771208067335984350
+    second: BloodAnimation_30
+  - first:
+      213: 5563196854364195224
+    second: BloodAnimation_31
+  - first:
+      213: 680890594450986981
+    second: BloodAnimation_32
+  - first:
+      213: -5682826318502266954
+    second: BloodAnimation_33
+  - first:
+      213: -5821614565684278407
+    second: BloodAnimation_34
+  - first:
+      213: 8411167531250212353
+    second: BloodAnimation_35
+  - first:
+      213: -6414350853405500265
+    second: BloodAnimation_36
+  - first:
+      213: 560107106680847312
+    second: BloodAnimation_37
+  - first:
+      213: 8508242431769986974
+    second: BloodAnimation_38
+  - first:
+      213: -8270337605609779423
+    second: BloodAnimation_39
+  - first:
+      213: 6515613770536253970
+    second: BloodAnimation_40
+  - first:
+      213: 3199688106877546516
+    second: BloodAnimation_41
+  - first:
+      213: -5559134920619523349
+    second: BloodAnimation_42
+  - first:
+      213: -6614675577181629364
+    second: BloodAnimation_43
+  - first:
+      213: 3085481480117300475
+    second: BloodAnimation_44
+  - first:
+      213: -1682425175688370841
+    second: BloodAnimation_45
+  - first:
+      213: 8529788216429606403
+    second: BloodAnimation_46
+  - first:
+      213: 640569752534524316
+    second: BloodAnimation_47
+  - first:
+      213: -7378740987286598511
+    second: BloodAnimation_48
+  - first:
+      213: -9059929905251654488
+    second: BloodAnimation_49
+  - first:
+      213: 6221337595431127561
+    second: BloodAnimation_50
+  - first:
+      213: 5819177396973875271
+    second: BloodAnimation_51
+  - first:
+      213: 7231982759489867500
+    second: BloodAnimation_52
+  - first:
+      213: -3777942334868787041
+    second: BloodAnimation_53
+  - first:
+      213: 6950963979184390933
+    second: BloodAnimation_54
+  - first:
+      213: 5135961311223785026
+    second: BloodAnimation_55
+  - first:
+      213: -9126920672666572802
+    second: BloodAnimation_56
+  - first:
+      213: -8258167313945182007
+    second: BloodAnimation_57
+  - first:
+      213: 2823708801023661667
+    second: BloodAnimation_58
+  - first:
+      213: -4712004432424701993
+    second: BloodAnimation_59
+  - first:
+      213: -4374857344594440726
+    second: BloodAnimation_60
+  - first:
+      213: 7899051829446492874
+    second: BloodAnimation_61
+  - first:
+      213: 4259435433895853664
+    second: BloodAnimation_62
+  - first:
+      213: 8132364186572266938
+    second: BloodAnimation_63
+  - first:
+      213: 7191053333476678192
+    second: BloodAnimation_64
+  - first:
+      213: 3758034295704558472
+    second: BloodAnimation_65
+  - first:
+      213: -5691840802192721095
+    second: BloodAnimation_66
+  - first:
+      213: -4702354609321414793
+    second: BloodAnimation_67
+  - first:
+      213: -7624208319155089637
+    second: BloodAnimation_68
+  - first:
+      213: 7448132183738937691
+    second: BloodAnimation_69
+  - first:
+      213: -2756623036538047513
+    second: BloodAnimation_70
+  - first:
+      213: 3551545300286896368
+    second: BloodAnimation_71
+  - first:
+      213: 3502758822534162860
+    second: BloodAnimation_72
+  - first:
+      213: -8175402650221306133
+    second: BloodAnimation_73
+  - first:
+      213: 7935909279722826567
+    second: BloodAnimation_74
+  - first:
+      213: -2304211472534053252
+    second: BloodAnimation_75
+  - first:
+      213: 7006414696026456926
+    second: BloodAnimation_76
+  - first:
+      213: -2325424190174015122
+    second: BloodAnimation_77
+  - first:
+      213: 3533633011185188090
+    second: BloodAnimation_78
+  - first:
+      213: 8841131950686478908
+    second: BloodAnimation_79
+  - first:
+      213: 2728154929976854751
+    second: BloodAnimation_80
+  - first:
+      213: 6584600503323316353
+    second: BloodAnimation_81
+  - first:
+      213: 2410511426464498298
+    second: BloodAnimation_82
+  - first:
+      213: -4216947954074182348
+    second: BloodAnimation_83
+  - first:
+      213: 7388486169569706620
+    second: BloodAnimation_84
+  - first:
+      213: -3867821610580803395
+    second: BloodAnimation_85
+  - first:
+      213: -6704514384879714727
+    second: BloodAnimation_86
+  - first:
+      213: -3354576923599235815
+    second: BloodAnimation_87
+  - first:
+      213: -6682596412083584123
+    second: BloodAnimation_88
+  - first:
+      213: 6618991200895085606
+    second: BloodAnimation_89
+  - first:
+      213: 6463304843100098513
+    second: BloodAnimation_90
+  - first:
+      213: -3616174313041374783
+    second: BloodAnimation_91
+  - first:
+      213: -8178547852661426581
+    second: BloodAnimation_92
+  - first:
+      213: 7510245299318657831
+    second: BloodAnimation_93
+  - first:
+      213: 1882918731430320881
+    second: BloodAnimation_94
+  - first:
+      213: -1046549210226936471
+    second: BloodAnimation_95
+  - first:
+      213: 8259752066634738394
+    second: BloodAnimation_96
+  - first:
+      213: 4364240708910875136
+    second: BloodAnimation_97
+  - first:
+      213: 8144369394424167153
+    second: BloodAnimation_98
+  - first:
+      213: -2803892232340273819
+    second: BloodAnimation_99
+  - first:
+      213: 1766828358790717413
+    second: BloodAnimation_100
+  - first:
+      213: 1758120839413237261
+    second: BloodAnimation_101
+  - first:
+      213: -7387068479955147895
+    second: BloodAnimation_102
+  - first:
+      213: -573053461445662698
+    second: BloodAnimation_103
+  - first:
+      213: -3467228769224864293
+    second: BloodAnimation_104
+  - first:
+      213: 7632334052947247656
+    second: BloodAnimation_105
+  - first:
+      213: 4937073720657752726
+    second: BloodAnimation_106
+  - first:
+      213: -1349857574917742945
+    second: BloodAnimation_107
+  - first:
+      213: 8160095421156493490
+    second: BloodAnimation_108
+  - first:
+      213: 5664011102435161938
+    second: BloodAnimation_109
+  - first:
+      213: 5647715720242292089
+    second: BloodAnimation_110
+  - first:
+      213: -1697433025657938792
+    second: BloodAnimation_111
+  - first:
+      213: 6836407181933995621
+    second: BloodAnimation_112
+  - first:
+      213: -2209040113211707184
+    second: BloodAnimation_113
+  - first:
+      213: 6342738942049147436
+    second: BloodAnimation_114
+  - first:
+      213: 3440014877935306956
+    second: BloodAnimation_115
+  - first:
+      213: -3981600620140106817
+    second: BloodAnimation_116
+  - first:
+      213: -3542255215827190657
+    second: BloodAnimation_117
+  - first:
+      213: 192120107485647831
+    second: BloodAnimation_118
+  - first:
+      213: -5970536130594290591
+    second: BloodAnimation_119
+  - first:
+      213: 8921824196097674295
+    second: BloodAnimation_120
+  - first:
+      213: -1518735347595156260
+    second: BloodAnimation_121
+  - first:
+      213: 4127590150050164554
+    second: BloodAnimation_122
+  - first:
+      213: -6676465678545200536
+    second: BloodAnimation_123
+  - first:
+      213: -7302672304666195102
+    second: BloodAnimation_124
+  - first:
+      213: -8369835699269785954
+    second: BloodAnimation_125
+  - first:
+      213: 2063170591955014269
+    second: BloodAnimation_126
+  - first:
+      213: -4990450009969480160
+    second: BloodAnimation_127
+  - first:
+      213: 3600356641666875094
+    second: BloodAnimation_128
+  - first:
+      213: -8948246360453951170
+    second: BloodAnimation_129
+  - first:
+      213: -8874871728764277220
+    second: BloodAnimation_130
+  - first:
+      213: -2351192451786899178
+    second: BloodAnimation_131
+  - first:
+      213: -8422889260543489474
+    second: BloodAnimation_132
+  - first:
+      213: -4415360773195038601
+    second: BloodAnimation_133
+  - first:
+      213: -4809337403376470084
+    second: BloodAnimation_134
+  - first:
+      213: -6851258615800777940
+    second: BloodAnimation_135
+  - first:
+      213: 4464443104865539573
+    second: BloodAnimation_136
+  - first:
+      213: -6710361159551460465
+    second: BloodAnimation_137
+  - first:
+      213: 6734435111513439967
+    second: BloodAnimation_138
+  - first:
+      213: -6765412877937555874
+    second: BloodAnimation_139
+  - first:
+      213: -7239714456148744166
+    second: BloodAnimation_140
+  - first:
+      213: -1532623646832482945
+    second: BloodAnimation_141
+  - first:
+      213: 2255592573286401986
+    second: BloodAnimation_142
+  - first:
+      213: 3198660098995382795
+    second: BloodAnimation_143
+  - first:
+      213: 553996413410822202
+    second: BloodAnimation_144
+  - first:
+      213: -187097756533938164
+    second: BloodAnimation_145
+  - first:
+      213: 8863447767430222872
+    second: BloodAnimation_146
+  - first:
+      213: 8299844849731393627
+    second: BloodAnimation_147
+  - first:
+      213: -2888570002808862893
+    second: BloodAnimation_148
+  - first:
+      213: -2535933011631613486
+    second: BloodAnimation_149
+  - first:
+      213: -4811143937372736554
+    second: BloodAnimation_150
+  - first:
+      213: -1062646671198143180
+    second: BloodAnimation_151
+  - first:
+      213: 5095014367998115661
+    second: BloodAnimation_152
+  - first:
+      213: -3813276880631018387
+    second: BloodAnimation_153
+  - first:
+      213: 8250793666137083906
+    second: BloodAnimation_154
+  - first:
+      213: 4010448277752924368
+    second: BloodAnimation_155
+  - first:
+      213: 1945389014836937423
+    second: BloodAnimation_156
+  - first:
+      213: 5063078217963682681
+    second: BloodAnimation_157
+  - first:
+      213: 5588703163441648500
+    second: BloodAnimation_158
+  - first:
+      213: -4156821502517509211
+    second: BloodAnimation_159
+  - first:
+      213: -7261127665616991697
+    second: BloodAnimation_160
+  - first:
+      213: -695677175497659127
+    second: BloodAnimation_161
+  - first:
+      213: -4794046384830840855
+    second: BloodAnimation_162
+  - first:
+      213: 6500372245940154798
+    second: BloodAnimation_163
+  - first:
+      213: 3940629882939733561
+    second: BloodAnimation_164
+  - first:
+      213: -6071553161577181001
+    second: BloodAnimation_165
+  - first:
+      213: 3609715181564923173
+    second: BloodAnimation_166
+  - first:
+      213: -7404687806152833993
+    second: BloodAnimation_167
+  - first:
+      213: -7250104387417578870
+    second: BloodAnimation_168
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: BloodAnimation_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 4320
+        width: 1920
+        height: 1080
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: aeb6086e6408bf8e0800000000000000
+      internalID: -1658590995752653846
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BloodAnimation_1
+      rect:
+        serializedVersion: 2
+        x: 1920
+        y: 4320
+        width: 1920
+        height: 1080
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b853194a888b7d2a0800000000000000
+      internalID: -6712693822556392053
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BloodAnimation_2
+      rect:
+        serializedVersion: 2
+        x: 3840
+        y: 4320
+        width: 1920
+        height: 1080
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0416caec8a0949f30800000000000000
+      internalID: 4581445775638946112
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BloodAnimation_3
+      rect:
+        serializedVersion: 2
+        x: 5760
+        y: 4320
+        width: 1920
+        height: 1080
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a6f4ee9b33bab9330800000000000000
+      internalID: 3718754155975561066
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BloodAnimation_4
+      rect:
+        serializedVersion: 2
+        x: 7680
+        y: 4320
+        width: 1920
+        height: 1080
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 335c95f3779d40e50800000000000000
+      internalID: 6774778845659252019
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BloodAnimation_5
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 3240
+        width: 1920
+        height: 1080
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 31b216ce01ce77660800000000000000
+      internalID: 7383629671526640403
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BloodAnimation_6
+      rect:
+        serializedVersion: 2
+        x: 1920
+        y: 3240
+        width: 1920
+        height: 1080
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9221f6742887ea2f0800000000000000
+      internalID: -959697169643793879
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BloodAnimation_7
+      rect:
+        serializedVersion: 2
+        x: 3840
+        y: 3240
+        width: 1920
+        height: 1080
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e1132a1e514edea20800000000000000
+      internalID: 3093379301704347934
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BloodAnimation_8
+      rect:
+        serializedVersion: 2
+        x: 5760
+        y: 3240
+        width: 1920
+        height: 1080
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 92be7e0b2f8a7f4d0800000000000000
+      internalID: -3100824058117756119
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BloodAnimation_9
+      rect:
+        serializedVersion: 2
+        x: 7680
+        y: 3240
+        width: 1920
+        height: 1080
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b383056fa839a8af0800000000000000
+      internalID: -393339792394274757
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BloodAnimation_10
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 2160
+        width: 1920
+        height: 1080
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e61963cbbb1a27ca0800000000000000
+      internalID: -6020571924152282770
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BloodAnimation_11
+      rect:
+        serializedVersion: 2
+        x: 1920
+        y: 2160
+        width: 1920
+        height: 1080
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bf8a8632480716b40800000000000000
+      internalID: 5431746338417584379
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BloodAnimation_12
+      rect:
+        serializedVersion: 2
+        x: 3840
+        y: 2160
+        width: 1920
+        height: 1080
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9a4c133d5970c3260800000000000000
+      internalID: 7078541054394352809
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BloodAnimation_13
+      rect:
+        serializedVersion: 2
+        x: 5760
+        y: 2160
+        width: 1920
+        height: 1080
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9f90ea0f4f08237d0800000000000000
+      internalID: -2940145817221199367
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BloodAnimation_14
+      rect:
+        serializedVersion: 2
+        x: 7680
+        y: 2160
+        width: 1920
+        height: 1080
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 534a2bfe195276bd0800000000000000
+      internalID: -2637097748080188363
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BloodAnimation_15
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1080
+        width: 1920
+        height: 1080
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 05cb15397b846e170800000000000000
+      internalID: 8207327324217130064
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BloodAnimation_16
+      rect:
+        serializedVersion: 2
+        x: 1920
+        y: 1080
+        width: 1920
+        height: 1080
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2c94a4c986d89be50800000000000000
+      internalID: 6825642190694926786
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BloodAnimation_17
+      rect:
+        serializedVersion: 2
+        x: 3840
+        y: 1080
+        width: 1920
+        height: 1080
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f07bc6bc4a2fc8ac0800000000000000
+      internalID: -3851436791707158769
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BloodAnimation_18
+      rect:
+        serializedVersion: 2
+        x: 5760
+        y: 1080
+        width: 1920
+        height: 1080
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: eddd7580c029e73a0800000000000000
+      internalID: -6665729818084516386
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BloodAnimation_19
+      rect:
+        serializedVersion: 2
+        x: 7680
+        y: 1080
+        width: 1920
+        height: 1080
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: be69b5361aac056e0800000000000000
+      internalID: -1850756652343781653
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BloodAnimation_20
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 1920
+        height: 1080
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1d0e1f264e8fba170800000000000000
+      internalID: 8190914007099629777
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BloodAnimation_21
+      rect:
+        serializedVersion: 2
+        x: 1920
+        y: 0
+        width: 1920
+        height: 1080
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e20b58561804e49d0800000000000000
+      internalID: -2788220194797539282
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BloodAnimation_22
+      rect:
+        serializedVersion: 2
+        x: 3840
+        y: 0
+        width: 1920
+        height: 1080
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7f5c045db5a4f4740800000000000000
+      internalID: 5138407458133296631
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BloodAnimation_23
+      rect:
+        serializedVersion: 2
+        x: 5760
+        y: 0
+        width: 1920
+        height: 1080
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f6eb019c4a52ab7e0800000000000000
+      internalID: -1749044115601834385
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BloodAnimation_24
+      rect:
+        serializedVersion: 2
+        x: 7680
+        y: 0
+        width: 1920
+        height: 1080
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: df5e6d7ef538ff8e0800000000000000
+      internalID: -1657461689914300931
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 624c4a70a5f83d946b91cd3ec470c4db
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":5.0,"y":5.0},"gridSpriteSize":{"x":1920.0,"y":1080.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
+    nameFileIdTable:
+      BloodAnimation_0: -1658590995752653846
+      BloodAnimation_1: -6712693822556392053
+      BloodAnimation_10: -6020571924152282770
+      BloodAnimation_11: 5431746338417584379
+      BloodAnimation_12: 7078541054394352809
+      BloodAnimation_13: -2940145817221199367
+      BloodAnimation_14: -2637097748080188363
+      BloodAnimation_15: 8207327324217130064
+      BloodAnimation_16: 6825642190694926786
+      BloodAnimation_17: -3851436791707158769
+      BloodAnimation_18: -6665729818084516386
+      BloodAnimation_19: -1850756652343781653
+      BloodAnimation_2: 4581445775638946112
+      BloodAnimation_20: 8190914007099629777
+      BloodAnimation_21: -2788220194797539282
+      BloodAnimation_22: 5138407458133296631
+      BloodAnimation_23: -1749044115601834385
+      BloodAnimation_24: -1657461689914300931
+      BloodAnimation_3: 3718754155975561066
+      BloodAnimation_4: 6774778845659252019
+      BloodAnimation_5: 7383629671526640403
+      BloodAnimation_6: -959697169643793879
+      BloodAnimation_7: 3093379301704347934
+      BloodAnimation_8: -3100824058117756119
+      BloodAnimation_9: -393339792394274757
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
