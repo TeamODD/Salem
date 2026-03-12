@@ -16,7 +16,7 @@
 ## 주요 폴더 구조
 - `Scripts/AI`: 각 직업군(Witch, Thief, Believer 등)의 로직 및 AI 행동 트리.
 - `Scripts/Gameplay`: `Character.cs`, `Role.cs` 등 핵심 게임 데이터 및 로직.
-- `Scripts/System`: `AIManager`, `RoleManager`, `Timer` 등 전역 시스템 관리.
+- `Scripts/System`: `GameManager`, `RoleManager`, `Timer` 등 전역 시스템 관리.
 - `Scripts/UI`: 페이드 효과 및 UI 관리.
 - `Prefabs/Characters`: 캐릭터 오브젝트 프리팹.
 

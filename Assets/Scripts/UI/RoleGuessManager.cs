@@ -82,7 +82,7 @@ public class RoleGuessManager : MonoBehaviour
         if (!_allMarks.Contains(mark))
         {
             _allMarks.Add(mark);
-            mark.SetGuessedRole(_defaultSprite);
+            mark.SetGuessedRole(null, _defaultSprite);
         }
     }
 
@@ -93,7 +93,7 @@ public class RoleGuessManager : MonoBehaviour
 
         for (int i = 0; i < _allMarks.Count; i++)
         {
-            _allMarks[i].SetGuessedRole(_defaultSprite);
+            _allMarks[i].SetGuessedRole(null, _defaultSprite);
         }
     }
 
@@ -116,7 +116,7 @@ public class RoleGuessManager : MonoBehaviour
     {
         if (_currentActiveMark != null && _defaultSprite != null)
         {
-            _currentActiveMark.SetGuessedRole(_defaultSprite);
+            _currentActiveMark.SetGuessedRole(null, _defaultSprite);
         }
 
         CloseSelector();
@@ -129,7 +129,7 @@ public class RoleGuessManager : MonoBehaviour
 
         if (_currentActiveMark != null)
         {
-            _currentActiveMark.SetGuessedRole(icon);
+            _currentActiveMark.SetGuessedRole(selectedRole, icon);
         }
 
         CloseSelector();
@@ -192,5 +192,27 @@ public class RoleGuessManager : MonoBehaviour
             _selectorCanvasRect, screenPos, null, out localPoint);
 
         panelRect.anchoredPosition = localPoint;
+    }
+
+    public int CountCorrectGuesses()
+    {
+        _allMarks.RemoveAll(mark => mark == null);
+
+        int correctCount = 0;
+        for (int i = 0; i < _allMarks.Count; i++)
+        {
+            CharacterMark mark = _allMarks[i];
+            if (!mark.GuessedRole.HasValue) continue;
+
+            CharacterAI ai = mark.GetAttachedCharacterAI();
+            if (ai == null) continue;
+
+            if (mark.GuessedRole.Value == ai.MyRole)
+            {
+                correctCount++;
+            }
+        }
+
+        return correctCount;
     }
 }

@@ -9,6 +9,7 @@ public partial class GameManager
         participants.Clear();
         deadParticipants.Clear();
         lastNightDeathNames.Clear();
+        processedDeadCountInLevel = 0;
 
         List<CharacterAI> newParticipants = roleAssigner.AssignRoles(characterObjects, activeRoles);
         participants.AddRange(newParticipants);
@@ -66,6 +67,8 @@ public partial class GameManager
             }
         }
 
+        SyncSacrificeCountFromDeadParticipants();
+
         nightIndex++;
     }
 
@@ -78,6 +81,7 @@ public partial class GameManager
             participants.Remove(victim);
             deadParticipants.Add(victim);
             Debug.Log($"[GameManager] {victim.DisplayName} 처형됨.");
+            SyncSacrificeCountFromDeadParticipants();
         }
 
         victim.gameObject.SetActive(false);

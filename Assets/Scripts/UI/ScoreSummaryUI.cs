@@ -1,6 +1,8 @@
 using System.Collections;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class ScoreSummaryUI : MonoBehaviour
 {
@@ -32,18 +34,63 @@ public class ScoreSummaryUI : MonoBehaviour
     [SerializeField] private bool useSequentialReveal = true;
     [SerializeField] private float revealInterval = 0.35f;
 
+    [Header("타이틀 돌아가기 버튼")]
+    [SerializeField] private Button returnToTitleButton;
+
+    public void ConfigureBindings(
+        TextMeshProUGUI roundsLabel,
+        TextMeshProUGUI roundsValue,
+        TextMeshProUGUI sacrificedLabel,
+        TextMeshProUGUI sacrificedValue,
+        TextMeshProUGUI correctMemoLabel,
+        TextMeshProUGUI correctMemoValue,
+        TextMeshProUGUI totalScoreLabel,
+        TextMeshProUGUI totalScoreValue,
+        TextMeshProUGUI gradeLabel,
+        TextMeshProUGUI gradeValue,
+        Button titleButton)
+    {
+        roundsLabelText = roundsLabel;
+        roundsValueText = roundsValue;
+        sacrificedLabelText = sacrificedLabel;
+        sacrificedValueText = sacrificedValue;
+        correctMemoLabelText = correctMemoLabel;
+        correctMemoValueText = correctMemoValue;
+        totalScoreLabelText = totalScoreLabel;
+        totalScoreValueText = totalScoreValue;
+        gradeLabelText = gradeLabel;
+        gradeValueText = gradeValue;
+        returnToTitleButton = titleButton;
+    }
+
     private void Start()
     {
+        SetReturnToTitleVisible(false);
         RefreshWithTestValues();
+        if (returnToTitleButton != null)
+        {
+            returnToTitleButton.onClick.AddListener(() =>
+            {
+                SceneManager.LoadScene("TitleScene");
+            });
+        }
     }
 
     [ContextMenu("Refresh With Test Values")]
     public void RefreshWithTestValues()
     {
-        ScoreManager.ScoreResult result = ScoreManager.CalculateScore(
-            testRoundsCompleted,
-            testSacrificedExcludingWitch,
-            testCorrectMemoCount);
+        ScoreManager.ScoreResult result;
+        if (ScoreRuntimeData.HasData)
+        {
+            result = ScoreRuntimeData.LastResult;
+        }
+        else
+        {
+            result = ScoreManager.CalculateScore(
+                testRoundsCompleted,
+                testSacrificedExcludingWitch,
+                testCorrectMemoCount);
+        }
 
         ApplyResult(result);
     }
@@ -51,6 +98,7 @@ public class ScoreSummaryUI : MonoBehaviour
     public void ApplyResult(ScoreManager.ScoreResult result)
     {
         StopAllCoroutines();
+        SetReturnToTitleVisible(false);
 
         if (useSequentialReveal)
         {
@@ -97,6 +145,8 @@ public class ScoreSummaryUI : MonoBehaviour
             SetGradeLabel();
             yield return new WaitForSeconds(revealInterval);
             SetGradeValue(result);
+            yield return new WaitForSeconds(revealInterval);
+            SetReturnToTitleVisible(true);
             yield break;
         }
 
@@ -109,6 +159,8 @@ public class ScoreSummaryUI : MonoBehaviour
         SetTotalScoreRow(result);
         yield return new WaitForSeconds(revealInterval);
         SetGradeRow(result);
+        yield return new WaitForSeconds(revealInterval);
+        SetReturnToTitleVisible(true);
     }
 
     private void ApplyResultImmediate(ScoreManager.ScoreResult result)
@@ -118,6 +170,7 @@ public class ScoreSummaryUI : MonoBehaviour
         SetCorrectMemoRow(result);
         SetTotalScoreRow(result);
         SetGradeRow(result);
+        SetReturnToTitleVisible(true);
     }
 
     private void ClearAllTexts()
@@ -139,6 +192,8 @@ public class ScoreSummaryUI : MonoBehaviour
         if (gradeLabelText != null) gradeLabelText.text = string.Empty;
         if (gradeValueText != null) gradeValueText.text = string.Empty;
     }
+
+
 
     private void SetRoundsRow(ScoreManager.ScoreResult result)
     {
@@ -238,5 +293,11 @@ public class ScoreSummaryUI : MonoBehaviour
     private void SetGradeValue(ScoreManager.ScoreResult result)
     {
         if (gradeValueText != null) gradeValueText.text = result.Grade;
+    }
+
+    private void SetReturnToTitleVisible(bool visible)
+    {
+        if (returnToTitleButton == null) return;
+        returnToTitleButton.gameObject.SetActive(visible);
     }
 }

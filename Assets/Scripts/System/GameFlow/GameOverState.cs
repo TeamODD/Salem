@@ -24,6 +24,6 @@ public sealed class GameOverState : GameFlowStateBase
     private IEnumerator GameOverRoutine()
     {
         yield return Context.FadeOutRoutine(Context.FadeDuration);
-        Context.ShowDefeatUI();
+        Context.FinalizeScoreAndOpenResult(false);
     }
 }
