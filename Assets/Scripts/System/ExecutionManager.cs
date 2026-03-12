@@ -10,7 +10,7 @@ public class ExecutionManager : MonoBehaviour
     [Header("Settings")]
     [SerializeField] private int maxBullets = 1;
     [SerializeField] private Texture2D aimCursor; // 장전 시 커서
-    [SerializeField] private Vector2 cursorHotspot = Vector2.zero;
+    [SerializeField] private Vector2 cursorHotspot = Vector2.zero; // 커서의 핫스팟 위치
 
     [Header("UI")]
     [SerializeField] private TextMeshProUGUI bulletCountText; // 탄환 수를 표시할 UI 텍스트
@@ -78,7 +78,7 @@ public class ExecutionManager : MonoBehaviour
 
         if (isAiming)
         {
-            Cursor.SetCursor(aimCursor, cursorHotspot, CursorMode.Auto);
+            Cursor.SetCursor(aimCursor, cursorHotspot, CursorMode.ForceSoftware);
 #if UNITY_EDITOR
             Debug.Log("장전 완료. 대상을 선택하세요.");
 #endif
@@ -95,7 +95,7 @@ public class ExecutionManager : MonoBehaviour
         }
         else
         {
-            Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
+            Cursor.SetCursor(null, Vector2.zero, CursorMode.ForceSoftware);
 #if UNITY_EDITOR
             Debug.Log("장전 해제.");
 #endif
