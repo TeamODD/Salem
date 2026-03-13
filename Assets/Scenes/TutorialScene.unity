@@ -20,7 +20,7 @@ RenderSettings:
   m_FogDensity: 0.01
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
-  m_AmbientSkyColor: {r: 0.212, g: 0.227, b: 0.259, a: 1}
+  m_AmbientSkyColor: {r: 1, g: 1, b: 1, a: 1}
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
   m_AmbientIntensity: 1
@@ -93,8 +93,8 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 20201, guid: 0000000000000000f000000000000000, type: 0}
-  m_LightingSettings: {fileID: 0}
+  m_LightingDataAsset: {fileID: 112000000, guid: afef1331292a0a447a8fda27cad87529, type: 2}
+  m_LightingSettings: {fileID: 4890085278179872738, guid: d418ef053382cda49970669dc1708258, type: 2}
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -2478,8 +2478,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1768002010618557550, guid: e4ef09fad65d78f40a22c5d7922dde0c, type: 3}
       propertyPath: EffectScale
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1768002010618557550, guid: e4ef09fad65d78f40a22c5d7922dde0c, type: 3}
+      propertyPath: BloodEffectPrefab
+      value: 
+      objectReference: {fileID: 7750288192190830806, guid: 2ac87dc5ae90ed34b946c9fd5cdbecd4, type: 3}
     - target: {fileID: 2005172847401240304, guid: e4ef09fad65d78f40a22c5d7922dde0c, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1154.301
@@ -2763,6 +2767,14 @@ PrefabInstance:
     - target: {fileID: 7529363679796437245, guid: e4ef09fad65d78f40a22c5d7922dde0c, type: 3}
       propertyPath: SFXList.Array.data[3].Type
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7664584937289211844, guid: e4ef09fad65d78f40a22c5d7922dde0c, type: 3}
+      propertyPath: aimCursor
+      value: 
+      objectReference: {fileID: 2800000, guid: 62d8e169593215f4aa802730c9124113, type: 3}
+    - target: {fileID: 7664584937289211844, guid: e4ef09fad65d78f40a22c5d7922dde0c, type: 3}
+      propertyPath: cursorScale
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 7664584937289211844, guid: e4ef09fad65d78f40a22c5d7922dde0c, type: 3}
       propertyPath: bulletCountText
@@ -4642,7 +4654,7 @@ Transform:
   m_GameObject: {fileID: 1263595479}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -1, z: 0}
   m_LocalScale: {x: 0.95, y: 0.95, z: 0.95}
   m_ConstrainProportionsScale: 1
   m_Children: []
