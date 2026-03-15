@@ -2,7 +2,6 @@ using UnityEngine;
 using TMPro;
 using DG.Tweening;
 using System.Collections.Generic;
-using UnityEngine.SceneManagement;
 
 public class IntroManager : MonoBehaviour
 {
@@ -96,7 +95,7 @@ public class IntroManager : MonoBehaviour
 
         DOVirtual.DelayedCall(2f, () =>
         {
-            SceneManager.LoadScene("TitleScene");
+            IsIntroPlaying = false;
         });
     }
 

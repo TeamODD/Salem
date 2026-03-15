@@ -162,9 +162,12 @@ public partial class GameManager : MonoBehaviour, IGameFlowContext
         GlobalFadeManager.Instance?.SetAlpha(1.0f);
     }
 
-    public void ShowDefeatUI()
+    public IEnumerator ShowDefeatUIRoutine()
     {
-        IntroManager.Instance?.ShowGameOver("<color=red><b>마녀가 당신을 죽였습니다.</b></color>");
+        if (IntroManager.Instance == null) yield break;
+
+        IntroManager.Instance.ShowGameOver("<color=red><b>마녀가 당신을 죽였습니다.</b></color>");
+        yield return new WaitWhile(() => IntroManager.Instance.IsIntroPlaying);
     }
 
     public void RecordRoundEndMetrics()

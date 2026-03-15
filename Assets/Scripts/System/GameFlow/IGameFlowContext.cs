@@ -24,6 +24,7 @@ public interface IGameFlowContext
     bool TryApplyExecution(CharacterAI victim);
     bool IsWinConditionMet();
     bool IsDefeatConditionMet();
+    IEnumerator ShowDefeatUIRoutine();
     void RecordRoundEndMetrics();
     void FinalizeScoreAndOpenResult(bool isVictory);
     IEnumerator ShowNightDeathNoticeRoutine();
