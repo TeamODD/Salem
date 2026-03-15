@@ -2039,6 +2039,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1010970752}
   - component: {fileID: 1010970754}
+  - component: {fileID: 1010970755}
   m_Layer: 0
   m_Name: "\uC591\uCD08 \uBD881"
   m_TagString: Untagged
@@ -2120,6 +2121,28 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!95 &1010970755
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1010970751}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 699c4dcc19824934c847827701723153, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1014194113 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 9082985669410854693, guid: ab963817896fd3d4f85fe370ecf7dd95, type: 3}
@@ -3445,7 +3468,7 @@ MonoBehaviour:
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 0.5
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 0.25
+  m_Intensity: 0.5
   m_LightVolumeIntensity: 1
   m_LightVolumeEnabled: 0
   m_ApplyToSortingLayers: 0000000009019e6cafb8bb2fd10f2cb5dd1ac31dcd08d0e98f846a901f50ac8d11807a86
@@ -4373,6 +4396,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.x
       value: -62.324463
       objectReference: {fileID: 0}
+    - target: {fileID: 1768002010618557550, guid: e4ef09fad65d78f40a22c5d7922dde0c, type: 3}
+      propertyPath: BloodEffectPrefab
+      value: 
+      objectReference: {fileID: 7750288192190830806, guid: 2ac87dc5ae90ed34b946c9fd5cdbecd4, type: 3}
     - target: {fileID: 2005172847401240304, guid: e4ef09fad65d78f40a22c5d7922dde0c, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -4487,7 +4514,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5094055950588059508, guid: e4ef09fad65d78f40a22c5d7922dde0c, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -53.641724
+      value: -53.6416
       objectReference: {fileID: 0}
     - target: {fileID: 6450300947883952626, guid: e4ef09fad65d78f40a22c5d7922dde0c, type: 3}
       propertyPath: _defaultButton
@@ -4623,7 +4650,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7379512630230926159, guid: e4ef09fad65d78f40a22c5d7922dde0c, type: 3}
       propertyPath: GameTime
-      value: 90
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 7379512630230926159, guid: e4ef09fad65d78f40a22c5d7922dde0c, type: 3}
       propertyPath: TimerSlider

@@ -17,6 +17,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/CreditScene.unity
     guid: f66f6d9573719a14081650ef53bf2503
+  - enabled: 1
+    path: Assets/Scenes/ScoreScene.unity
+    guid: 060f92a66bd394742b51dc8e99ad048b
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0

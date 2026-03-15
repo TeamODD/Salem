@@ -16,6 +16,8 @@ public sealed class DayState : GameFlowStateBase
 
     public override void OnTimerElapsed()
     {
+        Context.SetFadeOpaque();
+        SoundManager.Instance?.PlaySFX(SFXType.TimeOver);
         Context.RecordRoundEndMetrics();
         Context.ChangeState(new NightResolutionState(Context));
     }

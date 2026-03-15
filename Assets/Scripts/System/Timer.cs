@@ -11,7 +11,10 @@ public class Timer : MonoBehaviour
 
     private bool _stopTimer;
     private bool _isShaking;
+    private bool _isCountdownLoopPlaying;
+    private bool _hasStoredOriginalBgmVolume;
     private float _currentTime;
+    private float _originalBgmVolume;
 
     void Awake()
     {
@@ -29,6 +32,9 @@ public class Timer : MonoBehaviour
     {
         _stopTimer = true;
         _isShaking = false;
+        _isCountdownLoopPlaying = false;
+        _hasStoredOriginalBgmVolume = false;
+        _originalBgmVolume = 0f;
 
         TimerSlider.maxValue = GameTime;
         TimerSlider.value = 0;
@@ -49,13 +55,22 @@ public class Timer : MonoBehaviour
         if (_currentTime <= 0)
         {
             _stopTimer = true; // Stop timer explicitly
+            StopCountdownLoop();
             StopShake();
             TimerSlider.value = GameTime;
             OnTimeUp?.Invoke(); // Trigger event
+            return;
         }
         else if (_currentTime <= 10f && !_isShaking)
         {
             StartShake();
+        }
+
+        if (_currentTime <= 10f && !_isCountdownLoopPlaying)
+        {
+            _isCountdownLoopPlaying = true;
+            LowerBGMForCountdown();
+            SoundManager.Instance?.PlaySFXLoop(SFXType.ClockTick);
         }
     }
 
@@ -79,6 +94,7 @@ public class Timer : MonoBehaviour
     public void StopTimer()
     {
         _stopTimer = true;
+        StopCountdownLoop();
         StopShake();
     }
 
@@ -86,6 +102,7 @@ public class Timer : MonoBehaviour
     {
         _currentTime = GameTime;
         _stopTimer = false;
+        StopCountdownLoop();
         TimerSlider.value = 0;
         StopShake();
     }
@@ -94,6 +111,7 @@ public class Timer : MonoBehaviour
     {
         _currentTime = GameTime;
         _stopTimer = true;
+        StopCountdownLoop();
         TimerSlider.value = 0;
         StopShake();
     }
@@ -104,6 +122,7 @@ public class Timer : MonoBehaviour
 
         _currentTime = 0;
         _stopTimer = true;
+        StopCountdownLoop();
         StopShake();
         OnTimeUp?.Invoke();
     }
@@ -113,7 +132,34 @@ public class Timer : MonoBehaviour
         if (_stopTimer) return;
 
         _stopTimer = true;
+        StopCountdownLoop();
         StopShake();
         OnTimeUp?.Invoke();
+    }
+
+    private void StopCountdownLoop()
+    {
+        if (!_isCountdownLoopPlaying) return;
+
+        SoundManager.Instance?.StopSFXLoop();
+        RestoreBGMVolume();
+        _isCountdownLoopPlaying = false;
+    }
+
+    private void LowerBGMForCountdown()
+    {
+        if (SoundManager.Instance == null || _hasStoredOriginalBgmVolume) return;
+
+        _originalBgmVolume = SoundManager.Instance.GetBGMVolume();
+        _hasStoredOriginalBgmVolume = true;
+        SoundManager.Instance.SetBGMVolume(_originalBgmVolume * 0.5f);
+    }
+
+    private void RestoreBGMVolume()
+    {
+        if (SoundManager.Instance == null || !_hasStoredOriginalBgmVolume) return;
+
+        SoundManager.Instance.SetBGMVolume(_originalBgmVolume);
+        _hasStoredOriginalBgmVolume = false;
     }
 }
