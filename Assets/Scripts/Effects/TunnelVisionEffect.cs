@@ -23,7 +23,7 @@ public class TunnelVisionEffect : MonoBehaviour
             Destroy(gameObject);
         }
     }
-    
+
     void Start()
     {
         if (_globalVolume.profile.TryGet<Vignette>(out var tmpVignette))

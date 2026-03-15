@@ -13,6 +13,7 @@ public partial class GameManager : MonoBehaviour, IGameFlowContext
     [Header("Level Info")]
     [SerializeField] private List<LevelData> levels = new List<LevelData>();
     [SerializeField] private int currentLevelIndex = 0;
+    [SerializeField] private bool infiniteMode = false;
 
     [Header("Round Info")]
     [SerializeField] private List<Role.Roles> activeRoles = new List<Role.Roles>();
@@ -37,7 +38,7 @@ public partial class GameManager : MonoBehaviour, IGameFlowContext
     private IGameFlowState currentState;
     private Coroutine stateRoutine;
 
-    private int totalRoundsCompleted;
+    private int totalStagesPlayed;
     private int totalSacrificedExcludingWitch;
     private int totalCorrectMemoCount;
     private int processedDeadCountInLevel;
@@ -176,10 +177,9 @@ public partial class GameManager : MonoBehaviour, IGameFlowContext
             ? RoleGuessManager.Instance.CountCorrectGuesses()
             : 0;
 
-        totalRoundsCompleted++;
         totalCorrectMemoCount += correctMemoCount;
 
-        Debug.Log($"[Score] 라운드 종료 집계 - 라운드: {totalRoundsCompleted}, 정답 추리 누적: {totalCorrectMemoCount}");
+        Debug.Log($"[Score] 스테이지 내 집계 - 플레이한 스테이지 수: {totalStagesPlayed}, 정답 추리 누적: {totalCorrectMemoCount}");
     }
 
     public void FinalizeScoreAndOpenResult(bool isVictory)
@@ -187,7 +187,7 @@ public partial class GameManager : MonoBehaviour, IGameFlowContext
         SyncSacrificeCountFromDeadParticipants();
 
         ScoreManager.ScoreResult result = ScoreManager.CalculateScore(
-            totalRoundsCompleted,
+            totalStagesPlayed,
             totalSacrificedExcludingWitch,
             totalCorrectMemoCount);
 
@@ -223,7 +223,7 @@ public partial class GameManager : MonoBehaviour, IGameFlowContext
 
     private void ResetScoreSession()
     {
-        totalRoundsCompleted = 0;
+        totalStagesPlayed = 0;
         totalSacrificedExcludingWitch = 0;
         totalCorrectMemoCount = 0;
         processedDeadCountInLevel = 0;
