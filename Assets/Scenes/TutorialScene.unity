@@ -7076,7 +7076,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5076141116675110679, guid: fce9a3bd3da167c438ee8fe78cea76a7, type: 3}
       propertyPath: m_Name
-      value: RoleIntroPanel
+      value: RoleInfoPanel
       objectReference: {fileID: 0}
     - target: {fileID: 5076141116675110679, guid: fce9a3bd3da167c438ee8fe78cea76a7, type: 3}
       propertyPath: m_IsActive
