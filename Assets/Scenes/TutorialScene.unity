@@ -2594,7 +2594,7 @@ PrefabInstance:
       objectReference: {fileID: 124554336}
     - target: {fileID: 6405290907476691652, guid: e4ef09fad65d78f40a22c5d7922dde0c, type: 3}
       propertyPath: m_SortingOrder
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6450300947883952626, guid: e4ef09fad65d78f40a22c5d7922dde0c, type: 3}
       propertyPath: _defaultButton
@@ -3291,8 +3291,8 @@ RectTransform:
   - {fileID: 507552705}
   - {fileID: 930908958}
   - {fileID: 467793002}
-  - {fileID: 425122746}
   - {fileID: 1102940850}
+  - {fileID: 425122746}
   - {fileID: 32351553}
   m_Father: {fileID: 926797741}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -6626,8 +6626,8 @@ MonoBehaviour:
     UIPadding: 1.2
   - StepName: Dialogue_03
     Type: 0
-    Message: "\uB12C\uC774 \uC0AC\uB9DD\uD588\uC2B5\uB2C8\uB2E4.\n\uC774\uC81C \uB0A8\uC740
-      \uC778\uBB3C\uB4E4\uC758 \uB9D0\uC744 \uB2E4\uC2DC \uB4E4\uC5B4\uBCF4\uC138\uC694."
+    Message: "\uACE0\uB4DC\uB9AD\uC774 \uC0AC\uB9DD\uD588\uC2B5\uB2C8\uB2E4.\n\uC774\uC81C
+      \uB0A8\uC740 \uC778\uBB3C\uB4E4\uC758 \uB9D0\uC744 \uB2E4\uC2DC \uB4E4\uC5B4\uBCF4\uC138\uC694."
     TargetObject: {fileID: 0}
     UseHighlight: 0
     DialoguePosition: {x: 0, y: 0}
