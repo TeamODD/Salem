@@ -18,6 +18,7 @@ public sealed class DayState : GameFlowStateBase
     {
         Context.SetFadeOpaque();
         SoundManager.Instance?.PlaySFX(SFXType.TimeOver);
+        Context.ReduceRoundTimeForNextRound();
         Context.RecordRoundEndMetrics();
         Context.ChangeState(new NightResolutionState(Context));
     }
@@ -25,6 +26,7 @@ public sealed class DayState : GameFlowStateBase
     public override void OnCharacterExecuted(CharacterAI victim)
     {
         if (!Context.TryApplyExecution(victim)) return;
+        Context.ReduceRoundTimeForNextRound();
         Context.RecordRoundEndMetrics();
 
         if (Context.IsWinConditionMet())

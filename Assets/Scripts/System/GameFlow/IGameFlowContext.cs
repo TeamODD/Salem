@@ -16,6 +16,7 @@ public interface IGameFlowContext
     void StopTimer();
     void ResetTimerPaused();
     void ResetTimer();
+    void ReduceRoundTimeForNextRound();
     void SetFadeOpaque();
 
     void RunNight();

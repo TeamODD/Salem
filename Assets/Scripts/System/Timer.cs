@@ -5,6 +5,8 @@ using DG.Tweening;
 public class Timer : MonoBehaviour
 {
     public static Timer Instance;
+    private const float MinimumGameTime = 30f;
+
     public Slider TimerSlider;
     public float GameTime;
     public float ShakeMagnitude = 2f;
@@ -114,6 +116,18 @@ public class Timer : MonoBehaviour
         StopCountdownLoop();
         TimerSlider.value = 0;
         StopShake();
+    }
+
+    public void AdjustGameTime(float deltaSeconds)
+    {
+        GameTime = Mathf.Max(MinimumGameTime, GameTime + deltaSeconds);
+        _currentTime = Mathf.Min(_currentTime, GameTime);
+
+        if (TimerSlider != null)
+        {
+            TimerSlider.maxValue = GameTime;
+            TimerSlider.value = _stopTimer ? 0f : GameTime - _currentTime;
+        }
     }
 
     public void FinishImmediately()

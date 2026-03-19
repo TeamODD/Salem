@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 
 public partial class GameManager : MonoBehaviour, IGameFlowContext
 {
+    private const float RoundTimeReductionPerStage = 10f;
+
     public static GameManager Instance { get; private set; }
 
     [Header("Character Objects")]
@@ -156,6 +158,11 @@ public partial class GameManager : MonoBehaviour, IGameFlowContext
     public void ResetTimer()
     {
         Timer.Instance?.ResetTimer();
+    }
+
+    public void ReduceRoundTimeForNextRound()
+    {
+        Timer.Instance?.AdjustGameTime(-RoundTimeReductionPerStage);
     }
 
     public void SetFadeOpaque()

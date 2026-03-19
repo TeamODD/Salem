@@ -82,6 +82,7 @@ public partial class GameManager
             yield return new WaitWhile(() => IntroManager.Instance.IsIntroPlaying);
         }
 
+        ResetTimerPaused();
         yield return FadeInRoutine(fadeDuration);
 
         Debug.Log($"--- Level {levelIndex + 1} 준비 완료 (참가자: {participants.Count}명) ---");
