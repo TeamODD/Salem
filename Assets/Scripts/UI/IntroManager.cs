@@ -2,12 +2,16 @@ using UnityEngine;
 using TMPro;
 using DG.Tweening;
 using System.Collections.Generic;
+using UnityEngine.UI;
+using UnityEngine.Video;
 
 public class IntroManager : MonoBehaviour
 {
     public static IntroManager Instance { get; private set; }
     public CanvasGroup PanelCanvasGroup;
     public TextMeshProUGUI IntroText;
+    [SerializeField] private VideoClip defeatVideoClip;
+    [SerializeField] private string defeatVideoResourcePath = "Animations/DeadScene/마녀 죽음 최종본5";
 
     public float TypeSpeed = 0.05f;
     public float DisplayDuration = 2f;
@@ -16,6 +20,14 @@ public class IntroManager : MonoBehaviour
     public float WarningFadeDuration = 0.35f;
 
     public bool IsIntroPlaying { get; private set; }
+
+    private Coroutine _gameOverRoutine;
+    private VideoPlayer _defeatVideoPlayer;
+    private RawImage _defeatVideoImage;
+    private RenderTexture _defeatRenderTexture;
+    private Color _introTextBaseColor;
+    private bool _hasStoredOriginalBgmVolume;
+    private float _originalBgmVolume;
 
     private void Awake()
     {
@@ -36,10 +48,22 @@ public class IntroManager : MonoBehaviour
         PanelCanvasGroup.blocksRaycasts = false;
         PanelCanvasGroup.gameObject.SetActive(false);
         IntroText.text = "";
+        _introTextBaseColor = IntroText.color;
+        _hasStoredOriginalBgmVolume = false;
+        _originalBgmVolume = 0f;
     }
 
     private void OnDestroy()
     {
+        StopGameOverVideo();
+
+        if (_defeatRenderTexture != null)
+        {
+            _defeatRenderTexture.Release();
+            Destroy(_defeatRenderTexture);
+            _defeatRenderTexture = null;
+        }
+
         if (Instance == this)
         {
             Instance = null;
@@ -59,7 +83,7 @@ public class IntroManager : MonoBehaviour
         PanelCanvasGroup.alpha = 1f;
         PanelCanvasGroup.blocksRaycasts = true;
         IntroText.text = "";
-        IntroText.alpha = 1f;
+        SetIntroTextAlpha(1f);
 
         // 중복 제거 및 "마녀"를 제외한 직업 목록 생성 (마녀는 어차피 있다고 명시하므로)
         HashSet<Role.Roles> uniqueRoles = new HashSet<Role.Roles>(assignedRoles);
@@ -76,27 +100,20 @@ public class IntroManager : MonoBehaviour
     {
         if (!enabled) return;
 
-        IsIntroPlaying = true; // 입력을 막기 위해 true로 설정
+        if (!gameObject.activeInHierarchy)
+        {
+            gameObject.SetActive(true);
+        }
+
         IntroText.DOKill();
         PanelCanvasGroup.DOKill();
 
-        PanelCanvasGroup.gameObject.SetActive(true);
-        PanelCanvasGroup.alpha = 1f;
-        PanelCanvasGroup.blocksRaycasts = true;
-        IntroText.text = message;
-        IntroText.alpha = 0f;
-
-        if (GlobalFadeManager.Instance != null)
+        if (_gameOverRoutine != null)
         {
-            GlobalFadeManager.Instance.FadeFullOut(FadeDuration);
+            StopCoroutine(_gameOverRoutine);
         }
 
-        IntroText.DOFade(1f, FadeDuration);
-
-        DOVirtual.DelayedCall(2f, () =>
-        {
-            IsIntroPlaying = false;
-        });
+        _gameOverRoutine = StartCoroutine(PlayGameOverSequence(message));
     }
 
     public void ShowNightDeaths(IReadOnlyList<string> deadNames, float displayDuration)
@@ -112,7 +129,7 @@ public class IntroManager : MonoBehaviour
         PanelCanvasGroup.blocksRaycasts = true;
 
         IntroText.text = BuildNightDeathMessage(deadNames);
-        IntroText.alpha = 0f;
+        SetIntroTextAlpha(0f);
 
         Sequence sequence = DOTween.Sequence();
         sequence.Append(IntroText.DOFade(1f, FadeDuration));
@@ -124,6 +141,7 @@ public class IntroManager : MonoBehaviour
             PanelCanvasGroup.alpha = 0f;
             PanelCanvasGroup.blocksRaycasts = false;
             PanelCanvasGroup.gameObject.SetActive(false);
+            RestoreIntroVisualState();
         });
     }
 
@@ -180,7 +198,159 @@ public class IntroManager : MonoBehaviour
             PanelCanvasGroup.alpha = 0f;
             PanelCanvasGroup.blocksRaycasts = false;
             PanelCanvasGroup.gameObject.SetActive(false);
+            RestoreIntroVisualState();
         });
+    }
+
+    private System.Collections.IEnumerator PlayGameOverSequence(string message)
+    {
+        IsIntroPlaying = true;
+        PanelCanvasGroup.gameObject.SetActive(true);
+        PanelCanvasGroup.alpha = 1f;
+        PanelCanvasGroup.blocksRaycasts = true;
+        IntroText.text = message;
+        SetIntroTextAlpha(0f);
+
+        if (GlobalFadeManager.Instance != null)
+        {
+            GlobalFadeManager.Instance.FadeFullOut(FadeDuration);
+        }
+
+        if (TryGetDefeatVideoClip(out VideoClip clip) && TryEnsureDefeatVideoPlayer())
+        {
+            MuteBgmForDefeatVideo();
+            _defeatVideoPlayer.Stop();
+            _defeatVideoPlayer.clip = clip;
+            _defeatVideoPlayer.Prepare();
+            yield return new WaitUntil(() => _defeatVideoPlayer.isPrepared);
+
+            _defeatVideoImage.gameObject.SetActive(true);
+            _defeatVideoImage.transform.SetAsLastSibling();
+            _defeatVideoPlayer.Play();
+            yield return new WaitUntil(() => !_defeatVideoPlayer.isPlaying);
+
+            StopGameOverVideo();
+        }
+        else
+        {
+            IntroText.DOFade(1f, FadeDuration);
+            yield return new WaitForSeconds(2f);
+        }
+
+        IsIntroPlaying = false;
+        RestoreIntroVisualState();
+        _gameOverRoutine = null;
+    }
+
+    private bool TryGetDefeatVideoClip(out VideoClip clip)
+    {
+        clip = defeatVideoClip;
+        if (clip != null) return true;
+
+        if (string.IsNullOrWhiteSpace(defeatVideoResourcePath)) return false;
+
+        clip = Resources.Load<VideoClip>(defeatVideoResourcePath);
+        defeatVideoClip = clip;
+        return clip != null;
+    }
+
+    private bool TryEnsureDefeatVideoPlayer()
+    {
+        EnsureDefeatVideoImage();
+        EnsureDefeatRenderTexture();
+
+        _defeatVideoPlayer = gameObject.GetComponent<VideoPlayer>();
+        if (_defeatVideoPlayer == null)
+        {
+            _defeatVideoPlayer = gameObject.AddComponent<VideoPlayer>();
+        }
+
+        _defeatVideoPlayer.playOnAwake = false;
+        _defeatVideoPlayer.isLooping = false;
+        _defeatVideoPlayer.skipOnDrop = true;
+        _defeatVideoPlayer.waitForFirstFrame = true;
+        _defeatVideoPlayer.renderMode = VideoRenderMode.RenderTexture;
+        _defeatVideoPlayer.targetTexture = _defeatRenderTexture;
+        _defeatVideoPlayer.aspectRatio = VideoAspectRatio.FitInside;
+        _defeatVideoPlayer.audioOutputMode = VideoAudioOutputMode.Direct;
+        _defeatVideoPlayer.SetDirectAudioMute(0, false);
+        _defeatVideoPlayer.SetDirectAudioVolume(0, 1f);
+        return true;
+    }
+
+    private void StopGameOverVideo()
+    {
+        if (_defeatVideoPlayer != null)
+        {
+            _defeatVideoPlayer.Stop();
+            _defeatVideoPlayer.clip = null;
+            _defeatVideoPlayer.targetTexture = _defeatRenderTexture;
+        }
+
+        if (_defeatVideoImage != null)
+        {
+            _defeatVideoImage.gameObject.SetActive(false);
+        }
+
+        if (_defeatRenderTexture != null)
+        {
+            RenderTexture activeTexture = RenderTexture.active;
+            RenderTexture.active = _defeatRenderTexture;
+            GL.Clear(true, true, Color.black);
+            RenderTexture.active = activeTexture;
+        }
+
+        RestoreBgmAfterDefeatVideo();
+    }
+
+    private void EnsureDefeatVideoImage()
+    {
+        if (_defeatVideoImage != null) return;
+
+        GameObject videoObject = new GameObject("DefeatVideo", typeof(RectTransform), typeof(RawImage));
+        videoObject.transform.SetParent(PanelCanvasGroup.transform, false);
+
+        RectTransform rectTransform = videoObject.GetComponent<RectTransform>();
+        rectTransform.anchorMin = Vector2.zero;
+        rectTransform.anchorMax = Vector2.one;
+        rectTransform.offsetMin = Vector2.zero;
+        rectTransform.offsetMax = Vector2.zero;
+        rectTransform.SetAsLastSibling();
+
+        _defeatVideoImage = videoObject.GetComponent<RawImage>();
+        _defeatVideoImage.color = Color.white;
+        _defeatVideoImage.raycastTarget = false;
+        _defeatVideoImage.gameObject.SetActive(false);
+    }
+
+    private void EnsureDefeatRenderTexture()
+    {
+        int width = Mathf.Max(Screen.width, 1920);
+        int height = Mathf.Max(Screen.height, 1080);
+
+        if (_defeatRenderTexture != null &&
+            _defeatRenderTexture.width == width &&
+            _defeatRenderTexture.height == height)
+        {
+            return;
+        }
+
+        if (_defeatRenderTexture != null)
+        {
+            _defeatRenderTexture.Release();
+            Destroy(_defeatRenderTexture);
+        }
+
+        _defeatRenderTexture = new RenderTexture(width, height, 0)
+        {
+            name = "DefeatVideoRenderTexture"
+        };
+        _defeatRenderTexture.Create();
+
+        if (_defeatVideoImage != null)
+        {
+            _defeatVideoImage.texture = _defeatRenderTexture;
+        }
     }
 
     private string BuildNightDeathMessage(IReadOnlyList<string> deadNames)
@@ -202,5 +372,38 @@ public class IntroManager : MonoBehaviour
     {
         string alphaHex = Mathf.Clamp(alpha, 0, 255).ToString("X2");
         return $"{mainText}<color=#FF0000{alphaHex}>{witchWarningText}</color>";
+    }
+
+    private void RestoreIntroVisualState()
+    {
+        PanelCanvasGroup.alpha = 0f;
+        PanelCanvasGroup.blocksRaycasts = false;
+        SetIntroTextAlpha(1f);
+    }
+
+    private void SetIntroTextAlpha(float alpha)
+    {
+        if (IntroText == null) return;
+
+        Color color = _introTextBaseColor;
+        color.a = Mathf.Clamp01(alpha);
+        IntroText.color = color;
+    }
+
+    private void MuteBgmForDefeatVideo()
+    {
+        if (SoundManager.Instance == null || _hasStoredOriginalBgmVolume) return;
+
+        _originalBgmVolume = SoundManager.Instance.GetBGMVolume();
+        _hasStoredOriginalBgmVolume = true;
+        SoundManager.Instance.SetBGMVolume(0f);
+    }
+
+    private void RestoreBgmAfterDefeatVideo()
+    {
+        if (SoundManager.Instance == null || !_hasStoredOriginalBgmVolume) return;
+
+        SoundManager.Instance.SetBGMVolume(_originalBgmVolume);
+        _hasStoredOriginalBgmVolume = false;
     }
 }
